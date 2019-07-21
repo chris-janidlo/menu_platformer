@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(ColorMapApplier))]
 public class Mage : MonoBehaviour
 {
+    public MagicColor Color => GetComponent<ColorMapApplier>().Color;
+
     public float MoveSpeed;
     public float AirAcceleration;
     public float JumpSpeedBurst, JumpSpeedCut;
@@ -37,6 +40,9 @@ public class Mage : MonoBehaviour
 
     void Update ()
     {
+        // TODO: should we have gravity when inactive? (thinking probably not)
+        if (MageSquad.Instance.ActiveMage != this) return;
+
         float move = Input.GetAxisRaw("Move");
         bool jump = Input.GetButton("Jump");
         
