@@ -7,10 +7,8 @@ public class ColorMapApplier : MonoBehaviour
 {
     public MagicColor Color;
 
-    SpriteRenderer render;
-
     void Start ()
     {
-        render.color = ColorMap.Value[Color];
+        GetComponent<SpriteRenderer>().color = ColorMap.Value[Color];
     }
 }
