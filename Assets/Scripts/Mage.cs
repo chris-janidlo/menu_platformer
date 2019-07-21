@@ -40,11 +40,10 @@ public class Mage : MonoBehaviour
 
     void Update ()
     {
-        // TODO: should we have gravity when inactive? (thinking probably not)
-        if (MageSquad.Instance.ActiveMage != this) return;
+        bool active = (MageSquad.Instance.ActiveMage == this);
 
-        float move = Input.GetAxisRaw("Move");
-        bool jump = Input.GetButton("Jump");
+        float move = active ? Input.GetAxisRaw("Move") : 0;
+        bool jump = active ? Input.GetButton("Jump") : false;
         
         if (isGrounded())
         {

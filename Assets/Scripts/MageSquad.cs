@@ -5,8 +5,7 @@ using crass;
 
 public class MageSquad : Singleton<MageSquad>
 {
-    public Mage ActiveMage { get; set; }
-    public Mage RedMage, GreenMage, BlueMage;
+    public Mage ActiveMage, RedMage, GreenMage, BlueMage;
 
     void Awake ()
     {
