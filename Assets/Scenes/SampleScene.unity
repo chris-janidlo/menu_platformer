@@ -618,7 +618,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76353299}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -627,7 +627,7 @@ RectTransform:
   - {fileID: 2136952639}
   - {fileID: 1762096380}
   - {fileID: 1088988462}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -808,7 +808,7 @@ RectTransform:
   m_Children:
   - {fileID: 635315731}
   - {fileID: 524142134}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1108,7 +1108,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1593,6 +1593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 372347115}
+  - component: {fileID: 372347116}
   m_Layer: 5
   m_Name: Fight Menu
   m_TagString: Untagged
@@ -1609,17 +1610,9 @@ RectTransform:
   m_GameObject: {fileID: 372347114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
-  - {fileID: 76353300}
-  - {fileID: 384071031}
-  - {fileID: 1988515455}
-  - {fileID: 1740915649}
-  - {fileID: 803569441}
-  - {fileID: 1285340241}
-  - {fileID: 210576861}
-  - {fileID: 423984859}
-  - {fileID: 1778066227}
+  - {fileID: 528946116}
   m_Father: {fileID: 1121552045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1628,6 +1621,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &372347116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372347114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee7d8288bf80459a83ee67dca4d2715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &378311318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,7 +1867,7 @@ RectTransform:
   - {fileID: 2138183278}
   - {fileID: 518170001}
   - {fileID: 1741368637}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1974,7 +1979,7 @@ RectTransform:
   m_Children:
   - {fileID: 51216791}
   - {fileID: 1139658766}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2179,6 +2184,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &528946115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 528946116}
+  m_Layer: 5
+  m_Name: Offsetter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &528946116
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528946115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 76353300}
+  - {fileID: 384071031}
+  - {fileID: 1988515455}
+  - {fileID: 1740915649}
+  - {fileID: 803569441}
+  - {fileID: 1285340241}
+  - {fileID: 210576861}
+  - {fileID: 423984859}
+  - {fileID: 1778066227}
+  m_Father: {fileID: 372347115}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 44, y: 14}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &559929231
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2847,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -3595,7 +3644,7 @@ RectTransform:
   - {fileID: 92611550}
   - {fileID: 1453792250}
   - {fileID: 1797590955}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5097,7 +5146,7 @@ RectTransform:
   - {fileID: 1432198936}
   - {fileID: 2063381735}
   - {fileID: 1493653205}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5776,7 +5825,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6130,7 +6179,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6573,7 +6622,7 @@ RectTransform:
   - {fileID: 1705262860}
   - {fileID: 868467802}
   - {fileID: 1054768454}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6964,7 +7013,7 @@ RectTransform:
   m_Children:
   - {fileID: 1246467125}
   - {fileID: 1504837070}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -7183,7 +7232,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -7893,7 +7942,7 @@ RectTransform:
   - {fileID: 1327881759}
   - {fileID: 988828689}
   - {fileID: 391788303}
-  m_Father: {fileID: 372347115}
+  m_Father: {fileID: 528946116}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
