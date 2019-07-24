@@ -1516,7 +1516,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1594,9 +1594,10 @@ GameObject:
   m_Component:
   - component: {fileID: 372347115}
   - component: {fileID: 372347116}
+  - component: {fileID: 372347118}
   - component: {fileID: 372347117}
   m_Layer: 5
-  m_Name: Fight Menu
+  m_Name: Play Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1647,6 +1648,37 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &372347118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372347114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955c49725b6fa4076939ace13d10e549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventSystem: {fileID: 1633304280}
+  BurstNormal: {fileID: 733845401}
+  BurstHeavy: {fileID: 786344238}
+  BurstLight: {fileID: 1637596866}
+  LineNormal: {fileID: 1875452479}
+  LineHeavy: {fileID: 2037403277}
+  LineLight: {fileID: 874263635}
+  LobNormal: {fileID: 995565527}
+  LobHeavy: {fileID: 1037797487}
+  LobLight: {fileID: 559929234}
+  RedMage: {fileID: 1843422419}
+  GreenMage: {fileID: 366086786}
+  BlueMage: {fileID: 378311321}
+  LongJump: {fileID: 17654260}
+  HighJump: {fileID: 721404054}
+  Special1: {fileID: 1934770985}
+  Special2: {fileID: 1362362103}
+  ManaPot: {fileID: 73749113}
+  HealthPot: {fileID: 1026568687}
 --- !u!1 &378311318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2735,6 +2767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 733429678}
   - component: {fileID: 733429680}
+  - component: {fileID: 733429682}
   - component: {fileID: 733429681}
   - component: {fileID: 733429679}
   m_Layer: 5
@@ -2929,6 +2962,31 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &733429682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733429677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d3d4aa2ba6e4aa782efa143b82f108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainButton: {fileID: 733429681}
+  FirstSelectedChild: {fileID: 1763639293}
+  Siblings:
+  - {fileID: 733429681}
+  - {fileID: 1827111233}
+  - {fileID: 1521831784}
+  - {fileID: 1455135326}
+  - {fileID: 347701647}
+  Children:
+  - {fileID: 1763639293}
+  - {fileID: 792812458}
+  - {fileID: 367148340}
+  ChildContainer: {fileID: 384071031}
 --- !u!1 &733845400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3583,7 +3641,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6378,6 +6436,7 @@ GameObject:
   - component: {fileID: 1633304281}
   - component: {fileID: 1633304280}
   - component: {fileID: 1633304279}
+  - component: {fileID: 1633304282}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -6433,6 +6492,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1633304282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633304278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5b29509ca514622b86c917dbd15ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventSystem: {fileID: 1633304280}
 --- !u!1 &1637596863
 GameObject:
   m_ObjectHideFlags: 0
@@ -7059,7 +7131,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}

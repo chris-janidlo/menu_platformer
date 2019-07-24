@@ -5,13 +5,13 @@ using crass;
 
 public class PlayMenuFollower : MonoBehaviour
 {
-    // 174, 115
     public Vector2 TopRightLimit;
 
     Vector3 worldLimit;
 
     void Start ()
     {
+        // assuming parent doesn't change
         worldLimit = transform.TransformPoint(TopRightLimit);
     }
 
