@@ -12,12 +12,13 @@ public class Mage : MonoBehaviour
     public float AirAcceleration;
     public float JumpSpeedBurst, JumpSpeedCut;
     public float Gravity;
+    public float JumpFudgeTime;
     public float GroundedFudgeVertical = 0.1f, GroundedFudgeHorizontal = 0.1f;
 
     Rigidbody2D rb;
     float halfHeight;
     Vector2 groundedExtents;
-    bool jumping;
+    float timeSinceLastJumpPress = float.MaxValue;
 
     RaycastHit2D[] groundedResults;
     ContactFilter2D groundedFilter;
@@ -43,19 +44,19 @@ public class Mage : MonoBehaviour
         bool active = (MageSquad.Instance.ActiveMage == this);
 
         float move = active ? Input.GetAxisRaw("Move") : 0;
-        bool jump = active ? Input.GetButton("Jump") : false;
+        bool jumpHold = active ? Input.GetButton("Jump") : false;
+        if (active && Input.GetButtonDown("Jump"))
+        {
+            timeSinceLastJumpPress = 0;
+        }
         
         if (isGrounded())
         {
-            if (!jump)
-            {
-                rb.velocity = Vector2.right * MoveSpeed * move;
-                jumping = false;
-            }
-            else if (!jumping)
+            rb.velocity = Vector2.right * MoveSpeed * move;
+
+            if (timeSinceLastJumpPress <= JumpFudgeTime)
             {
                 rb.velocity = new Vector3(rb.velocity.x, JumpSpeedBurst);
-                jumping = true;
             }
         }
         else
@@ -65,13 +66,15 @@ public class Mage : MonoBehaviour
 
             var newY = rb.velocity.y - Gravity * Time.deltaTime;
 
-            if (!jump && newY > JumpSpeedCut)
+            if (!jumpHold && newY > JumpSpeedCut)
             {
                 newY = JumpSpeedCut;
             }
 
             rb.velocity = new Vector2(newX, newY);
         }
+
+        timeSinceLastJumpPress += Time.deltaTime;
     }
 
     bool isGrounded ()

@@ -52,6 +52,7 @@ MonoBehaviour:
   JumpSpeedBurst: 13
   JumpSpeedCut: 5
   Gravity: 20
+  JumpFudgeTime: 0.05
   GroundedFudgeVertical: 0.1
   GroundedFudgeHorizontal: 0.1
 --- !u!114 &1387779429954814143
