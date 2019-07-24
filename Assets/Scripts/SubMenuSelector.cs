@@ -5,23 +5,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Button))]
 public class SubMenuSelector : MonoBehaviour
 {
-    public Button MainButton, FirstSelectedChild;
+    public Button FirstSelectedChild;
     // siblings can include self or not, either way works
     public List<Button> Siblings, Children;
     public RectTransform ChildContainer;
 
+    Button mainButton;
     bool subMenuActive;
 
     void Start ()
     {
-        MainButton.onClick.AddListener(() => setSubMenuState(true));
+        mainButton = GetComponent<Button>();
+        mainButton.onClick.AddListener(() => setSubMenuState(true));
     }
 
 	public void Update ()
 	{
-        if (Input.GetButtonDown("Menu Cancel") && subMenuActive)
+        if (Input.GetButtonDown("Menu Cancel") && subMenuActive && FirstSelectedChild.interactable)
         {
             setSubMenuState(false);
         }
@@ -29,7 +32,7 @@ public class SubMenuSelector : MonoBehaviour
 
     void setSubMenuState (bool value)
     {
-        MainButton.interactable = !value;
+        mainButton.interactable = !value;
 
         foreach (var sibling in Siblings)
         {
@@ -43,7 +46,7 @@ public class SubMenuSelector : MonoBehaviour
 
         ChildContainer.gameObject.SetActive(value);
 
-        EventSystemCache.Main.SetSelectedGameObject(value ? FirstSelectedChild.gameObject : MainButton.gameObject);
+        EventSystemCache.Main.SetSelectedGameObject(value ? FirstSelectedChild.gameObject : mainButton.gameObject);
 
         subMenuActive = value;
     }
