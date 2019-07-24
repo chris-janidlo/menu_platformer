@@ -1707,7 +1707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955c49725b6fa4076939ace13d10e549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventSystem: {fileID: 1633304280}
+  MenuContainer: {fileID: 528946115}
+  AnyTopLevelButton: {fileID: 733429681}
   BurstNormal: {fileID: 733845401}
   BurstHeavy: {fileID: 786344238}
   BurstLight: {fileID: 1637596866}
@@ -2292,7 +2293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &528946116
 RectTransform:
   m_ObjectHideFlags: 0
