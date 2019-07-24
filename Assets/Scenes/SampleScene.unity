@@ -1682,6 +1682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee7d8288bf80459a83ee67dca4d2715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FollowTime: 0.1
   TopRightLimit: {x: 174, y: 115}
 --- !u!225 &372347117
 CanvasGroup:
