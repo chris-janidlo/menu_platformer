@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Button))]
 public class SubMenuSelector : MonoBehaviour
 {
+    public const int SubMenuVerticalPlay = 5;
+
     public Button FirstSelectedChild;
     // siblings can include self or not, either way works
     public List<Button> Siblings, Children;
@@ -20,6 +22,12 @@ public class SubMenuSelector : MonoBehaviour
     {
         mainButton = GetComponent<Button>();
         mainButton.onClick.AddListener(() => setSubMenuState(true));
+
+        ChildContainer.transform.localPosition = new Vector2
+        (
+            ChildContainer.transform.localPosition.x,
+            Random.Range(-SubMenuVerticalPlay, SubMenuVerticalPlay)
+        );
     }
 
 	public void Update ()
