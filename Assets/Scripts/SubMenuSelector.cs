@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 [RequireComponent(typeof(Button))]
 public class SubMenuSelector : MonoBehaviour
@@ -21,13 +22,7 @@ public class SubMenuSelector : MonoBehaviour
     void Start ()
     {
         mainButton = GetComponent<Button>();
-        mainButton.onClick.AddListener(() => setSubMenuState(true));
-
-        ChildContainer.transform.localPosition = new Vector2
-        (
-            ChildContainer.transform.localPosition.x,
-            Random.Range(-SubMenuVerticalPlay, SubMenuVerticalPlay)
-        );
+        mainButton.onClick.AddListener(click);
     }
 
 	public void Update ()
@@ -37,6 +32,17 @@ public class SubMenuSelector : MonoBehaviour
             setSubMenuState(false);
         }
 	}
+
+    void click ()
+    {
+        setSubMenuState(true);
+
+        ChildContainer.transform.localPosition = new Vector2
+        (
+            ChildContainer.transform.localPosition.x,
+            Random.Range(-SubMenuVerticalPlay, SubMenuVerticalPlay)
+        );
+    }
 
     void setSubMenuState (bool value)
     {
