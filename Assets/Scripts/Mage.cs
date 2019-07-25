@@ -72,16 +72,6 @@ public class Mage : MonoBehaviour
         Mana += ManaGain * Time.deltaTime;
     }
 
-    void LateUpdate ()
-    {
-        Visuals.transform.position = new Vector3
-        (
-            Mathf.Round(transform.position.x),
-            Mathf.Round(transform.position.y),
-            Mathf.Round(transform.position.z)
-        );
-    }
-
     // returns whether the cast was successful
     public bool CastBurst (SpellPower power)
     {

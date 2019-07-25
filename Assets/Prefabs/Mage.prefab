@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 923892802064640560}
   - component: {fileID: 3820094173015530496}
+  - component: {fileID: 1154498186966952810}
   - component: {fileID: 9011626822484847340}
   m_Layer: 8
   m_Name: Visuals
@@ -153,6 +154,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 0
+--- !u!114 &1154498186966952810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089301170023147740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a2550b4d0bc41da9f607f90db4ddb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &9011626822484847340
 SpriteRenderer:
   m_ObjectHideFlags: 0
