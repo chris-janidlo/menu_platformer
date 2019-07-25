@@ -9,7 +9,20 @@ public class MageSquad : Singleton<MageSquad>
 
     public float HealthPotGain, ManaPotGain;
 
-    public int HealthPots, ManaPots;
+    [SerializeField]
+    int _healthPots, _manaPots;
+
+    public int HealthPots
+    {
+        get => _healthPots;
+        set => _healthPots = Mathf.Clamp(value, 0, 99);
+    }
+
+    public int ManaPots
+    {
+        get => _manaPots;
+        set => _manaPots = Mathf.Clamp(value, 0, 99);
+    }
 
     void Awake ()
     {
