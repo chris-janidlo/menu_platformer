@@ -55,8 +55,8 @@ MonoBehaviour:
   LobCosts: []
   MoveSpeed: 160
   AirAcceleration: 800
-  JumpSpeedBurst: 440
-  JumpSpeedCut: 120
+  JumpSpeedBurst: 350
+  JumpSpeedCut: 80
   Gravity: 800
   JumpFudgeTime: 0.05
   GroundedFudgeVertical: 0.1
