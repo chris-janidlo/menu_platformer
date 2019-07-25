@@ -114,13 +114,23 @@ public class Mage : MonoBehaviour
     // returns true if there was at least one potion at method call
     public bool DrinkHealthPotion ()
     {
-        throw new NotImplementedException();
+        if (MageSquad.Instance.HealthPots == 0) return false;
+
+        MageSquad.Instance.HealthPots--;
+        Health += MageSquad.Instance.HealthPotGain;
+
+        return true;
     }
 
     // returns true if there was at least one potion at method call
     public bool DrinkManaPotion ()
     {
-        throw new NotImplementedException();
+        if (MageSquad.Instance.ManaPots == 0) return false;
+
+        MageSquad.Instance.ManaPots--;
+        Health += MageSquad.Instance.ManaPotGain;
+
+        return true;
     }
 
     void die ()
