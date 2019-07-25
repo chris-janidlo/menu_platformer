@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(ColorMapApplier))]
 public class Mage : MonoBehaviour
 {
     public const float MaxHealth = 100, MaxMana = 100;
 
-    public MagicColor Color => GetComponent<ColorMapApplier>().Color;
+    public MagicColor Color => Visuals.Color;
 
     [SerializeField]
     float _health = MaxHealth, _mana = MaxMana;
@@ -29,6 +28,8 @@ public class Mage : MonoBehaviour
         get => _mana;
         set => _mana = Mathf.Clamp(value, 0, MaxMana);
     }
+
+    public ColorMapApplier Visuals;
 
     public float ManaGain;
     public List<float> BurstCosts, LineCosts, LobCosts;
@@ -69,6 +70,16 @@ public class Mage : MonoBehaviour
         platform();
 
         Mana += ManaGain * Time.deltaTime;
+    }
+
+    void LateUpdate ()
+    {
+        Visuals.transform.position = new Vector3
+        (
+            Mathf.Round(transform.position.x),
+            Mathf.Round(transform.position.y),
+            Mathf.Round(transform.position.z)
+        );
     }
 
     // returns whether the cast was successful

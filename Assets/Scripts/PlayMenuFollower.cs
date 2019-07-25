@@ -19,7 +19,7 @@ public class PlayMenuFollower : MonoBehaviour
 
     void Update ()
     {
-        var target = CameraCache.Main.WorldToScreenPoint(MageSquad.Instance.ActiveMage.transform.position);
+        var target = CameraCache.Main.WorldToScreenPoint(MageSquad.Instance.ActiveMage.Visuals.transform.position);
         target.x = Mathf.Min(target.x, worldLimit.x);
         target.y = Mathf.Min(target.y, worldLimit.y);
 
