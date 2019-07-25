@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,31 @@ using UnityEngine;
 [RequireComponent(typeof(ColorMapApplier))]
 public class Mage : MonoBehaviour
 {
+    public const float MaxHealth = 100, MaxMana = 100;
+
     public MagicColor Color => GetComponent<ColorMapApplier>().Color;
+
+    [SerializeField]
+    float _health = MaxHealth, _mana = MaxMana;
+
+    public float Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            if (_health == 0) die();
+        }
+    }
+
+    public float Mana
+    {
+        get => _mana;
+        set => _mana = Mathf.Clamp(value, 0, MaxMana);
+    }
+
+    public float ManaGain;
+    public List<float> BurstCosts, LineCosts, LobCosts;
 
     public float MoveSpeed;
     public float AirAcceleration;
@@ -40,6 +65,70 @@ public class Mage : MonoBehaviour
     }
 
     void Update ()
+    {
+        platform();
+
+        Mana += ManaGain * Time.deltaTime;
+    }
+
+    // returns whether the cast was successful
+    public bool CastBurst (SpellPower power)
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns whether the cast was successful
+    public bool CastLine (SpellPower power)
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns whether the cast was successful
+    public bool CastLob (SpellPower power)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void LongJump ()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void HighJump ()
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns whether the cast was successful
+    public bool Special1 ()
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns whether the cast was successful
+    public bool Special2 ()
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns true if there was at least one potion at method call
+    public bool DrinkHealthPotion ()
+    {
+        throw new NotImplementedException();
+    }
+
+    // returns true if there was at least one potion at method call
+    public bool DrinkManaPotion ()
+    {
+        throw new NotImplementedException();
+    }
+
+    void die ()
+    {
+        throw new NotImplementedException();
+    }
+
+    void platform ()
     {
         bool active = (MageSquad.Instance.ActiveMage == this);
 
@@ -92,4 +181,9 @@ public class Mage : MonoBehaviour
 
         return false;
     }
+}
+
+public enum SpellPower
+{
+    Normal, Heavy, Light
 }
