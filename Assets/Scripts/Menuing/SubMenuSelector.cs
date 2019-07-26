@@ -35,6 +35,8 @@ public class SubMenuSelector : MonoBehaviour
 
     void click ()
     {
+        if (!GetComponentInParent<PlayMenuManager>().MenuIsActive) return;
+
         setSubMenuState(true);
 
         ChildContainer.transform.localPosition = new Vector2

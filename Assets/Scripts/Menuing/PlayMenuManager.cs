@@ -8,6 +8,8 @@ using crass;
 
 public class PlayMenuManager : Singleton<PlayMenuManager>
 {
+    public bool MenuIsActive { get; private set; }
+
     public GameObject MenuContainer;
     public Button AnyTopLevelButton;
 
@@ -60,17 +62,28 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         {
             MenuContainer.SetActive(true);
             StartCoroutine(reHighlightButton());
+            StartCoroutine(setActiveNextFrame());
         }
 
         if (atTop && Input.GetButtonDown("Menu Cancel"))
         {
             MenuContainer.SetActive(false);
+            MenuIsActive = false;
         }
 
         if (Input.GetButtonDown("Menu Open"))
         {
-            if (!visible) StartCoroutine(reHighlightButton());
             MenuContainer.SetActive(!visible);
+
+            if (!visible)
+            {
+                StartCoroutine(reHighlightButton());
+                StartCoroutine(setActiveNextFrame());
+            }
+            else
+            {
+                MenuIsActive = false;
+            }
         }
 
         var selected = EventSystemCache.Main.currentSelectedGameObject;
@@ -92,6 +105,13 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 Debug.Log(message);
             }
         });
+    }
+
+    // prevents menu opening press from triggering currently highlighted button by making the submenuselectors wait at least one frame
+    IEnumerator setActiveNextFrame ()
+    {
+        yield return null;
+        MenuIsActive = true;
     }
 
     // from https://answers.unity.com/questions/1011523/first-selected-gameobject-not-highlighted.html
