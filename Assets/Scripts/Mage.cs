@@ -29,10 +29,9 @@ public class Mage : MonoBehaviour
         set => _mana = Mathf.Clamp(value, 0, MaxMana);
     }
 
-    public ColorMapApplier Visuals;
-
+    [Header("Stats")]
     public float ManaGain;
-    public List<float> BurstCosts, LineCosts, LobCosts;
+    public SpellPowerContainer BurstCosts, LineCosts, LobCosts;
 
     public float MoveSpeed;
     public float AirAcceleration;
@@ -40,6 +39,10 @@ public class Mage : MonoBehaviour
     public float Gravity;
     public float JumpFudgeTime;
     public float GroundedFudgeVertical = 0.1f, GroundedFudgeHorizontal = 0.1f;
+
+    [Header("References")]
+    public ColorMapApplier Visuals;
+    public BurstBullet BurstPrefab;
 
     Rigidbody2D rb;
     float halfHeight;
@@ -75,7 +78,30 @@ public class Mage : MonoBehaviour
     // returns whether the cast was successful
     public bool CastBurst (SpellPower power)
     {
-        throw new NotImplementedException();
+        var cost = BurstCosts[power];
+        
+        if (Mana < cost) return false;
+        Mana -= cost;
+
+        var dirs = new List<Vector2>
+        {
+            new Vector2(0, 1),
+            new Vector2(1, 1),
+            new Vector2(1, 0),
+            new Vector2(1, -1),
+            new Vector2(0, -1),
+            new Vector2(-1, -1),
+            new Vector2(-1, 0),
+            new Vector2(-1, 1),
+        };
+
+        foreach (var dir in dirs)
+        {
+            var bullet = Instantiate(BurstPrefab, transform.position, Quaternion.identity);
+            bullet.Initialize(dir, Color, power);
+        }
+
+        return true;
     }
 
     // returns whether the cast was successful
@@ -196,5 +222,5 @@ public class Mage : MonoBehaviour
 
 public enum SpellPower
 {
-    Normal, Heavy, Light
+    Light, Normal, Heavy
 }
