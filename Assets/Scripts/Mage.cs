@@ -8,8 +8,6 @@ public class Mage : MonoBehaviour
 {
     public const float MaxHealth = 100, MaxMana = 100;
 
-    public MagicColor Color => Visuals.Color;
-
     [SerializeField]
     float _health = MaxHealth, _mana = MaxMana;
 
@@ -30,6 +28,7 @@ public class Mage : MonoBehaviour
     }
 
     [Header("Stats")]
+    public MagicColor Color;
     public float ManaGain;
     public SpellPowerContainer BurstCosts, LineCosts, LobCosts;
 
@@ -42,6 +41,7 @@ public class Mage : MonoBehaviour
 
     [Header("References")]
     public ColorMapApplier Visuals;
+    public SpriteRenderer Wand;
     public BurstBullet BurstPrefab;
 
     Rigidbody2D rb;
@@ -49,8 +49,16 @@ public class Mage : MonoBehaviour
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
 
+    bool active;
+    float moveInput;
+
     RaycastHit2D[] groundedResults;
     ContactFilter2D groundedFilter;
+
+    void Awake ()
+    {
+        Visuals.Color = Color;
+    }
 
     void Start ()
     {
@@ -73,6 +81,16 @@ public class Mage : MonoBehaviour
         platform();
 
         Mana += ManaGain * Time.deltaTime;
+
+        if (moveInput < 0 && !Wand.flipX)
+        {
+            Wand.flipX = true;
+        }
+
+        if (moveInput > 0 && Wand.flipX)
+        {
+            Wand.flipX = false;
+        }
     }
 
     // returns whether the cast was successful
@@ -167,9 +185,9 @@ public class Mage : MonoBehaviour
 
     void platform ()
     {
-        bool active = (MageSquad.Instance.ActiveMage == this);
+        active = (MageSquad.Instance.ActiveMage == this);
 
-        float move = active ? Input.GetAxisRaw("Move") : 0;
+        moveInput = active ? Input.GetAxisRaw("Move") : 0;
         bool jumpHold = active ? Input.GetButton("Jump") : false;
         if (active && Input.GetButtonDown("Jump"))
         {
@@ -178,7 +196,7 @@ public class Mage : MonoBehaviour
         
         if (isGrounded())
         {
-            rb.velocity = Vector2.right * MoveSpeed * move;
+            rb.velocity = Vector2.right * MoveSpeed * moveInput;
 
             if (timeSinceLastJumpPress <= JumpFudgeTime)
             {
@@ -187,7 +205,7 @@ public class Mage : MonoBehaviour
         }
         else
         {
-            var newX = rb.velocity.x + move * AirAcceleration * Time.deltaTime;
+            var newX = rb.velocity.x + moveInput * AirAcceleration * Time.deltaTime;
             newX = Mathf.Clamp(newX, -MoveSpeed, MoveSpeed);
 
             var newY = rb.velocity.y - Gravity * Time.deltaTime;
