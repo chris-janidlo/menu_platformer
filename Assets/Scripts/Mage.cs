@@ -44,6 +44,7 @@ public class Mage : MonoBehaviour
     public SpriteRenderer Wand;
     public BurstBullet BurstPrefab;
     public LineBullet LinePrefab;
+    public LobBullet LobPrefab;
 
     Rigidbody2D rb;
     float halfHeight;
@@ -140,7 +141,15 @@ public class Mage : MonoBehaviour
     // returns whether the cast was successful
     public bool CastLob (SpellPower power)
     {
-        throw new NotImplementedException();
+        var cost = LobCosts[power];
+        
+        if (Mana < cost) return false;
+        Mana -= cost;
+
+        var bullet = Instantiate(LobPrefab, transform.position, Quaternion.identity);
+        bullet.Initialize(Wand.flipX, Color, power);
+
+        return true;
     }
 
     public void LongJump ()

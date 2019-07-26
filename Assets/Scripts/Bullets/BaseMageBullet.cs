@@ -42,4 +42,10 @@ public abstract class BaseMageBullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    protected void setScale (SpellPowerContainer scales)
+    {
+        var scale = scales[power];
+        transform.localScale = new Vector3(scale, scale, scale);
+    }
 }

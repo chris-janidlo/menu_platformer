@@ -77,6 +77,8 @@ MonoBehaviour:
     type: 3}
   LinePrefab: {fileID: 6297402530055445807, guid: 6670b310ab46d4f79a4303f90026be96,
     type: 3}
+  LobPrefab: {fileID: 7115393737051325276, guid: 135959bb01fb148c9ab6a2edd6574ed8,
+    type: 3}
 --- !u!50 &1387779429954814128
 Rigidbody2D:
   serializedVersion: 4
