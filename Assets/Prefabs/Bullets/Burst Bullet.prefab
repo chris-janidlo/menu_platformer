@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1678872334349938972}
   - component: {fileID: 7108902269962709600}
   - component: {fileID: 6511311558184305305}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Burst Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a2a7894091a4eb28ba2ca54a2646f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damages:
+    Light: 0
+    Normal: 0
+    Heavy: 0
+  Visuals: {fileID: 7108902270381758676}
   Speeds:
     Light: 120
     Normal: 80
@@ -83,15 +88,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Damages:
-    Light: 0
-    Normal: 0
-    Heavy: 0
   ScaleMultipliers:
     Light: 1
     Normal: 1
     Heavy: 1.5
-  Visuals: {fileID: 7108902270381758676}
 --- !u!61 &7108902269962709600
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 7108902270381758676}
   - component: {fileID: 7108902270381758677}
   - component: {fileID: 7108902270381758674}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -54,7 +54,7 @@ public class Mage : MonoBehaviour
     bool active;
     float moveInput;
 
-    RaycastHit2D[] groundedResults;
+    // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
     ContactFilter2D groundedFilter;
 
     void Awake ()
@@ -75,7 +75,8 @@ public class Mage : MonoBehaviour
         );
 
         groundedFilter = new ContactFilter2D();
-        groundedFilter.NoFilter();
+        // bullets don't affect grounded state
+        groundedFilter.layerMask = ~LayerMask.NameToLayer("Player Bullet");
     }
 
     void Update ()
@@ -241,7 +242,7 @@ public class Mage : MonoBehaviour
 
     bool isGrounded ()
     {
-        groundedResults = new RaycastHit2D[2]; // don't need more than two; one for us, one for the ground
+        var groundedResults = new RaycastHit2D[2]; // don't need more than two; one for us, one for the ground
         Physics2D.BoxCast(transform.position, groundedExtents, 0, Vector2.down, groundedFilter, groundedResults, halfHeight);
 
         foreach (var result in groundedResults)
