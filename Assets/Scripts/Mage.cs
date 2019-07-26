@@ -43,6 +43,7 @@ public class Mage : MonoBehaviour
     public ColorMapApplier Visuals;
     public SpriteRenderer Wand;
     public BurstBullet BurstPrefab;
+    public LineBullet LinePrefab;
 
     Rigidbody2D rb;
     float halfHeight;
@@ -125,7 +126,15 @@ public class Mage : MonoBehaviour
     // returns whether the cast was successful
     public bool CastLine (SpellPower power)
     {
-        throw new NotImplementedException();
+        var cost = LineCosts[power];
+        
+        if (Mana < cost) return false;
+        Mana -= cost;
+
+        var bullet = Instantiate(LinePrefab, transform.position, Quaternion.identity);
+        bullet.Initialize(Wand.flipX, Color, power);
+
+        return true;
     }
 
     // returns whether the cast was successful

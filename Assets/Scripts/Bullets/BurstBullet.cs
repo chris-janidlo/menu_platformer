@@ -5,6 +5,7 @@ using UnityEngine;
 public class BurstBullet : BaseMageBullet
 {
     [Header("Stats")]
+    [Header("Burst")]
     public SpellPowerContainer Speeds;
     public AnimationCurve ShrinkCurve;
     public SpellPowerContainer ScaleMultipliers;

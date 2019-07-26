@@ -75,6 +75,8 @@ MonoBehaviour:
   Wand: {fileID: 410482379626790206}
   BurstPrefab: {fileID: 1678872334349938972, guid: 3f7ea7a81ee304b7ca025f5d05e15a7a,
     type: 3}
+  LinePrefab: {fileID: 6297402530055445807, guid: 6670b310ab46d4f79a4303f90026be96,
+    type: 3}
 --- !u!50 &1387779429954814128
 Rigidbody2D:
   serializedVersion: 4

@@ -7,6 +7,10 @@ public abstract class BaseMageBullet : MonoBehaviour
 {
     public MagicColor Color => Visuals.Color;
 
+    [Header("Stats")]
+    [Header("Base")]
+    public SpellPowerContainer Damages;
+
     [Header("References")]
     public ColorMapApplier Visuals;
 
