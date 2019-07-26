@@ -33,6 +33,7 @@ public class Mage : MonoBehaviour
     public SpellPowerContainer BurstCosts, LineCosts, LobCosts;
 
     public float MoveSpeed;
+    public float GroundAcceleration;
     public float AirAcceleration;
     public float JumpSpeedBurst, JumpSpeedCut;
     public float Gravity;
@@ -215,7 +216,16 @@ public class Mage : MonoBehaviour
         
         if (isGrounded())
         {
-            rb.velocity = Vector2.right * MoveSpeed * moveInput;
+            float newX = 0;
+
+            if (moveInput != 0)
+            {
+                newX = rb.velocity.x + moveInput * GroundAcceleration * Time.deltaTime;
+            }
+
+            newX = Mathf.Clamp(newX, -MoveSpeed, MoveSpeed);
+
+            rb.velocity = Vector2.right * newX;
 
             if (timeSinceLastJumpPress <= JumpFudgeTime)
             {

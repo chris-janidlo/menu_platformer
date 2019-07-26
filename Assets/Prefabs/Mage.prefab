@@ -63,7 +63,8 @@ MonoBehaviour:
     Light: 0
     Normal: 0
     Heavy: 0
-  MoveSpeed: 160
+  MoveSpeed: 140
+  GroundAcceleration: 4000
   AirAcceleration: 800
   JumpSpeedBurst: 350
   JumpSpeedCut: 80
