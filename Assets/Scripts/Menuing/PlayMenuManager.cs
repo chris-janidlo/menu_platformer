@@ -11,7 +11,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     public bool MenuIsActive { get; private set; }
 
     public GameObject MenuContainer;
-    public Button AnyTopLevelButton;
+    public Button FirstTopLevelButton;
 
     // bottom-level buttons
     public Button BurstNormal, BurstHeavy, BurstLight, LineNormal, LineHeavy,
@@ -19,6 +19,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         LongJump, HighJump, Special1, Special2, ManaPot, HealthPot;
 
     GameObject lastSelected;
+
+    bool gameStarted;
 
     void Awake ()
     {
@@ -51,12 +53,16 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         spellscribe(ManaPot, () => MageSquad.Instance.ActiveMage.DrinkManaPotion(), "not enough items!");
         spellscribe(HealthPot, () => MageSquad.Instance.ActiveMage.DrinkHealthPotion(), "not enough items!");
+
+        GetComponent<PlayMenuFollower>().enabled = false;
     }
 
     void Update ()
     {
+        if (!gameStarted) return;
+
         bool visible = MenuContainer.activeSelf;
-        bool atTop = AnyTopLevelButton.interactable;
+        bool atTop = FirstTopLevelButton.interactable;
 
         if (!visible && Input.GetButtonDown("Menu Select"))
         {
@@ -95,6 +101,19 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         {
             lastSelected = selected;
         }
+    }
+
+    public void StartGame ()
+    {
+        gameStarted = true;
+
+        MenuContainer.SetActive(true);
+        MenuIsActive = true;
+
+        lastSelected = FirstTopLevelButton.gameObject;
+        StartCoroutine(reHighlightButton());
+
+        GetComponent<PlayMenuFollower>().enabled = true;
     }
 
     void spellscribe (Button button, Func<bool> spell, string message = "not enough mana!")

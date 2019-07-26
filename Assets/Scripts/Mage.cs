@@ -52,7 +52,7 @@ public class Mage : MonoBehaviour
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
 
-    bool active;
+    bool active, gameStarted;
     float moveInput;
 
     // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
@@ -66,6 +66,7 @@ public class Mage : MonoBehaviour
     void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.simulated = false; // so we can follow the selection cursor
 
         var extents = GetComponent<Collider2D>().bounds.extents;
         halfHeight = extents.y;
@@ -82,6 +83,8 @@ public class Mage : MonoBehaviour
 
     void Update ()
     {
+        if (!gameStarted) return;
+
         platform();
 
         Mana += ManaGain * Time.deltaTime;
@@ -95,6 +98,12 @@ public class Mage : MonoBehaviour
         {
             Wand.flipX = false;
         }
+    }
+
+    public void StartGame ()
+    {
+        gameStarted = true;
+        rb.simulated = true;
     }
 
     // returns whether the cast was successful
