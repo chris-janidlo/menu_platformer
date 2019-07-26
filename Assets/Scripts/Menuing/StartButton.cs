@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class StartButton : MonoBehaviour
 {
+    public BottomMenu BottomMenu;
     public List<Button> Siblings;
 
     void Start ()
@@ -13,6 +14,7 @@ public class StartButton : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(() => {
             MageSquad.Instance.StartGame();
             PlayMenuManager.Instance.StartGame();
+            BottomMenu.StartGame();
             Destroy(StartMenuSelectionFollower.Instance.gameObject);
 
             foreach (var sibling in Siblings)
