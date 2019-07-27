@@ -28,6 +28,7 @@ public class GameOver : Singleton<GameOver>
     IEnumerator gameOverRoutine ()
     {
         Prompt.alpha = 0;
+        PlayMenuManager.Instance.gameObject.SetActive(false);
 
         float timer = 0;
         while (timer < FadeTime)
