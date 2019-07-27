@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65790d1af7e41244b510ab81aecac6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeInTime: 0.5
+  FadeInTime: 0.2
   ManaAmount: {fileID: 522603173}
   HealthAmount: {fileID: 82938249}
 --- !u!1 &721404051
@@ -4505,7 +4505,7 @@ PrefabInstance:
     - target: {fileID: 1571380852708069243, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1571380852708069243, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}
@@ -7267,7 +7267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30366997fb74bc2409178fef38c5b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeOutTime: 0.5
+  FadeOutTime: 0.8
 --- !u!1 &1108631655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8349,7 +8349,7 @@ PrefabInstance:
     - target: {fileID: 1571380852708069243, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1571380852708069243, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}

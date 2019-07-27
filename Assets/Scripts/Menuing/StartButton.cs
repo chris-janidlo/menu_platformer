@@ -12,17 +12,22 @@ public class StartButton : MonoBehaviour
 
     void Start ()
     {
-        GetComponent<Button>().onClick.AddListener(() => {
-            MageSquad.Instance.StartGame();
-            PlayMenuManager.Instance.StartGame();
-            BottomMenu.StartGame();
-            FakeCopyrightFadeOut.StartGame();
-            Destroy(StartMenuSelectionFollower.Instance.gameObject);
+        GetComponent<Button>().onClick.AddListener(() => StartCoroutine(startRoutine()));
+    }
 
-            foreach (var sibling in Siblings)
-            {
-                sibling.interactable = false;
-            }
-        });
+    IEnumerator startRoutine ()
+    {
+        MageSquad.Instance.StartGame();
+        PlayMenuManager.Instance.StartGame();
+        Destroy(StartMenuSelectionFollower.Instance.gameObject);
+
+        foreach (var sibling in Siblings)
+        {
+            sibling.interactable = false;
+        }
+
+        FakeCopyrightFadeOut.Fade();
+        yield return new WaitForSeconds(FakeCopyrightFadeOut.FadeOutTime);
+        BottomMenu.StartGame();
     }
 }

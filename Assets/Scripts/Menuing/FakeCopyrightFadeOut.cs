@@ -7,7 +7,7 @@ public class FakeCopyrightFadeOut : MonoBehaviour
 {
     public float FadeOutTime;
 
-    public void StartGame ()
+    public void Fade ()
     {
         StartCoroutine(fadeOut());
     }
