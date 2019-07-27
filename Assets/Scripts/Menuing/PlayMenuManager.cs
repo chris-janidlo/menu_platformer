@@ -59,6 +59,16 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     void Update ()
     {
+        var selected = EventSystemCache.Main.currentSelectedGameObject;
+        if (selected == null)
+        {
+            EventSystemCache.Main.SetSelectedGameObject(lastSelected); // prevent clicking away to deselect
+        }
+        else
+        {
+            lastSelected = selected;
+        }
+
         if (!gameStarted) return;
 
         bool visible = MenuContainer.activeSelf;
@@ -90,16 +100,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
             {
                 MenuIsActive = false;
             }
-        }
-
-        var selected = EventSystemCache.Main.currentSelectedGameObject;
-        if (selected == null)
-        {
-            EventSystemCache.Main.SetSelectedGameObject(lastSelected); // prevent clicking away to deselect
-        }
-        else
-        {
-            lastSelected = selected;
         }
     }
 
