@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-public class MageSquad : Singleton<MageSquad>
+public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
 {
     public Mage ActiveMage, RedMage, GreenMage, BlueMage;
 
@@ -85,6 +85,18 @@ public class MageSquad : Singleton<MageSquad>
         );
     }
 
+	public IEnumerator<Mage> GetEnumerator()
+	{
+        yield return RedMage;
+        yield return GreenMage;
+        yield return BlueMage;
+	}
+
+	IEnumerator IEnumerable.GetEnumerator()
+	{
+        return this.GetEnumerator();
+	}
+
     public void StartGame ()
     {
         startMenu = false;
@@ -98,6 +110,7 @@ public class MageSquad : Singleton<MageSquad>
 
     public void SetActive (MagicColor color)
     {
-        ActiveMage = this[color];
+        var mage = this[color];
+        if (!mage.Dead) ActiveMage = mage;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +17,15 @@ public class Mage : MonoBehaviour
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (_health == 0) die();
+            
+            if (_health == 0)
+            {
+                die();
+            }
+            else if (Dead)
+            {
+                revive();
+            }
         }
     }
 
@@ -26,6 +34,8 @@ public class Mage : MonoBehaviour
         get => _mana;
         set => _mana = Mathf.Clamp(value, 0, MaxMana);
     }
+
+    public bool Dead { get; private set; }
 
     public bool FacingLeft => Wand.flipX;
 
@@ -229,7 +239,33 @@ public class Mage : MonoBehaviour
 
     void die ()
     {
-        throw new NotImplementedException();
+        Dead = true;
+        setAlpha(.5f);
+
+        MageSquad.Instance.ActiveMage = null;
+        foreach (var mage in MageSquad.Instance)
+        {
+            if (!mage.Dead) MageSquad.Instance.ActiveMage = mage;
+        }
+
+        if (MageSquad.Instance.ActiveMage == null)
+        {
+            GameOver.Instance.StartSequence();
+        }
+    }
+
+    void revive ()
+    {
+        Dead = false;
+        setAlpha(1);
+    }
+
+    void setAlpha (float alpha)
+    {
+        var sr = Visuals.GetComponent<SpriteRenderer>();
+        var col = sr.color;
+        col.a = alpha;
+        sr.color = col;
     }
 
     void platform ()
