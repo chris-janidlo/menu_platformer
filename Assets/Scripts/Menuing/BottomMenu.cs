@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class BottomMenu : MonoBehaviour
 {
+    [Header("Stats")]
     public float FadeInTime;
+
+    [Header("References")]
+    public TextMeshProUGUI ManaAmount;
+    public TextMeshProUGUI HealthAmount;
 
     CanvasGroup group;
 
@@ -14,6 +20,12 @@ public class BottomMenu : MonoBehaviour
     {
         group = GetComponent<CanvasGroup>();
         group.alpha = 0;
+    }
+
+    void Update ()
+    {
+        ManaAmount.text = "x" + MageSquad.Instance.ManaPots;
+        HealthAmount.text = "x" + MageSquad.Instance.HealthPots;
     }
 
     public void StartGame ()

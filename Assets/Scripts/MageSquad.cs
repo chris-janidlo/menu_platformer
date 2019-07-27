@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using crass;
@@ -24,6 +25,27 @@ public class MageSquad : Singleton<MageSquad>
     {
         get => _manaPots;
         set => _manaPots = Mathf.Clamp(value, 0, 99);
+    }
+
+    public Mage this[MagicColor color]
+    {
+        get
+        {
+            switch (color)
+            {
+                case MagicColor.Red:
+                    return RedMage;
+
+                case MagicColor.Green:
+                    return GreenMage;
+
+                case MagicColor.Blue:
+                    return BlueMage;
+
+                default:
+                    throw new ArgumentException($"unexpected MagicColor {color}");
+            }
+        }
     }
 
     bool startMenu = true;
@@ -76,19 +98,6 @@ public class MageSquad : Singleton<MageSquad>
 
     public void SetActive (MagicColor color)
     {
-        switch (color)
-        {
-            case MagicColor.Red:
-                ActiveMage = RedMage;
-                break;
-
-            case MagicColor.Green:
-                ActiveMage = GreenMage;
-                break;
-
-            case MagicColor.Blue:
-                ActiveMage = BlueMage;
-                break;
-        }
+        ActiveMage = this[color];
     }
 }
