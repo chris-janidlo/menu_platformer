@@ -22,15 +22,15 @@ public class SpecialNamer : MonoBehaviour
         switch (MageSquad.Instance.ActiveMage.Color)
         {
             case MagicColor.Red:
-                content = IsSpecial2 ? "bombash" : "nimbility";
+                content = IsSpecial2 ? "Bombash" : "Nimbility";
                 break;
 
             case MagicColor.Green:
-                content = IsSpecial2 ? "recoup" : "rejuve";
+                content = IsSpecial2 ? "Recoup" : "Rejuve";
                 break;
 
             case MagicColor.Blue:
-                content = IsSpecial2 ? "???" : "embank";
+                content = IsSpecial2 ? "???" : "Embank";
                 break;
         }
 
