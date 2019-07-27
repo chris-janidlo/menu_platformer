@@ -48,8 +48,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         LongJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.LongJump());
         HighJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.HighJump());
 
-        spellscribe(Special1, () => MageSquad.Instance.ActiveMage.Special1());
-        spellscribe(Special2, () => MageSquad.Instance.ActiveMage.Special2());
+        spellscribe(Special1, () => MageSquad.Instance.ActiveMage.Special1(), "not enough HP!");
+        spellscribe(Special2, () => MageSquad.Instance.ActiveMage.Special2(), "not enough HP!");
 
         spellscribe(ManaPot, () => MageSquad.Instance.ActiveMage.DrinkManaPotion(), "not enough items!");
         spellscribe(HealthPot, () => MageSquad.Instance.ActiveMage.DrinkHealthPotion(), "not enough items!");
