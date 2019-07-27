@@ -50,19 +50,19 @@ MonoBehaviour:
   _health: 100
   _mana: 100
   Color: 0
-  ManaGain: 0
+  ManaGain: 20
   BurstCosts:
-    Light: 0
-    Normal: 0
-    Heavy: 0
+    Light: 30
+    Normal: 40
+    Heavy: 50
   LineCosts:
-    Light: 0
-    Normal: 0
-    Heavy: 0
+    Light: 10
+    Normal: 25
+    Heavy: 50
   LobCosts:
-    Light: 0
-    Normal: 0
-    Heavy: 0
+    Light: 30
+    Normal: 40
+    Heavy: 50
   MoveSpeed: 140
   GroundAcceleration: 4000
   AirAcceleration: 800
