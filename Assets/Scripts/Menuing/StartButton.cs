@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StartButton : MonoBehaviour
 {
     public BottomMenu BottomMenu;
+    public FakeCopyrightFadeOut FakeCopyrightFadeOut;
     public List<Button> Siblings;
 
     void Start ()
@@ -15,6 +16,7 @@ public class StartButton : MonoBehaviour
             MageSquad.Instance.StartGame();
             PlayMenuManager.Instance.StartGame();
             BottomMenu.StartGame();
+            FakeCopyrightFadeOut.StartGame();
             Destroy(StartMenuSelectionFollower.Instance.gameObject);
 
             foreach (var sibling in Siblings)
