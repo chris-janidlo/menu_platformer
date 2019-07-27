@@ -68,6 +68,8 @@ MonoBehaviour:
   AirAcceleration: 800
   JumpSpeedBurst: 250
   JumpSpeedCut: 40
+  HighJumpBurst: {x: 50, y: 400}
+  LongJumpBurst: {x: 250, y: 200}
   Gravity: 500
   JumpFudgeTime: 0.05
   GroundedFudgeVertical: 0.1

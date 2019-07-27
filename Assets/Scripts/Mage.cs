@@ -27,6 +27,8 @@ public class Mage : MonoBehaviour
         set => _mana = Mathf.Clamp(value, 0, MaxMana);
     }
 
+    public bool FacingLeft => Wand.flipX;
+
     [Header("Stats")]
     public MagicColor Color;
     public float ManaGain;
@@ -36,6 +38,7 @@ public class Mage : MonoBehaviour
     public float GroundAcceleration;
     public float AirAcceleration;
     public float JumpSpeedBurst, JumpSpeedCut;
+    public Vector2 HighJumpBurst, LongJumpBurst;
     public float Gravity;
     public float JumpFudgeTime;
     public float GroundedFudgeVertical = 0.1f, GroundedFudgeHorizontal = 0.1f;
@@ -49,6 +52,7 @@ public class Mage : MonoBehaviour
 
     Rigidbody2D rb;
     float halfHeight;
+    bool specialJumping;
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
 
@@ -144,7 +148,7 @@ public class Mage : MonoBehaviour
         Mana -= cost;
 
         var bullet = Instantiate(LinePrefab, transform.position, Quaternion.identity);
-        bullet.Initialize(Wand.flipX, Color, power);
+        bullet.Initialize(FacingLeft, Color, power);
 
         return true;
     }
@@ -158,19 +162,35 @@ public class Mage : MonoBehaviour
         Mana -= cost;
 
         var bullet = Instantiate(LobPrefab, transform.position, Quaternion.identity);
-        bullet.Initialize(Wand.flipX, Color, power);
+        bullet.Initialize(FacingLeft, Color, power);
 
         return true;
     }
 
     public void LongJump ()
     {
-        throw new NotImplementedException();
+        if (isGrounded())
+        {
+            specialJumping = true;
+            rb.velocity = new Vector2
+            (
+                LongJumpBurst.x * (FacingLeft ? -1 : 1),
+                LongJumpBurst.y
+            );
+        }
     }
 
     public void HighJump ()
     {
-        throw new NotImplementedException();
+        if (isGrounded())
+        { 
+            specialJumping = true;
+            rb.velocity = new Vector2
+            (
+                HighJumpBurst.x * (FacingLeft ? -1 : 1),
+                HighJumpBurst.y
+            );
+        }
     }
 
     // returns whether the cast was successful
@@ -214,7 +234,7 @@ public class Mage : MonoBehaviour
 
     void platform ()
     {
-        active = (MageSquad.Instance.ActiveMage == this);
+        active = (MageSquad.Instance.ActiveMage == this) && !specialJumping;
 
         moveInput = active ? Input.GetAxisRaw("Move") : 0;
         bool jumpHold = active ? Input.GetButton("Jump") : false;
@@ -225,6 +245,8 @@ public class Mage : MonoBehaviour
         
         if (isGrounded())
         {
+            specialJumping = false;
+
             float newX = 0;
 
             if (moveInput != 0)
@@ -244,11 +266,11 @@ public class Mage : MonoBehaviour
         else
         {
             var newX = rb.velocity.x + moveInput * AirAcceleration * Time.deltaTime;
-            newX = Mathf.Clamp(newX, -MoveSpeed, MoveSpeed);
+            if (!specialJumping) newX = Mathf.Clamp(newX, -MoveSpeed, MoveSpeed);
 
             var newY = rb.velocity.y - Gravity * Time.deltaTime;
 
-            if (!jumpHold && newY > JumpSpeedCut)
+            if (active && !jumpHold && newY > JumpSpeedCut)
             {
                 newY = JumpSpeedCut;
             }
