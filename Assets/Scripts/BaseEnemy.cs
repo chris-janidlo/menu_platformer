@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : MonoBehaviour
+public abstract class BaseEnemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public const float MaxHealth = 100;
+
+    [SerializeField]
+    float _health = MaxHealth;
+    public float Health
     {
-        
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            if (_health == 0) die();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected abstract void die ();
+
+    public abstract void ApplyRedBullet ();
+    public abstract void ApplyBlueBullet ();
 }

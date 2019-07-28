@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using crass;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class BaseMageBullet : MonoBehaviour
 {
+    public const float ExtraEffectChance = 0.1f;
+
     public MagicColor Color => Visuals.Color;
 
     [Header("Stats")]
@@ -14,6 +17,7 @@ public abstract class BaseMageBullet : MonoBehaviour
     [Header("References")]
     public ColorMapApplier Visuals;
 
+    bool appliedExtraEffect;
     protected SpellPower power;
     protected Rigidbody2D rb;
 
@@ -27,9 +31,19 @@ public abstract class BaseMageBullet : MonoBehaviour
 
     void OnTriggerEnter (Collider other)
     {
+        bool effect = false;
+        if (!appliedExtraEffect && RandomExtra.Chance(ExtraEffectChance))
+        {
+            appliedExtraEffect = false;
+            effect = true;
+        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            // TODO: green effect
+            if (effect)
+            {
+                other.GetComponent<Mage>().Health += 10;
+            }
             return;
         }
 
@@ -37,7 +51,20 @@ public abstract class BaseMageBullet : MonoBehaviour
 
         if (enemy != null)
         {
-            // TODO: damage
+            enemy.Health -= Damages[power];
+
+            if (effect)
+            {
+                if (Color == MagicColor.Red)
+                {
+                    enemy.ApplyRedBullet();
+                }
+
+                if (Color == MagicColor.Blue)
+                {
+                    enemy.ApplyBlueBullet();
+                }
+            }
         }
 
         Destroy(gameObject);
