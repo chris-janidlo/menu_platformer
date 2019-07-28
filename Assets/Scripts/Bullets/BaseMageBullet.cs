@@ -29,7 +29,7 @@ public abstract class BaseMageBullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter2D (Collider2D other)
     {
         bool effect = false;
         if (!appliedExtraEffect && RandomExtra.Chance(ExtraEffectChance))
@@ -38,9 +38,10 @@ public abstract class BaseMageBullet : MonoBehaviour
             effect = true;
         }
 
+        Debug.Log(LayerMask.LayerToName(other.gameObject.layer));
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (effect)
+            if (effect && Color == MagicColor.Green)
             {
                 other.GetComponent<Mage>().Health += 10;
             }
