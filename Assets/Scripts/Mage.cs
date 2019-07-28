@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mage : MonoBehaviour
 {
+    [Serializable]
+    public class AbilityCosts
+    {
+        public float Special1, Special2;
+    }
+
     public const float MaxHealth = 100, MaxMana = 100;
 
     [SerializeField]
@@ -43,6 +49,7 @@ public class Mage : MonoBehaviour
     public MagicColor Color;
     public float ManaGain;
     public SpellPowerContainer BurstCosts, LineCosts, LobCosts;
+    public AbilityCosts RedAbilityCosts, GreenAbilityCosts, BlueAbilityCosts;
 
     public float MoveSpeed;
     public float GroundAcceleration;
@@ -52,6 +59,16 @@ public class Mage : MonoBehaviour
     public float Gravity;
     public float JumpFudgeTime;
     public float GroundedFudgeVertical = 0.1f, GroundedFudgeHorizontal = 0.1f;
+
+    [Header("Ability Stats")]
+    public float NimbilityTime;
+    public float NimbilityNewSpeed, NimbilityNewJumpBurst;
+    public float BombashDamage;
+    public float RejuveHeal;
+    public float RecoupHeal;
+    public Collider2D EmbankPrefab;
+    public float TimeSlowAmount;
+    public float TimeSlowTime;
 
     [Header("References")]
     public ColorMapApplier Visuals;
@@ -65,6 +82,8 @@ public class Mage : MonoBehaviour
     bool specialJumping;
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
+
+    float speedMem, jumpMem, ability1Timer, ability2Timer;
 
     bool active, gameStarted;
     float moveInput;
@@ -101,6 +120,9 @@ public class Mage : MonoBehaviour
 
         platform();
 
+        ability1Timer -= Time.deltaTime;
+        ability2Timer -= Time.deltaTime;
+
         Mana += ManaGain * Time.deltaTime;
 
         if (moveInput < 0 && !Wand.flipX)
@@ -121,11 +143,15 @@ public class Mage : MonoBehaviour
     }
 
     // returns whether the cast was successful
-    public bool CastBurst (SpellPower power)
+    public void CastBurst (SpellPower power)
     {
         var cost = BurstCosts[power];
         
-        if (Mana < cost) return false;
+        if (Mana < cost)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough mana!");
+            return;
+        }
         Mana -= cost;
 
         var dirs = new List<Vector2>
@@ -145,36 +171,38 @@ public class Mage : MonoBehaviour
             var bullet = Instantiate(BurstPrefab, transform.position, Quaternion.identity);
             bullet.Initialize(dir, Color, power);
         }
-
-        return true;
     }
 
     // returns whether the cast was successful
-    public bool CastLine (SpellPower power)
+    public void CastLine (SpellPower power)
     {
         var cost = LineCosts[power];
         
-        if (Mana < cost) return false;
+        if (Mana < cost)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough mana!");
+            return;
+        }
         Mana -= cost;
 
         var bullet = Instantiate(LinePrefab, transform.position, Quaternion.identity);
         bullet.Initialize(FacingLeft, Color, power);
-
-        return true;
     }
 
     // returns whether the cast was successful
-    public bool CastLob (SpellPower power)
+    public void CastLob (SpellPower power)
     {
         var cost = LobCosts[power];
         
-        if (Mana < cost) return false;
+        if (Mana < cost)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough mana!");
+            return;
+        }
         Mana -= cost;
 
         var bullet = Instantiate(LobPrefab, transform.position, Quaternion.identity);
         bullet.Initialize(FacingLeft, Color, power);
-
-        return true;
     }
 
     public void LongJump ()
@@ -204,37 +232,118 @@ public class Mage : MonoBehaviour
     }
 
     // returns whether the cast was successful
-    public bool Special1 ()
+    public void Special1 ()
     {
-        throw new NotImplementedException();
+        var cost = getCosts().Special1;
+        if (Health <= cost)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
+            return;
+        }
+        
+        Health -= cost;
+
+        switch (Color)
+        {
+            case MagicColor.Red:
+                // TODO: nimbility
+                break;
+
+            case MagicColor.Green:
+                // TODO: rejuve
+                break;
+
+            case MagicColor.Blue:
+                // TODO: embank
+                break;
+        }
     }
 
     // returns whether the cast was successful
-    public bool Special2 ()
+    public void Special2 ()
     {
-        throw new NotImplementedException();
+        var cost = getCosts().Special2;
+        if (Health <= cost)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
+            return;
+        }
+
+        Health -= cost;
+
+        switch (Color)
+        {
+            case MagicColor.Red:
+                bombash();
+                break;
+
+            case MagicColor.Green:
+                recoup();
+                break;
+
+            case MagicColor.Blue:
+                timeStop();
+                break;
+        }
+
+    }
+
+    void bombash ()
+    {
+
+    }
+
+    void recoup ()
+    {
+
+    }
+
+    void timeStop ()
+    {
+
+    }
+
+    AbilityCosts getCosts ()
+    {
+        switch (Color)
+        {
+            case MagicColor.Red:
+                return RedAbilityCosts;
+
+            case MagicColor.Green:
+                return GreenAbilityCosts;
+
+            case MagicColor.Blue:
+                return BlueAbilityCosts;
+
+            default:
+                throw new InvalidOperationException($"Mage has unexpected color {Color}");
+        }
     }
 
     // returns true if there was at least one potion at method call
-    public bool DrinkHealthPotion ()
+    public void DrinkHealthPotion ()
     {
-        if (MageSquad.Instance.HealthPots == 0) return false;
+        if (MageSquad.Instance.HealthPots == 0)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough band aids!");
+            return;
+        }
 
         MageSquad.Instance.HealthPots--;
         Health += MageSquad.Instance.HealthPotGain;
-
-        return true;
     }
 
     // returns true if there was at least one potion at method call
-    public bool DrinkManaPotion ()
+    public void DrinkManaPotion ()
     {
-        if (MageSquad.Instance.ManaPots == 0) return false;
+        if (MageSquad.Instance.ManaPots == 0)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("not enough mana potions!");
+        }
 
         MageSquad.Instance.ManaPots--;
         Health += MageSquad.Instance.ManaPotGain;
-
-        return true;
     }
 
     void die ()

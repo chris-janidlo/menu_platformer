@@ -29,17 +29,17 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     void Start ()
     {
-        spellscribe(BurstNormal, () => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Normal));
-        spellscribe(BurstHeavy, () => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Heavy));
-        spellscribe(BurstLight, () => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Light));
+        BurstNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Normal));
+        BurstHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Heavy));
+        BurstLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Light));
 
-        spellscribe(LineNormal, () => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Normal));
-        spellscribe(LineHeavy, () => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Heavy));
-        spellscribe(LineLight, () => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Light));
+        LineNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Normal));
+        LineHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Heavy));
+        LineLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Light));
 
-        spellscribe(LobNormal, () => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Normal));
-        spellscribe(LobHeavy, () => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Heavy));
-        spellscribe(LobLight, () => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Light));
+        LobNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Normal));
+        LobHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Heavy));
+        LobLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Light));
 
         RedMage.onClick.AddListener(() => MageSquad.Instance.SetActive(MagicColor.Red));
         GreenMage.onClick.AddListener(() => MageSquad.Instance.SetActive(MagicColor.Green));
@@ -48,11 +48,11 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         LongJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.LongJump());
         HighJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.HighJump());
 
-        spellscribe(Special1, () => MageSquad.Instance.ActiveMage.Special1(), "not enough HP!");
-        spellscribe(Special2, () => MageSquad.Instance.ActiveMage.Special2(), "not enough HP!");
+        Special1.onClick.AddListener(() => MageSquad.Instance.ActiveMage.Special1());
+        Special2.onClick.AddListener(() => MageSquad.Instance.ActiveMage.Special2());
 
-        spellscribe(ManaPot, () => MageSquad.Instance.ActiveMage.DrinkManaPotion(), "not enough items!");
-        spellscribe(HealthPot, () => MageSquad.Instance.ActiveMage.DrinkHealthPotion(), "not enough items!");
+        ManaPot.onClick.AddListener(() => MageSquad.Instance.ActiveMage.DrinkManaPotion());
+        HealthPot.onClick.AddListener(() => MageSquad.Instance.ActiveMage.DrinkHealthPotion());
 
         GetComponent<PlayMenuFollower>().enabled = false;
     }
@@ -114,16 +114,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         StartCoroutine(reHighlightButton());
 
         GetComponent<PlayMenuFollower>().enabled = true;
-    }
-
-    void spellscribe (Button button, Func<bool> spell, string message = "not enough mana!")
-    {
-        button.onClick.AddListener(() => {
-            if (!spell())
-            {
-                Debug.Log(message);
-            }
-        });
     }
 
     // prevents menu opening press from triggering currently highlighted button by making the submenuselectors wait at least one frame

@@ -63,6 +63,15 @@ MonoBehaviour:
     Light: 30
     Normal: 40
     Heavy: 50
+  RedAbilityCosts:
+    Special1: 20
+    Special2: 30
+  GreenAbilityCosts:
+    Special1: 50
+    Special2: 50
+  BlueAbilityCosts:
+    Special1: 10
+    Special2: 80
   MoveSpeed: 140
   GroundAcceleration: 4000
   AirAcceleration: 800
