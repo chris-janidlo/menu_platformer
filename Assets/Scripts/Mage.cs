@@ -65,8 +65,8 @@ public class Mage : MonoBehaviour
     public float NimbilityNewSpeed, NimbilityNewJumpBurst;
     public float BombashDamage;
     public float RejuveHeal;
-    public float RecoupHeal;
-    public Collider2D EmbankPrefab;
+    public EmbankObject EmbankPrefab;
+    public Vector2 EmbankSpawnOffset;
     public float TimeSlowAmount;
     public float TimeSlowTime;
 
@@ -83,7 +83,7 @@ public class Mage : MonoBehaviour
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
 
-    float speedMem, jumpMem, ability1Timer, ability2Timer;
+    bool ability1Flag, ability2Flag;
 
     bool active, gameStarted;
     float moveInput;
@@ -119,9 +119,6 @@ public class Mage : MonoBehaviour
         if (!gameStarted) return;
 
         platform();
-
-        ability1Timer -= Time.deltaTime;
-        ability2Timer -= Time.deltaTime;
 
         Mana += ManaGain * Time.deltaTime;
 
@@ -240,23 +237,88 @@ public class Mage : MonoBehaviour
             CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
             return;
         }
-        
-        Health -= cost;
 
+        bool castSuccessful = false;
+        
         switch (Color)
         {
             case MagicColor.Red:
-                // TODO: nimbility
+                castSuccessful = nimbility();
                 break;
 
             case MagicColor.Green:
-                // TODO: rejuve
+                castSuccessful = rejuve();
                 break;
 
             case MagicColor.Blue:
-                // TODO: embank
+                castSuccessful = embank();
                 break;
         }
+
+        if (castSuccessful) Health -= cost;
+    }
+
+    bool nimbility ()
+    {
+        if (ability1Flag)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("ability already active!");
+            return false;
+        }
+
+        StartCoroutine(nimbilityRoutine());
+        return true;
+    }
+
+    IEnumerator nimbilityRoutine ()
+    {
+        ability1Flag = true;
+
+        var speedMem = MoveSpeed;
+        var jumpMem = JumpSpeedBurst;
+
+        MoveSpeed = NimbilityNewSpeed;
+        JumpSpeedBurst = NimbilityNewJumpBurst;
+
+        yield return new WaitForSeconds(NimbilityTime);
+
+        MoveSpeed = speedMem;
+        JumpSpeedBurst = jumpMem;
+
+        ability1Flag = false;
+    }
+
+    bool rejuve ()
+    {
+        var lowestMage = MageSquad.Instance.RedMage.Health < MageSquad.Instance.BlueMage.Health ? MageSquad.Instance.RedMage : MageSquad.Instance.BlueMage;
+
+        if (lowestMage.Health == 100)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("other mages already full health!");
+            return false;
+        }
+
+        lowestMage.Health += RejuveHeal;
+        return true;
+    }
+
+    bool embank ()
+    {
+        var current = FindObjectOfType<EmbankObject>();
+        if (current != null)
+        {
+            Destroy(current.gameObject);
+        }
+
+        var offset = new Vector3
+        (
+            FacingLeft ? -EmbankSpawnOffset.x : EmbankSpawnOffset.x,
+            EmbankSpawnOffset.y
+        );
+
+        Instantiate(EmbankPrefab, transform.position + offset, Quaternion.identity);
+
+        return true;
     }
 
     // returns whether the cast was successful
@@ -269,38 +331,84 @@ public class Mage : MonoBehaviour
             return;
         }
 
-        Health -= cost;
+        bool castSuccessful = false;
 
         switch (Color)
         {
             case MagicColor.Red:
-                bombash();
+                castSuccessful = bombash();
                 break;
 
             case MagicColor.Green:
-                recoup();
+                castSuccessful = recoup();
                 break;
 
             case MagicColor.Blue:
-                timeStop();
+                castSuccessful = timeStop();
                 break;
         }
 
+        if (castSuccessful) Health -= cost;
     }
 
-    void bombash ()
+    bool bombash ()
     {
+        var enemies = FindObjectsOfType<BaseEnemy>();
 
+        if (enemies.Length == 0)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("no enemies to hurt!");
+            return false;
+        }
+
+        foreach (var enemy in enemies)
+        {
+            enemy.Health -= BombashDamage;
+        }
+
+        return true;
     }
 
-    void recoup ()
+    bool recoup ()
     {
-
+        if (MageSquad.Instance.RedMage.Dead)
+        {
+            MageSquad.Instance.RedMage.Health = MaxHealth;
+            return true;
+        }
+        else if (MageSquad.Instance.BlueMage.Dead)
+        {
+            MageSquad.Instance.BlueMage.Health = MaxHealth;
+            return true;
+        }
+        else
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("no one is dead!");
+            return false;
+        }
     }
 
-    void timeStop ()
+    bool timeStop ()
     {
+        if (ability2Flag)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("time is already slowed!");
+            return false;
+        }
 
+        StartCoroutine(timeStopRoutine());
+        return true;
+    }
+
+    IEnumerator timeStopRoutine ()
+    {
+        Time.timeScale = TimeSlowAmount;
+        ability2Flag = true;
+        
+        yield return new WaitForSecondsRealtime(TimeSlowTime);
+
+        Time.timeScale = 1;
+        ability2Flag = false;
     }
 
     AbilityCosts getCosts ()
