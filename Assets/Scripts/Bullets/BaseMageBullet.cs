@@ -7,6 +7,10 @@ using crass;
 public abstract class BaseMageBullet : MonoBehaviour
 {
     public const float ExtraEffectChance = 0.1f;
+    public const float FireDamagePerSecond = 10;
+    public const float FireTimeMin = 1, FireTimMax = 5;
+    public const float IceSlowPercent = .8f;
+    public const float IceTimeMin = 2, IceTimeMax = 7;
 
     public MagicColor Color => Visuals.Color;
 
@@ -58,12 +62,12 @@ public abstract class BaseMageBullet : MonoBehaviour
             {
                 if (Color == MagicColor.Red)
                 {
-                    enemy.ApplyRedBullet();
+                    enemy.ApplyFire(Random.Range(FireTimeMin, FireTimMax));
                 }
 
                 if (Color == MagicColor.Blue)
                 {
-                    enemy.ApplyBlueBullet();
+                    enemy.ApplyIce(Random.Range(IceTimeMin, IceTimeMax));
                 }
             }
         }
