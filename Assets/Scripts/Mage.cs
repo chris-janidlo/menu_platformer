@@ -574,8 +574,3 @@ public class Mage : MonoBehaviour
         return false;
     }
 }
-
-public enum SpellPower
-{
-    Light, Normal, Heavy
-}

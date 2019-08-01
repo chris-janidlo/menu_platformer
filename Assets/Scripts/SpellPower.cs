@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SpellPower
+{
+    Light, Normal, Heavy
+}
+
+// for collections of floats with Light-, Normal-, and Heavy-associated values
 [Serializable]
 public class SpellPowerContainer
 {
