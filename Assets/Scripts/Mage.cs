@@ -139,6 +139,24 @@ public class Mage : MonoBehaviour
         rb.simulated = true;
     }
 
+    public void ColorDamage (float damage, MagicColor color)
+    {
+        float dam = damage;
+    
+        switch (color.Compare(Color))
+        {
+            case -1:
+                dam *= MagicColorStats.WeakDamage;
+                break;
+
+            case 1:
+                dam *= MagicColorStats.SuperEffectiveDamage;
+                break;
+        }
+
+        Health -= dam;
+    }
+
     // returns whether the cast was successful
     public void CastBurst (SpellPower power)
     {
@@ -457,7 +475,7 @@ public class Mage : MonoBehaviour
     void die ()
     {
         Dead = true;
-        setAlpha(.5f);
+        Visuals.GetComponent<SpriteRenderer>().SetAlpha(.5f);
 
         MageSquad.Instance.ActiveMage = null;
         foreach (var mage in MageSquad.Instance)
@@ -474,15 +492,7 @@ public class Mage : MonoBehaviour
     void revive ()
     {
         Dead = false;
-        setAlpha(1);
-    }
-
-    void setAlpha (float alpha)
-    {
-        var sr = Visuals.GetComponent<SpriteRenderer>();
-        var col = sr.color;
-        col.a = alpha;
-        sr.color = col;
+        Visuals.GetComponent<SpriteRenderer>().SetAlpha(1);
     }
 
     void platform ()

@@ -9,7 +9,7 @@ public abstract class BaseEnemy : MonoBehaviour
     bool _healthInit;
     [SerializeField]
     float _health;
-    public float Health
+    public float Health // TODO: color damage
     {
         get
         {
@@ -29,12 +29,16 @@ public abstract class BaseEnemy : MonoBehaviour
         }
     }
 
-    float fireTimer;
+    protected bool isFrozen => iceTimer >= 0;
 
-    protected void Update ()
+    float fireTimer, iceTimer;
+
+    protected virtual void Update ()
     {
         fireTimer -= Time.deltaTime;
         if (fireTimer > 0) Health -= BaseMageBullet.FireDamagePerSecond * Time.deltaTime;
+
+        iceTimer -= Time.deltaTime;
     }
 
     public void ApplyFire (float fireTime)
@@ -46,15 +50,13 @@ public abstract class BaseEnemy : MonoBehaviour
 
     public void ApplyIce (float slowTime)
     {
-        // TODO: spawn ice effect
+        iceTimer = slowTime;
 
-        iceImpl(slowTime);
+        // TODO: spawn ice effect
     }
 
     void die ()
     {
         // TODO: spawn death effect
     }
-
-    protected abstract void iceImpl (float slowTime);
 }

@@ -16,3 +16,21 @@ public enum MagicColor
 {
     Red, Green, Blue
 }
+
+public static class MagicColorExtensions
+{
+    // uses c# compare convention to define greater-than relation. semantically, if x > y, then x is super effective against y and y is weak against x; if x == y, then x and y have neutral effects with one another
+    public static int Compare (this MagicColor x, MagicColor y)
+    {
+        // from https://stackoverflow.com/a/9553712/5931898
+        int d = (3 + y - x) % 3;
+
+        if (d == 2) return -1;
+        else return d;
+    }
+}
+
+public static class MagicColorStats
+{
+    public const float SuperEffectiveDamage = 1.5f, WeakDamage = .75f;
+}

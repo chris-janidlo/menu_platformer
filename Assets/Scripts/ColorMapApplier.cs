@@ -7,8 +7,24 @@ public class ColorMapApplier : MonoBehaviour
 {
     public MagicColor Color;
 
+    SpriteRenderer _sr;
+    SpriteRenderer sr
+    {
+        get
+        {
+            if (_sr == null) _sr = GetComponent<SpriteRenderer>();
+            return _sr;
+        }
+    }
+
     void Start ()
     {
-        GetComponent<SpriteRenderer>().color = ColorMap.Value[Color];
+        if (sr.color == UnityEngine.Color.white) ChangeColor(Color);
+    }
+
+    public void ChangeColor (MagicColor color)
+    {
+        Color = color;
+        sr.color = ColorMap.Value[Color];
     }
 }

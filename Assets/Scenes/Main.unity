@@ -1651,7 +1651,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 3000, y: 300}
+  m_SizeDelta: {x: 3000, y: 302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &346528299
 BoxCollider2D:
@@ -1677,7 +1677,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3000, y: 300}
+  m_Size: {x: 3000, y: 302}
   m_EdgeRadius: 0
 --- !u!1 &347701643
 GameObject:
@@ -8382,7 +8382,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 470, y: 0}
-  m_SizeDelta: {x: 300, y: 3000}
+  m_SizeDelta: {x: 302, y: 3000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1265471549
 BoxCollider2D:
@@ -8408,7 +8408,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 300, y: 3000}
+  m_Size: {x: 302, y: 3000}
   m_EdgeRadius: 0
 --- !u!1 &1285340240
 GameObject:
@@ -9389,7 +9389,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -470, y: 0}
-  m_SizeDelta: {x: 300, y: 3000}
+  m_SizeDelta: {x: 302, y: 3000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1503820749
 BoxCollider2D:
@@ -9415,7 +9415,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 300, y: 3000}
+  m_Size: {x: 302, y: 3000}
   m_EdgeRadius: 0
 --- !u!1 &1504837069
 GameObject:
