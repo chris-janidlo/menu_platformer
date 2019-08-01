@@ -25,6 +25,6 @@ public class ColorMapApplier : MonoBehaviour
     public void ChangeColor (MagicColor color)
     {
         Color = color;
-        sr.color = ColorMap.Value[Color];
+        sr.color = MagicColorStats.ColorMap[Color];
     }
 }
