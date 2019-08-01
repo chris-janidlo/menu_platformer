@@ -80,7 +80,7 @@ MonoBehaviour:
   HighJumpBurst: {x: 50, y: 400}
   LongJumpBurst: {x: 250, y: 200}
   Gravity: 500
-  JumpFudgeTime: 0.05
+  JumpFudgeTime: 0.08
   GroundedFudgeVertical: 0.1
   GroundedFudgeHorizontal: 0.1
   NimbilityTime: 4

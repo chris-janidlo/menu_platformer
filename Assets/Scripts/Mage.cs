@@ -79,7 +79,8 @@ public class Mage : MonoBehaviour
 
     Rigidbody2D rb;
     float halfHeight;
-    bool specialJumping;
+    // while we're long or high jumping, we don't want the player to be able to give input, nor do we want the regular air speed constraints to apply, so we have a special platforming state to compensate. we separate the part of the special jump that happens immediately at launch and the part that happens throughout the air to work around grounded checks; if we only keep one variable, it leads to a race condition with the isGrounded() call in platform(), since we need to set the fact that we're done special jumping on landing but don't want that to happen while we're still launching
+    bool specialJumpLaunch, specialJumpAir;
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
 
@@ -87,6 +88,8 @@ public class Mage : MonoBehaviour
 
     bool active, gameStarted;
     float moveInput;
+
+    bool specialJumping => specialJumpLaunch || specialJumpAir;
 
     // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
     ContactFilter2D groundedFilter;
@@ -224,7 +227,7 @@ public class Mage : MonoBehaviour
     {
         if (isGrounded())
         {
-            specialJumping = true;
+            StartCoroutine(setSpecialJump());
             rb.velocity = new Vector2
             (
                 LongJumpBurst.x * (FacingLeft ? -1 : 1),
@@ -237,13 +240,24 @@ public class Mage : MonoBehaviour
     {
         if (isGrounded())
         { 
-            specialJumping = true;
+            StartCoroutine(setSpecialJump());
             rb.velocity = new Vector2
             (
                 HighJumpBurst.x * (FacingLeft ? -1 : 1),
                 HighJumpBurst.y
             );
         }
+    }
+
+    // delay setting specialJumpAir to true until we're no longer grounded
+    IEnumerator setSpecialJump ()
+    {
+        specialJumpLaunch = true;
+
+        yield return new WaitUntil(() => !isGrounded());
+
+        specialJumpLaunch = false;
+        specialJumpAir = true;
     }
 
     // returns whether the cast was successful
@@ -506,9 +520,9 @@ public class Mage : MonoBehaviour
             timeSinceLastJumpPress = 0;
         }
         
-        if (isGrounded())
+        if (isGrounded() && !specialJumpLaunch)
         {
-            specialJumping = false;
+            specialJumpAir = false;
 
             float newX = 0;
 
