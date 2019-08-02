@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6321653191155939656}
   - component: {fileID: 583306641524129867}
   - component: {fileID: 2571699269288498797}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Hamster Fart Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7293931863726823424}
   - component: {fileID: 8752463262600477948}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4330507662515946597}
   - component: {fileID: 4045827684898862747}
   - component: {fileID: 600425684518024057}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6307786186310691282}
   - component: {fileID: 1798835560121814675}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}

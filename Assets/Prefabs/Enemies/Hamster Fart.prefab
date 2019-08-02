@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6239514630799534598}
   - component: {fileID: 2579563012325223730}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hamster Fart
   m_TagString: Untagged
   m_Icon: {fileID: 0}

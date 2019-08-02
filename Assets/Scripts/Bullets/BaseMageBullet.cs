@@ -46,7 +46,6 @@ public abstract class BaseMageBullet : MonoBehaviour
             effect = true;
         }
 
-        Debug.Log(LayerMask.LayerToName(other.gameObject.layer));
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             if (effect && Color == MagicColor.Green)

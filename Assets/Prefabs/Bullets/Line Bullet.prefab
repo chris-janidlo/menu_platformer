@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damages:
-    Light: 0
-    Normal: 0
-    Heavy: 0
+    Light: 2
+    Normal: 10
+    Heavy: 50
   Visuals: {fileID: 7108902270381758676}
   Speeds:
     Light: 500

@@ -55,8 +55,5 @@ public abstract class BaseEnemy : MonoBehaviour
         // TODO: spawn ice effect
     }
 
-    void die ()
-    {
-        // TODO: spawn death effect
-    }
+    protected abstract void die ();
 }

@@ -7,6 +7,9 @@ TextureImporter:
     21300004: hamster_walk_0
     21300006: hamster_walk_1
     21300008: hamster_gem
+    21300010: hamster_idle_0
+    21300012: hamster_idle_1
+    21300014: hamster_gem_white_part
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hamster_idle
+      name: hamster_idle_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 16
-        height: 16
+        y: 48
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,19 +117,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b363c6177d9eeb479c6443289a777b7
+      spriteID: 9c1fd157d92b8c541baacfdc5cd84a08
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hamster_act
+      name: hamster_idle_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
+        x: 24
+        y: 48
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e748f2256e81bdd45b5501a1b3930e8e
+      spriteID: d536344eca42c864da957ab52a36db74
       vertices: []
       indices: 
       edges: []
@@ -144,9 +147,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 24
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,7 +157,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd74ce325ab3ba54286d891fc03c3507
+      spriteID: 0a2a34490360c2b47a87129850d648db
       vertices: []
       indices: 
       edges: []
@@ -163,10 +166,10 @@ TextureImporter:
       name: hamster_walk_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 24
+        y: 24
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,7 +177,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b74d438d0ff34c41aa032d15fe4eedc
+      spriteID: 5288b2075c8fe4d4c9f6fb0157b8ef57
       vertices: []
       indices: 
       edges: []
@@ -185,8 +188,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,7 +197,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bef99516e1020b479e6c5b4da362971
+      spriteID: 38a27e2d6c41c604abb52f1207e97d1b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hamster_gem_white_part
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39d0de12dc9135b409e155301f18999a
       vertices: []
       indices: 
       edges: []
