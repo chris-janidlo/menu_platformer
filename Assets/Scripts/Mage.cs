@@ -371,12 +371,12 @@ public class Mage : MonoBehaviour
     {
         if (MageSquad.Instance.RedMage.Health.Dead)
         {
-            MageSquad.Instance.RedMage.Health.Revive();
+            MageSquad.Instance.RedMage.Health.FullHeal();
             return true;
         }
         else if (MageSquad.Instance.BlueMage.Health.Dead)
         {
-            MageSquad.Instance.BlueMage.Health.Revive();
+            MageSquad.Instance.BlueMage.Health.FullHeal();
             return true;
         }
         else

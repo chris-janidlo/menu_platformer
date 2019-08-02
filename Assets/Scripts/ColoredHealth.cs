@@ -82,7 +82,7 @@ public class ColoredHealth : MonoBehaviour
         CurrentHealth += amount;
     }
 
-    public void Revive ()
+    public void FullHeal ()
     {
         CurrentHealth = MaxHealth;
     }
