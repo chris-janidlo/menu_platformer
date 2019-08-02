@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640153119151828320}
   - component: {fileID: 640153119151828321}
+  - component: {fileID: 3809552218200094724}
   - component: {fileID: 640153119151828322}
   - component: {fileID: 640153119151828323}
   m_Layer: 10
@@ -219,6 +220,25 @@ MonoBehaviour:
   Gem: {fileID: 3605184052456856179}
   FartPrefab: {fileID: 2579563012325223730, guid: 1b8c69fd0e745c24d8779b593d4ce000,
     type: 3}
+--- !u!95 &3809552218200094724
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640153119151828324}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c906af717592477408276002c88761f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &640153119151828322
 Rigidbody2D:
   serializedVersion: 4

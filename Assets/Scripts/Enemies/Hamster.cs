@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class Hamster : BaseEnemy
 {
 	public override float MaxHealth => 50;
@@ -19,6 +19,8 @@ public class Hamster : BaseEnemy
 	public HamsterGem Gem;
 	public HamsterFart FartPrefab;
 
+	Animator animator;
+
 	Rigidbody2D rb;
 	float currentSpeed;
 
@@ -31,8 +33,14 @@ public class Hamster : BaseEnemy
 		Gem.ColorPart.ChangeColor(color);
 
 		rb = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
 
 		StartCoroutine(startRoutine());
+	}
+
+	void Start ()
+	{
+		Initialize(MagicColor.Blue);
 	}
 
 	protected override void Update ()
@@ -90,6 +98,7 @@ public class Hamster : BaseEnemy
 		while (true)
 		{
 			currentSpeed = 0;
+			animator.SetBool("Walking", false);
 
 			yield return new WaitForSeconds(RandomExtra.Range(AmblePauseTimeRange));
 
@@ -99,6 +108,7 @@ public class Hamster : BaseEnemy
 			walkingDirection *= -1;
 
 			currentSpeed = AmbleSpeed * mult;
+			animator.SetBool("Walking", true);
 
 			yield return new WaitForSeconds(AmbleTime * (isFrozen ? BaseMageBullet.IceSlowPercent : 1));
 		}
