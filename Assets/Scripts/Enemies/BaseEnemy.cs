@@ -2,32 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ColoredHealth))]
 public abstract class BaseEnemy : MonoBehaviour
 {
-    public abstract float MaxHealth { get; }
-
-    bool _healthInit;
-    [SerializeField]
-    float _health;
-    public float Health // TODO: color damage
-    {
-        get
-        {
-            if (!_healthInit)
-            {
-                _health = MaxHealth;
-                _healthInit = true;
-            }
-
-            return _health;
-        }
-        set
-        {
-            if (!_healthInit) _healthInit = true;
-            _health = Mathf.Clamp(value, 0, MaxHealth);
-            if (_health == 0) die();
-        }
-    }
+    public ColoredHealth Health;
 
     protected bool isFrozen => iceTimer >= 0;
 
@@ -36,7 +14,11 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Update ()
     {
         fireTimer -= Time.deltaTime;
-        if (fireTimer > 0) Health -= BaseMageBullet.FireDamagePerSecond * Time.deltaTime;
+
+        if (fireTimer > 0)
+        {
+            Health.ColorDamage(BaseMageBullet.FireDamagePerSecond * Time.deltaTime, MagicColor.Red);
+        }
 
         iceTimer -= Time.deltaTime;
     }

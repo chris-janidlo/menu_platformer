@@ -9,8 +9,6 @@ using crass;
 [RequireComponent(typeof(DestroyWhenChildrenInvisible))]
 public class Hamster : BaseEnemy
 {
-	public override float MaxHealth => 50;
-
 	public float Gravity;
 	public float AmbleSpeed, AmbleTime;
 	public Vector2 AmblePauseTimeRange;
@@ -34,6 +32,7 @@ public class Hamster : BaseEnemy
 	public void Initialize (MagicColor color)
 	{
 		Gem.ColorPart.ChangeColor(color);
+		Health.Color = color;
 
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();

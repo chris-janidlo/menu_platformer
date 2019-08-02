@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(ColoredHealth))]
 public class Mage : MonoBehaviour
 {
     [Serializable]
@@ -12,36 +12,15 @@ public class Mage : MonoBehaviour
         public float Special1, Special2;
     }
 
-    public const float MaxHealth = 100, MaxMana = 100;
+    public const float MaxMana = 100;
 
     [SerializeField]
-    float _health = MaxHealth, _mana = MaxMana;
-
-    public float Health
-    {
-        get => _health;
-        set
-        {
-            _health = Mathf.Clamp(value, 0, MaxHealth);
-            
-            if (_health == 0)
-            {
-                die();
-            }
-            else if (Dead)
-            {
-                revive();
-            }
-        }
-    }
-
+    float _mana = MaxMana;
     public float Mana
     {
         get => _mana;
         set => _mana = Mathf.Clamp(value, 0, MaxMana);
     }
-
-    public bool Dead { get; private set; }
 
     public bool FacingLeft => Wand.flipX;
 
@@ -71,6 +50,7 @@ public class Mage : MonoBehaviour
     public float TimeSlowTime;
 
     [Header("References")]
+    public ColoredHealth Health;
     public ColorMapApplier Visuals;
     public SpriteRenderer Wand;
     public BurstBullet BurstPrefab;
@@ -115,6 +95,10 @@ public class Mage : MonoBehaviour
         groundedFilter = new ContactFilter2D();
         // bullets don't affect grounded state
         groundedFilter.layerMask = ~LayerMask.NameToLayer("Player Bullet");
+
+        Health.Color = Color;
+        Health.Death.AddListener(die);
+        Health.Revival.AddListener(revive);
     }
 
     void Update ()
@@ -140,24 +124,6 @@ public class Mage : MonoBehaviour
     {
         gameStarted = true;
         rb.simulated = true;
-    }
-
-    public void ColorDamage (float damage, MagicColor color)
-    {
-        float dam = damage;
-    
-        switch (color.Compare(Color))
-        {
-            case -1:
-                dam *= MagicColorStats.WeakDamage;
-                break;
-
-            case 1:
-                dam *= MagicColorStats.SuperEffectiveDamage;
-                break;
-        }
-
-        Health -= dam;
     }
 
     // returns whether the cast was successful
@@ -264,7 +230,7 @@ public class Mage : MonoBehaviour
     public void Special1 ()
     {
         var cost = getCosts().Special1;
-        if (Health <= cost)
+        if (Health.CurrentHealth <= cost)
         {
             CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
             return;
@@ -287,7 +253,7 @@ public class Mage : MonoBehaviour
                 break;
         }
 
-        if (castSuccessful) Health -= cost;
+        if (castSuccessful) Health.PureDamage(cost);
     }
 
     bool nimbility ()
@@ -322,15 +288,15 @@ public class Mage : MonoBehaviour
 
     bool rejuve ()
     {
-        var lowestMage = MageSquad.Instance.RedMage.Health < MageSquad.Instance.BlueMage.Health ? MageSquad.Instance.RedMage : MageSquad.Instance.BlueMage;
+        var lowestMage = MageSquad.Instance.RedMage.Health.CurrentHealth < MageSquad.Instance.BlueMage.Health.CurrentHealth ? MageSquad.Instance.RedMage : MageSquad.Instance.BlueMage;
 
-        if (lowestMage.Health == 100)
+        if (lowestMage.Health.CurrentHealth == 100)
         {
             CantDoThatFeedback.Instance.DisplayMessage("other mages already full health!");
             return false;
         }
 
-        lowestMage.Health += RejuveHeal;
+        lowestMage.Health.Heal(RejuveHeal);
         return true;
     }
 
@@ -357,7 +323,7 @@ public class Mage : MonoBehaviour
     public void Special2 ()
     {
         var cost = getCosts().Special2;
-        if (Health <= cost)
+        if (Health.CurrentHealth <= cost)
         {
             CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
             return;
@@ -380,7 +346,7 @@ public class Mage : MonoBehaviour
                 break;
         }
 
-        if (castSuccessful) Health -= cost;
+        if (castSuccessful) Health.PureDamage(cost);
     }
 
     bool bombash ()
@@ -395,7 +361,7 @@ public class Mage : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
-            enemy.Health -= BombashDamage;
+            enemy.Health.PureDamage(BombashDamage);
         }
 
         return true;
@@ -403,14 +369,14 @@ public class Mage : MonoBehaviour
 
     bool recoup ()
     {
-        if (MageSquad.Instance.RedMage.Dead)
+        if (MageSquad.Instance.RedMage.Health.Dead)
         {
-            MageSquad.Instance.RedMage.Health = MaxHealth;
+            MageSquad.Instance.RedMage.Health.Revive();
             return true;
         }
-        else if (MageSquad.Instance.BlueMage.Dead)
+        else if (MageSquad.Instance.BlueMage.Health.Dead)
         {
-            MageSquad.Instance.BlueMage.Health = MaxHealth;
+            MageSquad.Instance.BlueMage.Health.Revive();
             return true;
         }
         else
@@ -471,7 +437,7 @@ public class Mage : MonoBehaviour
         }
 
         MageSquad.Instance.HealthPots--;
-        Health += MageSquad.Instance.HealthPotGain;
+        Health.Heal(MageSquad.Instance.HealthPotGain);
     }
 
     // returns true if there was at least one potion at method call
@@ -483,18 +449,17 @@ public class Mage : MonoBehaviour
         }
 
         MageSquad.Instance.ManaPots--;
-        Health += MageSquad.Instance.ManaPotGain;
+        Mana += MageSquad.Instance.ManaPotGain;
     }
 
     void die ()
     {
-        Dead = true;
         Visuals.GetComponent<SpriteRenderer>().SetAlpha(.5f);
 
         MageSquad.Instance.ActiveMage = null;
         foreach (var mage in MageSquad.Instance)
         {
-            if (!mage.Dead) MageSquad.Instance.ActiveMage = mage;
+            if (!mage.Health.Dead) MageSquad.Instance.ActiveMage = mage;
         }
 
         if (MageSquad.Instance.ActiveMage == null)
@@ -505,7 +470,6 @@ public class Mage : MonoBehaviour
 
     void revive ()
     {
-        Dead = false;
         Visuals.GetComponent<SpriteRenderer>().SetAlpha(1);
     }
 

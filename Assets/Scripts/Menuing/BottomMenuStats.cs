@@ -29,8 +29,8 @@ public class BottomMenuStats : MonoBehaviour
     {
         var mage = MageSquad.Instance[MagicColor];
 
-        HealthBar.fillAmount = mage.Health / Mage.MaxHealth;
-        if (mage.Health <= HealthPanicThreshold)
+        HealthBar.fillAmount = mage.Health.CurrentHealth / mage.Health.MaxHealth;
+        if (mage.Health.CurrentHealth <= HealthPanicThreshold)
         {
             if (healthEnum == null)
             {

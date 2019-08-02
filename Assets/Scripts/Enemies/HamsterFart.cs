@@ -37,7 +37,7 @@ public class HamsterFart : MonoBehaviour
 
         foreach (var mage in currentlyDamaging)
         {
-            mage.ColorDamage(DamagePerSecond * Time.deltaTime, color);
+            mage.Health.ColorDamage(DamagePerSecond * Time.deltaTime, color);
         }
     }
 

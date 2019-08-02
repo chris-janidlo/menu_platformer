@@ -111,6 +111,6 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
     public void SetActive (MagicColor color)
     {
         var mage = this[color];
-        if (!mage.Dead) ActiveMage = mage;
+        if (!mage.Health.Dead) ActiveMage = mage;
     }
 }

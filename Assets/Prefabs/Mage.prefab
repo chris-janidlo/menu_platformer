@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387779429954814141}
   - component: {fileID: 1387779429954814142}
+  - component: {fileID: 7747340989538951405}
   - component: {fileID: 1387779429954814128}
   - component: {fileID: 1387779429954814129}
   m_Layer: 8
@@ -47,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba462c4b94ef4670b166d842ce7c518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
   _mana: 100
   Color: 0
   ManaGain: 20
@@ -93,6 +93,7 @@ MonoBehaviour:
   EmbankSpawnOffset: {x: 30, y: 30}
   TimeSlowAmount: 0.5
   TimeSlowTime: 10
+  Health: {fileID: 7747340989538951405}
   Visuals: {fileID: 3820094173015530496}
   Wand: {fileID: 410482379626790206}
   BurstPrefab: {fileID: 1678872334349938972, guid: 3f7ea7a81ee304b7ca025f5d05e15a7a,
@@ -101,6 +102,31 @@ MonoBehaviour:
     type: 3}
   LobPrefab: {fileID: 7115393737051325276, guid: 135959bb01fb148c9ab6a2edd6574ed8,
     type: 3}
+--- !u!114 &7747340989538951405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387779429954814131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e8b3c92a395ae4696d44f68f66a078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Color: 0
+  MaxHealth: 100
+  Death:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Revival:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _currentHealth: 0
 --- !u!50 &1387779429954814128
 Rigidbody2D:
   serializedVersion: 4

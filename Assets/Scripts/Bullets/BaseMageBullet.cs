@@ -50,7 +50,7 @@ public abstract class BaseMageBullet : MonoBehaviour
         {
             if (effect && Color == MagicColor.Green)
             {
-                other.GetComponent<Mage>().Health += HealAmount;
+                other.GetComponent<Mage>().Health.Heal(HealAmount);
             }
             return;
         }
@@ -59,7 +59,7 @@ public abstract class BaseMageBullet : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.Health -= Damages[power];
+            enemy.Health.ColorDamage(Damages[power], Color);
 
             if (effect)
             {
