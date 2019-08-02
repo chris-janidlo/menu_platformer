@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(DestroyWhenChildrenInvisible))]
 public class LobBullet : BaseMageBullet
 {
     [Header("Stats")]
     [Header("Line")]
     public float Gravity;
     public SpellPowerContainer LaunchYs, LaunchSpeeds, Scales;
+
+    DestroyWhenChildrenInvisible destroyInvisible;
 
     public void Initialize (bool goingLeft, MagicColor color, SpellPower power)
     {
@@ -20,6 +23,8 @@ public class LobBullet : BaseMageBullet
         ).normalized * LaunchSpeeds[power];
 
         setScale(Scales);
+
+        destroyInvisible = GetComponent<DestroyWhenChildrenInvisible>();
     }
 
     void Update ()
@@ -29,11 +34,8 @@ public class LobBullet : BaseMageBullet
             rb.velocity.x,
             rb.velocity.y - Gravity * Time.deltaTime
         );
-    }
 
-    void OnBecameInvisible ()
-    {
-        // let players lob off the top of the screen
-        if (transform.position.y < 0) Destroy(gameObject);
+        // don't destroy if the player lobs over the top of the screen
+        destroyInvisible.enabled = transform.position.y > 0;
     }
 }

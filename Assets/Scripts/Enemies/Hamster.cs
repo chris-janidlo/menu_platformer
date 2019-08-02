@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(DestroyWhenChildrenInvisible))]
 public class Hamster : BaseEnemy
 {
 	public override float MaxHealth => 50;
@@ -38,9 +41,9 @@ public class Hamster : BaseEnemy
 		StartCoroutine(startRoutine());
 	}
 
-	void Start ()
+	void Awake ()
 	{
-		Initialize(MagicColor.Blue);
+		GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
 	}
 
 	protected override void Update ()
@@ -54,11 +57,6 @@ public class Hamster : BaseEnemy
 		}
 	}
 
-	void OnBecameInvisible ()
-	{
-		if (dead) Destroy(gameObject);
-	}
-
 	protected override void die ()
 	{
 		Gem.Launch();
@@ -69,6 +67,7 @@ public class Hamster : BaseEnemy
 		if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
 
 		GetComponent<Collider2D>().enabled = false;
+		GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
 
 		dead = true;
 	}

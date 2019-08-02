@@ -16,9 +16,4 @@ public class LineBullet : BaseMageBullet
         rb.velocity = (goingLeft ? Vector3.left : Vector3.right) * Speeds[power];
         setScale(Scales);
     }
-
-    void OnBecameInvisible ()
-    {
-        Destroy(gameObject);
-    }
 }

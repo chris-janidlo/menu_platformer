@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(DestroyWhenChildrenInvisible))]
 public class HamsterGem : MonoBehaviour
 {
     public Vector2 LaunchSpeed;
@@ -16,6 +16,7 @@ public class HamsterGem : MonoBehaviour
 
     void Start ()
     {
+        GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
     }
@@ -23,11 +24,6 @@ public class HamsterGem : MonoBehaviour
     void Update ()
     {
         if (launched) rb.velocity += Vector2.down * Gravity * Time.deltaTime;
-    }
-    
-    void OnBecameInvisible ()
-    {
-        if (launched) Destroy(gameObject);
     }
 
     public void Launch ()
@@ -39,5 +35,7 @@ public class HamsterGem : MonoBehaviour
         rb.velocity = LaunchSpeed;
         // half the time, flip x:
         if (RandomExtra.Chance(.5f)) rb.velocity *= Vector2.left;
+
+        GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
     }
 }

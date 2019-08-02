@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640153118337011950}
   - component: {fileID: 3605184052456856179}
+  - component: {fileID: 5335781656316619448}
   - component: {fileID: 3515311895813577453}
   m_Layer: 10
   m_Name: Gem
@@ -48,6 +49,18 @@ MonoBehaviour:
   LaunchSpeed: {x: 50, y: 100}
   Gravity: 500
   ColorPart: {fileID: 3029159654744410915}
+--- !u!114 &5335781656316619448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640153118337011951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &3515311895813577453
 Rigidbody2D:
   serializedVersion: 4
@@ -171,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640153119151828320}
   - component: {fileID: 640153119151828321}
+  - component: {fileID: 8415438307948762791}
   - component: {fileID: 3809552218200094724}
   - component: {fileID: 640153119151828322}
   - component: {fileID: 640153119151828323}
@@ -220,6 +234,18 @@ MonoBehaviour:
   Gem: {fileID: 3605184052456856179}
   FartPrefab: {fileID: 2579563012325223730, guid: 1b8c69fd0e745c24d8779b593d4ce000,
     type: 3}
+--- !u!114 &8415438307948762791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640153119151828324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &3809552218200094724
 Animator:
   serializedVersion: 3
