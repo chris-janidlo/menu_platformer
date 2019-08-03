@@ -27,9 +27,9 @@ public class Hamster : BaseEnemy
 
 	int walkingDirection = 1;
 
-	bool started, dead;
+	bool started;
 
-	public void Initialize (MagicColor color)
+	public override void Initialize (MagicColor color)
 	{
 		Gem.ColorPart.ChangeColor(color);
 		Health.Color = color;
@@ -40,8 +40,10 @@ public class Hamster : BaseEnemy
 		StartCoroutine(startRoutine());
 	}
 
-	void Awake ()
+	protected override void Awake ()
 	{
+		base.Awake();
+
 		GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
 	}
 
@@ -51,7 +53,7 @@ public class Hamster : BaseEnemy
 
 		if (started)
 		{
-			var y = dead ? 0 : rb.velocity.y - Gravity * Time.deltaTime;
+			var y = Health.Dead ? 0 : rb.velocity.y - Gravity * Time.deltaTime;
 			rb.velocity = new Vector2(currentSpeed, y);
 		}
 	}
@@ -67,8 +69,6 @@ public class Hamster : BaseEnemy
 
 		GetComponent<Collider2D>().enabled = false;
 		GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
-
-		dead = true;
 	}
 
 	IEnumerator startRoutine ()
