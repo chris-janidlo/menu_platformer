@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5862585527510413249}
   - component: {fileID: 6479729780998103567}
   - component: {fileID: 3258143454502196981}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Goose Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,10 +59,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 10, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -73,7 +73,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 20, y: 3}
   m_EdgeRadius: 0
 --- !u!50 &6479729780998103567
 Rigidbody2D:
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 6737263561766493543}
   - component: {fileID: 1520896878614240751}
   - component: {fileID: 873454634269535197}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121396286327248405}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 5199609511461557503}

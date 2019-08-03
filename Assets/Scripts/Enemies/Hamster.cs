@@ -62,8 +62,6 @@ public class Hamster : BaseEnemy
 	{
 		Gem.Launch();
 
-		StopAllCoroutines();
-
 		currentSpeed = DeathSpeed;
 		if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
 
@@ -93,7 +91,7 @@ public class Hamster : BaseEnemy
 
 	IEnumerator ambleRoutine ()
 	{
-		while (true)
+		while (!Health.Dead)
 		{
 			currentSpeed = 0;
 			animator.SetBool("Walking", false);
@@ -114,7 +112,7 @@ public class Hamster : BaseEnemy
 
 	IEnumerator fartRoutine ()
 	{
-		while (true)
+		while (!Health.Dead)
 		{
 			yield return new WaitForSeconds(RandomExtra.Range(FartTimeRange));
 
