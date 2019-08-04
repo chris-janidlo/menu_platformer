@@ -231,9 +231,7 @@ MonoBehaviour:
   AmblePauseTimeRange: {x: 2, y: 3}
   FartTimeRange: {x: 3, y: 6}
   DeathSpeed: 300
-  SpawnSpaceLowerLeft: {x: 0, y: 60}
-  SpawnSpaceUpperRight: {x: 640, y: 400}
-  SpawnAnimationTime: 1
+  SpawnAnimationTime: 0.2
   Gem: {fileID: 3605184052456856179}
   FartPrefab: {fileID: 2579563012325223730, guid: 1b8c69fd0e745c24d8779b593d4ce000,
     type: 3}

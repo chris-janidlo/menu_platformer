@@ -5,17 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(ColoredHealth))]
 public abstract class BaseEnemy : MonoBehaviour
 {
+    public static int TotalEnemies { get; private set; }
+
     public ColoredHealth Health;
 
     protected bool isFrozen => iceTimer >= 0;
 
     float fireTimer, iceTimer;
 
-    public abstract void Initialize (MagicColor color);
-
     protected virtual void Awake ()
     {
+        TotalEnemies++;
+
         Health.Death.AddListener(die);
+        Health.Death.AddListener(() => TotalEnemies--);
     }
 
     protected virtual void Update ()

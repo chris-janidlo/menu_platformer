@@ -18,6 +18,7 @@ public class StartButton : MonoBehaviour
     IEnumerator startRoutine ()
     {
         MageSquad.Instance.StartGame();
+        EnemySpawner.Instance.StartGame();
         PlayMenuManager.Instance.StartGame();
         Destroy(StartMenuSelectionFollower.Instance.gameObject);
 

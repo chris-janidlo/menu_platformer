@@ -11,8 +11,9 @@ public class BottomMenu : MonoBehaviour
     public float FadeInTime;
 
     [Header("References")]
-    public TextMeshProUGUI ManaAmount;
+    public TextMeshProUGUI WaveDisplay;
     public TextMeshProUGUI HealthAmount;
+    public TextMeshProUGUI ManaAmount;
 
     CanvasGroup group;
 
@@ -24,8 +25,9 @@ public class BottomMenu : MonoBehaviour
 
     void Update ()
     {
-        ManaAmount.text = "x" + MageSquad.Instance.ManaPots;
+        WaveDisplay.text = "Wave\n" + EnemySpawner.Instance.CurrentWave;
         HealthAmount.text = "x" + MageSquad.Instance.HealthPots;
+        ManaAmount.text = "x" + MageSquad.Instance.ManaPots;
     }
 
     public void StartGame ()

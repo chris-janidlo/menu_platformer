@@ -23,11 +23,11 @@ public class Goose : BaseEnemy
 
     bool facingLeft => transform.position.x > target.position.x;
 
-	public override void Initialize (MagicColor color)
+	public void Initialize (Transform target)
 	{
         rb = GetComponent<Rigidbody2D>();
 
-        target = MageSquad.Instance[color].transform;
+        this.target = target;
         transform.position = target.position + Vector3.up * InitialHeight;
 	}
 

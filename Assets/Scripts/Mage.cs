@@ -23,6 +23,7 @@ public class Mage : MonoBehaviour
     }
 
     public bool FacingLeft => Wand.flipX;
+    public bool Active => MageSquad.Instance.ActiveMage == this;
 
     [Header("Stats")]
     public MagicColor Color;
@@ -66,7 +67,7 @@ public class Mage : MonoBehaviour
 
     bool ability1Flag, ability2Flag;
 
-    bool active, gameStarted;
+    bool platformingActive, gameStarted;
     float moveInput;
 
     bool specialJumping => specialJumpLaunch || specialJumpAir;
@@ -459,7 +460,11 @@ public class Mage : MonoBehaviour
         MageSquad.Instance.ActiveMage = null;
         foreach (var mage in MageSquad.Instance)
         {
-            if (!mage.Health.Dead) MageSquad.Instance.ActiveMage = mage;
+            if (!mage.Health.Dead)
+            {
+                MageSquad.Instance.ActiveMage = mage;
+                break;
+            }
         }
 
         if (MageSquad.Instance.ActiveMage == null)
@@ -475,11 +480,11 @@ public class Mage : MonoBehaviour
 
     void platform ()
     {
-        active = (MageSquad.Instance.ActiveMage == this) && !specialJumping;
+        platformingActive = Active && !specialJumping;
 
-        moveInput = active ? Input.GetAxisRaw("Move") : 0;
-        bool jumpHold = active ? Input.GetButton("Jump") : false;
-        if (active && Input.GetButtonDown("Jump"))
+        moveInput = platformingActive ? Input.GetAxisRaw("Move") : 0;
+        bool jumpHold = platformingActive ? Input.GetButton("Jump") : false;
+        if (platformingActive && Input.GetButtonDown("Jump"))
         {
             timeSinceLastJumpPress = 0;
         }
@@ -511,7 +516,7 @@ public class Mage : MonoBehaviour
 
             var newY = rb.velocity.y - Gravity * Time.deltaTime;
 
-            if (active && !jumpHold && newY > JumpSpeedCut)
+            if (platformingActive && !jumpHold && newY > JumpSpeedCut)
             {
                 newY = JumpSpeedCut;
             }

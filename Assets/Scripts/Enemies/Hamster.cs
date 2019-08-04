@@ -12,8 +12,6 @@ public class Hamster : BaseEnemy
 	public Vector2 AmblePauseTimeRange, FartTimeRange;
 	public float DeathSpeed;
 
-	public Vector2 SpawnSpaceLowerLeft, SpawnSpaceUpperRight;
-
 	public float SpawnAnimationTime;
 
 	public HamsterGem Gem;
@@ -28,28 +26,25 @@ public class Hamster : BaseEnemy
 
 	bool started;
 
-	public override void Initialize (MagicColor color)
-	{
-		transform.position = new Vector2
-		(
-			Random.Range(SpawnSpaceLowerLeft.x, SpawnSpaceUpperRight.x),
-			Random.Range(SpawnSpaceLowerLeft.y, SpawnSpaceUpperRight.y)
-		);
-
-		Gem.ColorPart.ChangeColor(color);
-		Health.Color = color;
-
-		rb = GetComponent<Rigidbody2D>();
-		animator = GetComponent<Animator>();
-
-		StartCoroutine(startRoutine());
-	}
-
 	protected override void Awake ()
 	{
 		base.Awake();
 
 		GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
+	}
+
+	public void Start ()
+	{
+		MagicColor color = (MagicColor) Random.Range(0, 3);
+		Gem.ColorPart.ChangeColor(color);
+		Health.Color = color;
+
+		transform.position = EnemySpawner.Instance.HamsterSpawnLocations.GetNext();
+
+		rb = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
+
+		StartCoroutine(startRoutine());
 	}
 
 	protected override void Update ()
