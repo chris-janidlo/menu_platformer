@@ -33,12 +33,13 @@ public class ColoredHealth : MonoBehaviour
         {
             _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
 
-            if (MaxHealth == 0)
+            if (!dead && _currentHealth == 0)
             {
                 dead = true;
                 Death.Invoke();
             }
-            else if (dead)
+
+            if (dead && _currentHealth != 0)
             {
                 dead = false;
                 Revival.Invoke();
