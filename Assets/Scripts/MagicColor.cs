@@ -24,6 +24,7 @@ public static class MagicColorStats
 {
     public const float SuperEffectiveDamage = 1.5f, WeakDamage = .75f;
 
+    // TODO: default value, persistent overrideable value thru PlayerPrefs
     public static Dictionary<MagicColor, Color> ColorMap = new Dictionary<MagicColor, Color>
     {
         { MagicColor.Red, new Color(208 / 255f, 70 / 255f, 72 / 255f) },
