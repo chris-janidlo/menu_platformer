@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 [RequireComponent(typeof(DestroyWhenChildrenInvisible))]
 public class Hamster : BaseEnemy
 {
 	public float Gravity;
 	public float AmbleSpeed, AmbleTime;
-	public Vector2 AmblePauseTimeRange;
-	public Vector2 FartTimeRange;
+	public Vector2 AmblePauseTimeRange, FartTimeRange;
 	public float DeathSpeed;
+
+	public Vector2 SpawnSpaceLowerLeft, SpawnSpaceUpperRight;
 
 	public float SpawnAnimationTime;
 
@@ -31,6 +30,12 @@ public class Hamster : BaseEnemy
 
 	public override void Initialize (MagicColor color)
 	{
+		transform.position = new Vector2
+		(
+			Random.Range(SpawnSpaceLowerLeft.x, SpawnSpaceUpperRight.x),
+			Random.Range(SpawnSpaceLowerLeft.y, SpawnSpaceUpperRight.y)
+		);
+
 		Gem.ColorPart.ChangeColor(color);
 		Health.Color = color;
 
