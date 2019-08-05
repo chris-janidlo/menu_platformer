@@ -57,7 +57,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
             while (timer < wave.TimeUntilNext && BaseEnemy.TotalEnemies != 0)
             {
                 timer += Time.deltaTime;
-                Debug.Log(timer);
                 yield return null;
             }
         }
