@@ -77,10 +77,15 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
     public void SetActive (MagicColor color)
     {
         var mage = this[color];
+
         if (!mage.Health.Dead)
         {
             ActiveMageChanged.Invoke(ActiveMage, mage);
             ActiveMage = mage;
+        }
+        else
+        {
+            CantDoThatFeedback.Instance.DisplayMessage($"{color} Mage is dead!");
         }
     }
 
