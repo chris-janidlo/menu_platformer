@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using crass;
 
 public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
@@ -11,6 +12,8 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
     public float StartMenuFollowDelay, StartMenuFollowSpacing;
 
     public float HealthPotGain, ManaPotGain;
+
+    public ActiveMageChangeEvent ActiveMageChanged;
 
     [SerializeField]
     int _healthPots, _manaPots;
@@ -54,9 +57,46 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
     void Awake ()
     {
         SingletonSetInstance(this, true);
+        ActiveMage = RedMage;
     }
 
     void Update ()
+    {
+        mageStartMenuCursor();
+    }
+
+    public void StartGame ()
+    {
+        startMenu = false;
+
+        RedMage.StartGame();
+        GreenMage.StartGame();
+        BlueMage.StartGame();
+    }
+
+    public void SetActive (MagicColor color)
+    {
+        var mage = this[color];
+        if (!mage.Health.Dead)
+        {
+            ActiveMageChanged.Invoke(ActiveMage, mage);
+            ActiveMage = mage;
+        }
+    }
+
+	public IEnumerator<Mage> GetEnumerator()
+	{
+        yield return RedMage;
+        yield return GreenMage;
+        yield return BlueMage;
+	}
+
+	IEnumerator IEnumerable.GetEnumerator()
+	{
+        return this.GetEnumerator();
+	}
+
+    void mageStartMenuCursor ()
     {
         if (!startMenu) return;
 
@@ -84,33 +124,8 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
             StartMenuFollowDelay
         );
     }
-
-	public IEnumerator<Mage> GetEnumerator()
-	{
-        yield return RedMage;
-        yield return GreenMage;
-        yield return BlueMage;
-	}
-
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-        return this.GetEnumerator();
-	}
-
-    public void StartGame ()
-    {
-        startMenu = false;
-
-        SetActive(MagicColor.Red);
-
-        RedMage.StartGame();
-        GreenMage.StartGame();
-        BlueMage.StartGame();
-    }
-
-    public void SetActive (MagicColor color)
-    {
-        var mage = this[color];
-        if (!mage.Health.Dead) ActiveMage = mage;
-    }
 }
+
+[Serializable]
+// oldMage, newMage
+public class ActiveMageChangeEvent : UnityEvent<Mage, Mage> {}

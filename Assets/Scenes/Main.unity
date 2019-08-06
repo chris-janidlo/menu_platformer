@@ -1080,10 +1080,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee7d8288bf80459a83ee67dca4d2715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FollowTime: 0.1
-  MinX: -260
-  MaxX: 260
-  MaxY: 93
+  MinX: -245
+  MaxX: 245
+  MaxY: 175
+  SwitchSmoothTimeInitial: 0.1
+  SwitchSmoothTimeDecay: 0.1
+  SwitchDestinationDistance: 1
 --- !u!114 &372347118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,6 +1456,11 @@ MonoBehaviour:
   StartMenuFollowSpacing: 20
   HealthPotGain: 0
   ManaPotGain: 0
+  ActiveMageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ActiveMageChangeEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   _healthPots: 0
   _manaPots: 0
 --- !u!4 &525298462
