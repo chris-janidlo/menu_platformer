@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using crass;
 
 public class StartMenuSelectionFollower : Singleton<StartMenuSelectionFollower>
 {
     public float HorizontalOffset;
+
+    public EventSystem EventSystem;
+
+    GameObject lastSelected;
 
     void Awake ()
     {
@@ -16,12 +21,13 @@ public class StartMenuSelectionFollower : Singleton<StartMenuSelectionFollower>
     {
         if (Time.time == 0) return; // wait a frame so the event system can select the first object
 
-        if (EventSystemCache.Main.currentSelectedGameObject == null)
+        if (EventSystem.currentSelectedGameObject == null)
         {
-            Debug.LogWarning("no selected game object. should see this message for one frame every time the screen is clicked away from the buttons. if more, there's an issue");
-            return;
+            EventSystem.SetSelectedGameObject(lastSelected);
         }
 
-        transform.position = EventSystemCache.Main.currentSelectedGameObject.transform.position + Vector3.right * HorizontalOffset;
+        lastSelected = EventSystem.currentSelectedGameObject;
+
+        transform.position = EventSystem.currentSelectedGameObject.transform.position + Vector3.right * HorizontalOffset;
     }
 }
