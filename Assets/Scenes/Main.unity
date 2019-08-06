@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee7d8288bf80459a83ee67dca4d2715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FollowTime: 0
+  FollowTime: 0.1
   MinX: -260
   MaxX: 260
   MaxY: 93
