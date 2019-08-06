@@ -111,6 +111,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     PlayMenuNode _currentlySelected;
     PlayMenuNode currentlySelected => _currentlySelected;
 
+    PlayMenuNode lastSelected;
+
     bool active;
     bool atTop => currentlySelected.Parent.Label == "_top";
 
@@ -177,6 +179,13 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     void traverseMenu ()
     {
+        if (Input.GetButtonDown("Play Menu Quick Toggle"))
+        {
+            bool shouldOpen = currentlySelected == null;
+            startAnimation("sizeAnimation", shouldOpen);
+            setSelected(shouldOpen ? lastSelected : null);
+        }
+
         if (Input.GetButtonDown("Play Menu Select"))
         {
             if (currentlySelected is PlayMenuLeafNode)
@@ -224,6 +233,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         _currentlySelected = selected;
 
         if (selected == null) return;
+
+        lastSelected = selected;
 
         MenuEntries.text = String.Join
         (
