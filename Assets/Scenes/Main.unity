@@ -1038,8 +1038,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 372347115}
-  - component: {fileID: 372347116}
   - component: {fileID: 372347118}
+  - component: {fileID: 372347116}
   m_Layer: 5
   m_Name: Play Menu
   m_TagString: Untagged
@@ -1065,7 +1065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -85.7, y: -45.9}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &372347116
@@ -1098,10 +1098,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955c49725b6fa4076939ace13d10e549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuAnimationInitialOffset: 50
-  MenuAnimationTime: 0.1
+  CarouselAnimationInitialOffset: 50
+  CarouselAnimationTime: 0.1
+  GrowAnimationTime: 0.1
+  ShrinkAnimationTime: 0.08
+  ShiftAnimationOffset: 7
+  ShiftAnimationTime: 0.1
   MenuEntrySeparator: '   '
   MenuEntries: {fileID: 1295646218}
+  Mask: {fileID: 1144099997}
 --- !u!1 &397173561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,7 +2394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HorizontalOffset: 20
-  EventSystem: {fileID: 0}
+  EventSystem: {fileID: 1633304280}
 --- !u!1 &927398717
 GameObject:
   m_ObjectHideFlags: 0

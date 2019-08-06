@@ -10,9 +10,15 @@ using crass;
 
 public class PlayMenuManager : Singleton<PlayMenuManager>
 {
-    public float MenuAnimationInitialOffset, MenuAnimationTime;
+    [Header("Stats")]
     public string MenuEntrySeparator;
+    public float CarouselAnimationInitialOffset, CarouselAnimationTime;
+    public float GrowAnimationTime, ShrinkAnimationTime;
+    public float ShiftAnimationOffset, ShiftAnimationTime;
+
+    [Header("References")]
     public TextMeshProUGUI MenuEntries;
+    public Mask Mask;
 
     PlayMenuInternalNode tree = new PlayMenuInternalNode
     (
@@ -111,6 +117,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[0];
     PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[1];
 
+    Vector2 initialMaskPosition;
+
     void Awake ()
     {
         SingletonSetInstance(this, true);
@@ -119,6 +127,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     void Start ()
     {
         GetComponent<PlayMenuFollower>().enabled = false;
+        initialMaskPosition = Mask.transform.localPosition;
     }
 
     void Update ()
@@ -170,48 +179,43 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         if (Input.GetButtonDown("Play Menu Select"))
         {
-            if (currentlySelected == null)
-            {
-                setSelected(tree.Children[0]);
-            }
-            else if (currentlySelected is PlayMenuLeafNode)
+            if (currentlySelected is PlayMenuLeafNode)
             {
                 ((PlayMenuLeafNode) currentlySelected).OnSelect();
             }
-            else if (currentlySelected is PlayMenuInternalNode)
+            else
             {
-                setSelected(((PlayMenuInternalNode) currentlySelected).Children[0]);
-            }
-        }
-
-        if (Input.GetButtonDown("Play Menu Back"))
-        {
-            if (currentlySelected != null && atTop)
-            {
-                setSelected(null);
-            }
-            else if (currentlySelected != null)
-            {
-                setSelected(currentlySelected.Parent);
+                if (currentlySelected == null)
+                {
+                    startAnimation("sizeAnimation", true);
+                    setSelected(tree.Children[0]);
+                }
+                else // when currentlySelected is PlayMenuInternalNode
+                {
+                    startAnimation("shiftAnimation", true);
+                    setSelected(((PlayMenuInternalNode) currentlySelected).Children[0]);
+                }
             }
         }
 
         if (currentlySelected == null) return;
 
+        if (Input.GetButtonDown("Play Menu Back"))
+        {
+            startAnimation(atTop ? "sizeAnimation" : "shiftAnimation", false);
+            setSelected(atTop ? null : currentlySelected.Parent);
+        }
+
         if (Input.GetButtonDown("Play Menu Next"))
         {
+            startAnimation("fakeCarouselAnimation", true);
             setSelected(currentlySelected.GetNextSibling());
-
-            StopAllCoroutines();
-            StartCoroutine(fakeCarouselAnimation(false));
         }
 
         if (Input.GetButtonDown("Play Menu Previous"))
         {
+            startAnimation("fakeCarouselAnimation", false);
             setSelected(currentlySelected.GetPreviousSibling());
-
-            StopAllCoroutines();
-            StartCoroutine(fakeCarouselAnimation(true));
         }
     }
 
@@ -219,28 +223,66 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         _currentlySelected = selected;
 
-        MenuEntries.text = "";
-
         if (selected == null) return;
 
-        foreach (var node in selected.GetSurrounding(selected.Siblings.Count))
-        {
-            MenuEntries.text += node.Label + MenuEntrySeparator;
-        }
-
-        MenuEntries.text = MenuEntries.text.Substring(0, MenuEntries.text.Length - MenuEntrySeparator.Length);
+        MenuEntries.text = String.Join
+        (
+            MenuEntrySeparator,
+            selected.GetSurrounding(selected.Siblings.Count)
+                .Select(s => s.Label)
+        );
     }
 
-    IEnumerator fakeCarouselAnimation (bool fromLeft)
+    void startAnimation (string animName, bool value)
     {
-        MenuEntries.transform.localPosition = MenuAnimationInitialOffset * Vector2.right * (fromLeft ? -1 : 1);
+        StopCoroutine(animName);
+        StartCoroutine(animName, value);
+    }
+
+    IEnumerator sizeAnimation (bool growing)
+    {
+        transform.localScale = growing ? Vector3.zero : Vector3.one;
+        Vector3 target = growing ? Vector3.one : Vector3.zero;
+        Vector3 vel = Vector3.zero;
+
+        float smoothTime = growing ? GrowAnimationTime : ShrinkAnimationTime;
+
+        while (transform.localScale != target)
+        {
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, target, ref vel, smoothTime);
+            yield return null;
+        }
+
+        transform.localScale = (currentlySelected == null) ? Vector3.zero : Vector3.one;
+    }
+
+    IEnumerator shiftAnimation (bool goingUp)
+    {
+        Mask.transform.localPosition = initialMaskPosition + ShiftAnimationOffset * (goingUp ? Vector2.down : Vector2.up);
+
+        Vector2 vel = Vector2.zero;
+
+        while (Mask.transform.localPosition != (Vector3) initialMaskPosition)
+        {
+            Mask.transform.localPosition = Vector2.SmoothDamp(Mask.transform.localPosition, initialMaskPosition, ref vel, ShiftAnimationTime);
+            yield return null;
+        }
+
+        Mask.transform.localPosition = initialMaskPosition;
+    }
+
+    IEnumerator fakeCarouselAnimation (bool rightToLeft)
+    {
+        MenuEntries.transform.localPosition = CarouselAnimationInitialOffset * Vector2.right * (rightToLeft ? 1 : -1);
 
         Vector2 vel = Vector2.zero;
 
         while (MenuEntries.transform.localPosition != Vector3.zero)
         {
-            MenuEntries.transform.localPosition = Vector2.SmoothDamp(MenuEntries.transform.localPosition, Vector2.zero, ref vel, MenuAnimationTime);
+            MenuEntries.transform.localPosition = Vector2.SmoothDamp(MenuEntries.transform.localPosition, Vector2.zero, ref vel, CarouselAnimationTime);
             yield return null;
         }
+
+        MenuEntries.transform.localPosition = Vector2.zero;
     }
 }
