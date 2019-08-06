@@ -26,6 +26,25 @@ public abstract class PlayMenuNode
         if (loc < 0) loc = Siblings.Count - 1;
         return Siblings[loc];
     }
+
+    public List<PlayMenuNode> GetSurrounding (int range)
+    {
+        List<PlayMenuNode> output = new List<PlayMenuNode>();
+        output.Add(this);
+
+        PlayMenuNode backHead = GetPreviousSibling(), frontHead = GetNextSibling();
+
+        for (int i = 0; i < range; i++)
+        {
+            output.Insert(0, backHead);
+            output.Add(frontHead);
+
+            backHead = backHead.GetPreviousSibling();
+            frontHead = frontHead.GetNextSibling();
+        }
+
+        return output;
+    }
 }
 
 public class PlayMenuInternalNode : PlayMenuNode

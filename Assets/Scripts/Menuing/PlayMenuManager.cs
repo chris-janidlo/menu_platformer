@@ -1,13 +1,19 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using crass;
 
 public class PlayMenuManager : Singleton<PlayMenuManager>
 {
+    public float MenuAnimationInitialOffset, MenuAnimationTime;
+    public string MenuEntrySeparator;
+    public TextMeshProUGUI MenuEntries;
+
     PlayMenuInternalNode tree = new PlayMenuInternalNode
     (
         "_top",
@@ -123,8 +129,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         active = true;
         GetComponent<PlayMenuFollower>().enabled = true;
-
-        setSelected(tree.Children[0]);
     }
 
     void traverseMenu ()
@@ -147,11 +151,11 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         if (Input.GetButtonDown("Play Menu Back"))
         {
-            if (atTop)
+            if (currentlySelected != null && atTop)
             {
                 setSelected(null);
             }
-            else
+            else if (currentlySelected != null)
             {
                 setSelected(currentlySelected.Parent);
             }
@@ -162,17 +166,46 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         if (Input.GetButtonDown("Play Menu Next"))
         {
             setSelected(currentlySelected.GetNextSibling());
+
+            StopAllCoroutines();
+            StartCoroutine(fakeCarouselAnimation(false));
         }
 
         if (Input.GetButtonDown("Play Menu Previous"))
         {
             setSelected(currentlySelected.GetPreviousSibling());
+
+            StopAllCoroutines();
+            StartCoroutine(fakeCarouselAnimation(true));
         }
     }
 
     void setSelected (PlayMenuNode selected)
     {
-        Debug.Log(selected?.Label);
         _currentlySelected = selected;
+
+        MenuEntries.text = "";
+
+        if (selected == null) return;
+
+        foreach (var node in selected.GetSurrounding(selected.Siblings.Count))
+        {
+            MenuEntries.text += node.Label + MenuEntrySeparator;
+        }
+
+        MenuEntries.text = MenuEntries.text.Substring(0, MenuEntries.text.Length - MenuEntrySeparator.Length);
+    }
+
+    IEnumerator fakeCarouselAnimation (bool fromLeft)
+    {
+        MenuEntries.transform.localPosition = MenuAnimationInitialOffset * Vector2.right * (fromLeft ? -1 : 1);
+
+        Vector2 vel = Vector2.zero;
+
+        while (MenuEntries.transform.localPosition != Vector3.zero)
+        {
+            MenuEntries.transform.localPosition = Vector2.SmoothDamp(MenuEntries.transform.localPosition, Vector2.zero, ref vel, MenuAnimationTime);
+            yield return null;
+        }
     }
 }
