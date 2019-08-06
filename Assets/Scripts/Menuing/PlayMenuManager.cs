@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -108,6 +108,9 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     bool active;
     bool atTop => currentlySelected.Parent.Label == "_top";
 
+    PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[0];
+    PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[1];
+
     void Awake ()
     {
         SingletonSetInstance(this, true);
@@ -122,6 +125,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         if (!active) return;
 
+        setSpecialNames();
+
         traverseMenu();
     }
 
@@ -129,6 +134,36 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         active = true;
         GetComponent<PlayMenuFollower>().enabled = true;
+    }
+
+    void setSpecialNames ()
+    {
+        string name1 = "", name2 = "";
+
+        var col = MageSquad.Instance.ActiveMage.Color;
+        switch (col)
+        {
+            case MagicColor.Red:
+                name1 = "Nimbility";
+                name2 = "Bombash";
+                break;
+
+            case MagicColor.Green:
+                name1 = "Recoup";
+                name2 = "Rejuve";
+                break;
+
+            case MagicColor.Blue:
+                name1 = "Embank";
+                name2 = "???";
+                break;
+
+            default:
+                throw new ArgumentException($"unexpected MagicColor {col}");
+        }
+
+        special1Ref.Label = name1;
+        special2Ref.Label = name2;
     }
 
     void traverseMenu ()
