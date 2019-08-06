@@ -201,6 +201,10 @@ public class Mage : MonoBehaviour
                 LongJumpBurst.y
             );
         }
+        else
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("can't jump in air!");
+        }
     }
 
     public void HighJump ()
@@ -213,6 +217,10 @@ public class Mage : MonoBehaviour
                 HighJumpBurst.x * (FacingLeft ? -1 : 1),
                 HighJumpBurst.y
             );
+        }
+        else
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("can't jump in air!");            
         }
     }
 
