@@ -78,6 +78,11 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
     {
         var mage = this[color];
 
+        if (mage == ActiveMage)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage($"{color} Mage is already active!");
+        }
+
         if (!mage.Health.Dead)
         {
             ActiveMageChanged.Invoke(ActiveMage, mage);
