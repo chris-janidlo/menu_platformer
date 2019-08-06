@@ -8,19 +8,99 @@ using crass;
 
 public class PlayMenuManager : Singleton<PlayMenuManager>
 {
-    public bool MenuIsActive { get; private set; }
+    PlayMenuInternalNode tree = new PlayMenuInternalNode
+    (
+        "_top",
+        new PlayMenuInternalNode
+        (
+            "Magic",
+            new PlayMenuLeafNode
+            (
+                "Burst",
+                activeMage => activeMage.CastBurst(SpellPower.Normal)
+            ),
+            new PlayMenuLeafNode
+            (
+                "Shoot",
+                activeMage => activeMage.CastLine(SpellPower.Normal)
+                
+            ),
+            new PlayMenuLeafNode
+            (
+                "Lob",
+                activeMage => activeMage.CastLob(SpellPower.Normal)
+                
+            )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Team",
+            new PlayMenuLeafNode
+            (
+                "Red Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Red)
+            ),
+            new PlayMenuLeafNode
+            (
+                "Green Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Green)
+            ),
+            new PlayMenuLeafNode
+            (
+                "Blue Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Blue)
+            )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Movement",
+            new PlayMenuLeafNode
+            (
+                "High Jump",
+                activeMage => activeMage.HighJump()
+            ),
+            new PlayMenuLeafNode
+            (
+                "Long Jump",
+                activeMage => activeMage.LongJump()
+            )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Blood Magic",
+            new PlayMenuLeafNode
+            (
+                "special1",
+                activeMage => activeMage.Special1()
+            ),
+            new PlayMenuLeafNode
+            (
+                "special2",
+                activeMage => activeMage.Special2()
+            )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Item",
+            new PlayMenuLeafNode
+            (
+                "Band-Aid",
+                activeMage => activeMage.DrinkHealthPotion()
+            ),
+            new PlayMenuLeafNode
+            (
+                "Mana Pot",
+                activeMage => activeMage.DrinkManaPotion()
+            )
+        )
+    );
 
-    public GameObject MenuContainer;
-    public Button FirstTopLevelButton;
+    // currentlySelected is duplicated as a reminder to never set it directly; instead use setSelected
+    PlayMenuNode _currentlySelected;
+    PlayMenuNode currentlySelected => _currentlySelected;
 
-    // bottom-level buttons
-    public Button BurstNormal, BurstHeavy, BurstLight, LineNormal, LineHeavy,
-        LineLight, LobNormal, LobHeavy, LobLight, RedMage, GreenMage, BlueMage,
-        LongJump, HighJump, Special1, Special2, ManaPot, HealthPot;
-
-    GameObject lastSelected;
-
-    bool gameStarted;
+    bool active;
+    bool atTop => currentlySelected.Parent.Label == "_top";
 
     void Awake ()
     {
@@ -29,105 +109,70 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     void Start ()
     {
-        BurstNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Normal));
-        BurstHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Heavy));
-        BurstLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastBurst(SpellPower.Light));
-
-        LineNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Normal));
-        LineHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Heavy));
-        LineLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLine(SpellPower.Light));
-
-        LobNormal.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Normal));
-        LobHeavy.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Heavy));
-        LobLight.onClick.AddListener(() => MageSquad.Instance.ActiveMage.CastLob(SpellPower.Light));
-
-        RedMage.onClick.AddListener(() => MageSquad.Instance.SetActive(MagicColor.Red));
-        GreenMage.onClick.AddListener(() => MageSquad.Instance.SetActive(MagicColor.Green));
-        BlueMage.onClick.AddListener(() => MageSquad.Instance.SetActive(MagicColor.Blue));
-
-        LongJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.LongJump());
-        HighJump.onClick.AddListener(() => MageSquad.Instance.ActiveMage.HighJump());
-
-        Special1.onClick.AddListener(() => MageSquad.Instance.ActiveMage.Special1());
-        Special2.onClick.AddListener(() => MageSquad.Instance.ActiveMage.Special2());
-
-        ManaPot.onClick.AddListener(() => MageSquad.Instance.ActiveMage.DrinkManaPotion());
-        HealthPot.onClick.AddListener(() => MageSquad.Instance.ActiveMage.DrinkHealthPotion());
-
         GetComponent<PlayMenuFollower>().enabled = false;
     }
 
     void Update ()
     {
-        var selected = EventSystemCache.Main.currentSelectedGameObject;
-        if (selected == null)
-        {
-            EventSystemCache.Main.SetSelectedGameObject(lastSelected); // prevent clicking away to deselect
-        }
-        else
-        {
-            lastSelected = selected;
-        }
+        if (!active) return;
 
-        if (!gameStarted) return;
-
-        bool visible = MenuContainer.activeSelf;
-        bool atTop = FirstTopLevelButton.interactable;
-
-        if (!visible && Input.GetButtonDown("Menu Select"))
-        {
-            MenuContainer.SetActive(true);
-            StartCoroutine(reHighlightButton());
-            StartCoroutine(setActiveNextFrame());
-        }
-
-        if (atTop && Input.GetButtonDown("Menu Cancel"))
-        {
-            MenuContainer.SetActive(false);
-            MenuIsActive = false;
-        }
-
-        if (Input.GetButtonDown("Menu Open"))
-        {
-            MenuContainer.SetActive(!visible);
-
-            if (!visible)
-            {
-                StartCoroutine(reHighlightButton());
-                StartCoroutine(setActiveNextFrame());
-            }
-            else
-            {
-                MenuIsActive = false;
-            }
-        }
+        traverseMenu();
     }
 
     public void StartGame ()
     {
-        gameStarted = true;
-
-        MenuContainer.SetActive(true);
-        MenuIsActive = true;
-
-        lastSelected = FirstTopLevelButton.gameObject;
-        StartCoroutine(reHighlightButton());
-
+        active = true;
         GetComponent<PlayMenuFollower>().enabled = true;
+
+        setSelected(tree.Children[0]);
     }
 
-    // prevents menu opening press from triggering currently highlighted button by making the submenuselectors wait at least one frame
-    IEnumerator setActiveNextFrame ()
+    void traverseMenu ()
     {
-        yield return null;
-        MenuIsActive = true;
+        if (Input.GetButtonDown("Play Menu Select"))
+        {
+            if (currentlySelected == null)
+            {
+                setSelected(tree.Children[0]);
+            }
+            else if (currentlySelected is PlayMenuLeafNode)
+            {
+                ((PlayMenuLeafNode) currentlySelected).OnSelect();
+            }
+            else if (currentlySelected is PlayMenuInternalNode)
+            {
+                setSelected(((PlayMenuInternalNode) currentlySelected).Children[0]);
+            }
+        }
+
+        if (Input.GetButtonDown("Play Menu Back"))
+        {
+            if (atTop)
+            {
+                setSelected(null);
+            }
+            else
+            {
+                setSelected(currentlySelected.Parent);
+            }
+        }
+
+        if (currentlySelected == null) return;
+
+        if (Input.GetButtonDown("Play Menu Next"))
+        {
+            setSelected(currentlySelected.GetNextSibling());
+        }
+
+        if (Input.GetButtonDown("Play Menu Previous"))
+        {
+            setSelected(currentlySelected.GetPreviousSibling());
+        }
     }
 
-    // from https://answers.unity.com/questions/1011523/first-selected-gameobject-not-highlighted.html
-    IEnumerator reHighlightButton ()
+    void setSelected (PlayMenuNode selected)
     {
-        EventSystemCache.Main.SetSelectedGameObject(null);
-        yield return null;
-        EventSystemCache.Main.SetSelectedGameObject(lastSelected);
+        Debug.Log(selected?.Label);
+        _currentlySelected = selected;
     }
 }
