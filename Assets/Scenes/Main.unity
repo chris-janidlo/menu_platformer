@@ -5114,14 +5114,14 @@ MonoBehaviour:
   Waves:
   - Enemies: 0000000000000000
     TimeRangeBetweenSpawns: {x: 4, y: 5}
-    TimeUntilNext: 20
+    TimeUntilNext: 0
   - Enemies: 000000000000000001000000
     TimeRangeBetweenSpawns: {x: 4, y: 5}
     TimeUntilNext: 20
   - Enemies: 00000000000000000100000001000000
     TimeRangeBetweenSpawns: {x: 4, y: 5}
     TimeUntilNext: 20
-  StartGameReadyTime: 9999999
+  StartGameReadyTime: 999
   HamsterSpawnLocations:
     Items:
     - {x: -160, y: 10}
