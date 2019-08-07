@@ -51,6 +51,8 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
         }
     }
 
+    public Color CurrentColorValue => MagicColorStats.ColorMap[ActiveMage.Color];
+
     bool startMenu = true;
     Vector2 redVel, greenVel, blueVel;
 

@@ -1105,7 +1105,6 @@ MonoBehaviour:
   ShrinkAnimationTime: 0.08
   ShiftAnimationOffset: 7
   ShiftAnimationTime: 0.1
-  ClickFlashColor: {r: 0.52156866, g: 0.58431375, b: 0.6313726, a: 1}
   ClickFlashFadeTime: 0.3
   MenuEntries: {fileID: 1295646218}
   Mask: {fileID: 1144099997}

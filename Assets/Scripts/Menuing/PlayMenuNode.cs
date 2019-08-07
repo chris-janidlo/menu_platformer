@@ -27,14 +27,14 @@ public abstract class PlayMenuNode
         return Siblings[loc];
     }
 
-    public List<PlayMenuNode> GetSurrounding (int range)
+    public List<PlayMenuNode> GetSurrounding ()
     {
         List<PlayMenuNode> output = new List<PlayMenuNode>();
         output.Add(this);
 
         PlayMenuNode backHead = GetPreviousSibling(), frontHead = GetNextSibling();
 
-        for (int i = 0; i < range; i++)
+        for (int i = 0; i < Siblings.Count; i++)
         {
             output.Insert(0, backHead);
             output.Add(frontHead);

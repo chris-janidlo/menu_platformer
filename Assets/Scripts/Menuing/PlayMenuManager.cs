@@ -15,7 +15,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     public float CarouselAnimationInitialOffset, CarouselAnimationTime;
     public float GrowAnimationTime, ShrinkAnimationTime;
     public float ShiftAnimationOffset, ShiftAnimationTime;
-    public Color ClickFlashColor;
     public float ClickFlashFadeTime;
 
     [Header("References")]
@@ -246,8 +245,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         MenuEntries.text = String.Join
         (
             MenuEntrySeparator,
-            selected.GetSurrounding(selected.Siblings.Count)
-                .Select(s => s.Label)
+            selected.GetSurrounding().Select(s => s.Label)
         );
     }
 
@@ -267,10 +265,19 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     IEnumerator clickAnimation ()
     {
+        Action<Color> setSelectedColor = c =>
+        {
+            MenuEntries.text = MenuEntries.text.Replace
+            (
+                currentlySelected.Label,
+                $"<#{ColorUtility.ToHtmlStringRGB(c)}>{currentlySelected.Label}</color>"
+            );
+        };
+
         float timer = 0;
         while (timer < ClickFlashFadeTime)
         {
-            MenuEntries.color = Color.Lerp(ClickFlashColor, initialButtonColor, timer / ClickFlashFadeTime);
+            setSelectedColor(Color.Lerp(MageSquad.Instance.CurrentColorValue, initialButtonColor, timer / ClickFlashFadeTime));
             timer += Time.deltaTime;
             yield return null;
         }
