@@ -1098,13 +1098,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955c49725b6fa4076939ace13d10e549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuEntrySeparator: '   '
   CarouselAnimationInitialOffset: 50
   CarouselAnimationTime: 0.1
   GrowAnimationTime: 0.1
   ShrinkAnimationTime: 0.08
   ShiftAnimationOffset: 7
   ShiftAnimationTime: 0.1
-  MenuEntrySeparator: '   '
+  ClickFlashColor: {r: 0.52156866, g: 0.58431375, b: 0.6313726, a: 1}
+  ClickFlashFadeTime: 0.3
   MenuEntries: {fileID: 1295646218}
   Mask: {fileID: 1144099997}
 --- !u!1 &397173561

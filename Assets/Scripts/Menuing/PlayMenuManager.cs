@@ -15,6 +15,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     public float CarouselAnimationInitialOffset, CarouselAnimationTime;
     public float GrowAnimationTime, ShrinkAnimationTime;
     public float ShiftAnimationOffset, ShiftAnimationTime;
+    public Color ClickFlashColor;
+    public float ClickFlashFadeTime;
 
     [Header("References")]
     public TextMeshProUGUI MenuEntries;
@@ -121,6 +123,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     Vector2 initialMaskPosition;
 
+    Color initialButtonColor;
+
     void Awake ()
     {
         SingletonSetInstance(this, true);
@@ -129,7 +133,9 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     void Start ()
     {
         GetComponent<PlayMenuFollower>().enabled = false;
+
         initialMaskPosition = Mask.transform.localPosition;
+        initialButtonColor = MenuEntries.color;
     }
 
     void Update ()
@@ -190,6 +196,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         {
             if (currentlySelected is PlayMenuLeafNode)
             {
+                startAnimation("clickAnimation");
                 ((PlayMenuLeafNode) currentlySelected).OnSelect();
             }
             else
@@ -244,10 +251,31 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         );
     }
 
-    void startAnimation (string animName, bool value)
+    void startAnimation (string animName, bool? value = null)
     {
         StopCoroutine(animName);
-        StartCoroutine(animName, value);
+
+        if (value == null)
+        {
+            StartCoroutine(animName);
+        }
+        else
+        {
+            StartCoroutine(animName, value);
+        }
+    }
+
+    IEnumerator clickAnimation ()
+    {
+        float timer = 0;
+        while (timer < ClickFlashFadeTime)
+        {
+            MenuEntries.color = Color.Lerp(ClickFlashColor, initialButtonColor, timer / ClickFlashFadeTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        MenuEntries.color = initialButtonColor;
     }
 
     IEnumerator sizeAnimation (bool growing)
