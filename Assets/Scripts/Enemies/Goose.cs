@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using crass;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(DestroyWhenChildrenInvisible))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(DestroyWhenChildrenInvisible))]
 public class Goose : BaseEnemy
 {
     public float HorizontalFollowDistance, FollowTime;
