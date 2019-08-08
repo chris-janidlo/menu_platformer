@@ -41,7 +41,6 @@ public class Butterfly : BaseEnemy
         Initialize(MagicColor.Green);
     }
 
-    // TODO: ice movement
     protected override void Update ()
     {
         base.Update();
@@ -73,7 +72,9 @@ public class Butterfly : BaseEnemy
 
         var movementAngleRounded = Mathf.Round(movementAngle / RoundRotationTo) * RoundRotationTo;
 
-        var flySpeed = chasing ? FlySpeedChase : FlySpeedNormal;
+        var flySpeed =
+            (chasing ? FlySpeedChase : FlySpeedNormal) *
+            (isFrozen ? BaseMageBullet.IceSlowPercent : 1);
 
         rb.velocity = Quaternion.AngleAxis(movementAngleRounded, Vector3.forward) * Vector2.right * flySpeed;
         rb.rotation = movementAngleRounded;
