@@ -44,7 +44,16 @@ public class Goose : BaseEnemy
         }
         else
         {
-            transform.position = Vector2.SmoothDamp(transform.position, getFollowPosition(), ref vel, FollowTime);
+            float followTime = FollowTime ;
+            
+            if (isFrozen)
+            {
+                // lengthen follow time by the inverse amount of slow
+                // eg: if slow percent is 80%, this will make the follow time 120% of what it normally is (think of it as "20% slower")
+                followTime *= 2 - BaseMageBullet.IceSlowPercent;
+            }
+
+            transform.position = Vector2.SmoothDamp(transform.position, getFollowPosition(), ref vel, followTime);
 
             Visuals.flipX = facingLeft;
         }
