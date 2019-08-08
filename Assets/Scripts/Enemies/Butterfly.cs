@@ -3,30 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(DestroyWhenChildrenInvisible))]
+[RequireComponent(typeof(Animator))]
 public class Butterfly : BaseEnemy
 {
     [Header("Stats")]
     public float MaxAngleDeltaPerSecond;
+    public float DeltaDeltaPerSecond;
+    public float RoundRotationTo;
     public float FlySpeedNormal, FlySpeedChase;
     public float ChaseDistance;
+    public float ChaseAnimationSpeed;
     public float Damage, PostDamageRefractoryPeriod;
-    public Vector2 BottomLeftCorner, TopRightCorner;
 
     [Header("References")]
     public ColorMapApplier ColoredPart;
 
     MagicColor color => Health.Color;
 
-    Rigidbody2D rb;
-
     [SerializeField]
-    float movementAngle;
-
+    float movementAngle, currentDelta;
     float damageRefractoryTimer;
+
+    Rigidbody2D rb;
+    Animator animator;
 
     public void Initialize (MagicColor color)
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         Health.Color = color;
         ColoredPart.ChangeColor(color);
@@ -34,7 +38,7 @@ public class Butterfly : BaseEnemy
 
     void Start ()
     {
-        Initialize(MagicColor.Red);
+        Initialize(MagicColor.Green);
     }
 
     // TODO: ice movement
@@ -64,27 +68,28 @@ public class Butterfly : BaseEnemy
             chasing = false;
         }
 
-        // bounce off screen walls
-        if (transform.position.x < BottomLeftCorner.x || transform.position.y < BottomLeftCorner.y || transform.position.x > TopRightCorner.x || transform.position.y > TopRightCorner.y)
-        {
-            movementAngle += 180;
-        }
-
         // keep angle in range (0, 360) so it doesn't overflow
         movementAngle = Mathf.Repeat(movementAngle, 360);
 
+        var movementAngleRounded = Mathf.Round(movementAngle / RoundRotationTo) * RoundRotationTo;
+
         var flySpeed = chasing ? FlySpeedChase : FlySpeedNormal;
 
-        rb.velocity = Quaternion.AngleAxis(movementAngle, Vector3.forward) * Vector2.right * flySpeed;
-        rb.rotation = movementAngle;
+        rb.velocity = Quaternion.AngleAxis(movementAngleRounded, Vector3.forward) * Vector2.right * flySpeed;
+        rb.rotation = movementAngleRounded;
+
+        animator.speed = chasing ? ChaseAnimationSpeed : 1;
     }
 
-    void OnTriggerEnter2D (Collider2D other)
+    void OnCollisionEnter2D (Collision2D other)
     {
+        // bounce
+        movementAngle += 180;
+
         if (damageRefractoryTimer >= 0) return;
 
-        Mage mage = other.GetComponent<Mage>();
-        if (mage == null) return;
+        Mage mage = other.gameObject.GetComponent<Mage>();
+        if (mage == null || mage.Health.Dead) return;
 
         mage.Health.ColorDamage(Damage, color);
         damageRefractoryTimer = PostDamageRefractoryPeriod;
