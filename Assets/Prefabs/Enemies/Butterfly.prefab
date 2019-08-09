@@ -302,13 +302,12 @@ MonoBehaviour:
   RoundRotationTo: 15
   FlySpeedNormal: 30
   FlySpeedChase: 60
+  FlySpeedDead: 0
   ChaseDistance: 100
   ChaseAnimationSpeed: 2
   Damage: 50
   PostDamageRefractoryPeriod: 10
   ColoredPart: {fileID: 2426712318673010105}
-  movementAngle: 0
-  movementAngleSmoothed: 0
 --- !u!114 &8160551573009399485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,11 +344,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8160551573009399472}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldDestroy: 0
 --- !u!50 &8160551573009399475
 Rigidbody2D:
   serializedVersion: 4

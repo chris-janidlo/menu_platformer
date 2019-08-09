@@ -20,7 +20,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     public float StartGameReadyTime;
 
-    public Vector2Bag HamsterSpawnLocations;
+    public Vector2Bag ButterflySpawnLocations, HamsterSpawnLocations;
     public Vector2Int HamsterHordeSizeRange;
 
     [Range(0, 1)]

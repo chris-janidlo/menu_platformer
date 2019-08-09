@@ -9,7 +9,7 @@ public class Butterfly : BaseEnemy
     [Header("Stats")]
     public float MaxAngleDeltaPerSecond;
     public float RoundRotationTo;
-    public float FlySpeedNormal, FlySpeedChase;
+    public float FlySpeedNormal, FlySpeedChase, FlySpeedDead;
     public float ChaseDistance;
     public float ChaseAnimationSpeed;
     public float Damage, PostDamageRefractoryPeriod;
@@ -23,15 +23,31 @@ public class Butterfly : BaseEnemy
     float damageRefractoryTimer;
 
     Rigidbody2D rb;
+    Collider2D col;
     Animator animator;
+    DestroyWhenChildrenInvisible destroyer;
 
     public void Initialize (MagicColor color)
     {
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
+        destroyer = GetComponent<DestroyWhenChildrenInvisible>();
+
+        col.enabled = false; // so we don't freak out while we're in the walls
+        
+        destroyer.ShouldDestroy = false;
 
         Health.Color = color;
         ColoredPart.ChangeColor(color);
+
+        transform.position = EnemySpawner.Instance.ButterflySpawnLocations.GetNext();
+
+        Health.Death.AddListener(() =>
+        {
+            col.enabled = false;
+            destroyer.ShouldDestroy = true;
+        });
     }
 
     void Start ()
@@ -42,6 +58,20 @@ public class Butterfly : BaseEnemy
     protected override void Update ()
     {
         base.Update();
+
+        if (Health.Dead)
+        {
+            // fly away from center
+            rb.velocity = transform.position.normalized * FlySpeedDead;
+            return;
+        }
+
+        if (destroyer.ChildrenInvisible)
+        {
+            // fly toward center
+            rb.velocity = (Vector3.zero - transform.position).normalized * FlySpeedNormal;
+            return;
+        }
 
         damageRefractoryTimer -= Time.deltaTime;
 
