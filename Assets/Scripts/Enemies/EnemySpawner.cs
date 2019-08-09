@@ -27,6 +27,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public float GooseTargetsActiveChance;
 
     [Header("References")]
+    public Butterfly ButterflyPrefab;
     public Hamster HamsterPrefab;
     public Goose GoosePrefab;
 
@@ -139,8 +140,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     void spawnButterfly ()
     {
-        // TODO:
-        Debug.Log("butterfly");
+        Instantiate(ButterflyPrefab).Initialize((MagicColor) UnityEngine.Random.Range(0, 3));
     }
 }
 

@@ -302,7 +302,7 @@ MonoBehaviour:
   RoundRotationTo: 15
   FlySpeedNormal: 30
   FlySpeedChase: 60
-  FlySpeedDead: 0
+  FlySpeedDead: 120
   ChaseDistance: 100
   ChaseAnimationSpeed: 2
   Damage: 50

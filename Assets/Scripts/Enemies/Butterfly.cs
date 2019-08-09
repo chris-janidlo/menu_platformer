@@ -42,12 +42,6 @@ public class Butterfly : BaseEnemy
         ColoredPart.ChangeColor(color);
 
         transform.position = EnemySpawner.Instance.ButterflySpawnLocations.GetNext();
-
-        Health.Death.AddListener(() =>
-        {
-            col.enabled = false;
-            destroyer.ShouldDestroy = true;
-        });
     }
 
     void Start ()
@@ -70,7 +64,25 @@ public class Butterfly : BaseEnemy
         {
             // fly toward center
             rb.velocity = (Vector3.zero - transform.position).normalized * FlySpeedNormal;
+            
+            // face the center
+            if (Mathf.Abs(rb.velocity.y) > Mathf.Abs(rb.velocity.x))
+            {
+                movementAngle = -90;
+                movementAngleSmoothed = -90;
+            }
+            else if (rb.velocity.x > 0)
+            {
+                movementAngle = 180;
+                movementAngleSmoothed = 180;
+            }
+            // else movementAngle = 0;
+
             return;
+        }
+        else if (!col.enabled)
+        {
+            col.enabled = true;
         }
 
         damageRefractoryTimer -= Time.deltaTime;
@@ -130,7 +142,8 @@ public class Butterfly : BaseEnemy
 
 	protected override void die ()
 	{
-		throw new System.NotImplementedException();
+		col.enabled = false;
+        destroyer.ShouldDestroy = true;
 	}
 
     float distanceToClosestLivingMage (out Mage mage)
