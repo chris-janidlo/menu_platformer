@@ -16,7 +16,6 @@ public class HamsterGem : MonoBehaviour
 
     void Start ()
     {
-        GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
     }
@@ -36,6 +35,6 @@ public class HamsterGem : MonoBehaviour
         // half the time, flip x:
         if (RandomExtra.Chance(.5f)) rb.velocity *= Vector2.left;
 
-        GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
+        GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
     }
 }

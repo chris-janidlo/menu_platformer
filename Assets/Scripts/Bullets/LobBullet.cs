@@ -36,6 +36,6 @@ public class LobBullet : BaseMageBullet
         );
 
         // don't destroy if the player lobs over the top of the screen
-        destroyInvisible.enabled = transform.position.y > 0;
+        destroyInvisible.ShouldDestroy = transform.position.y > 0;
     }
 }

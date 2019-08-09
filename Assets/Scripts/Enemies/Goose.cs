@@ -31,11 +31,6 @@ public class Goose : BaseEnemy
         transform.position = target.position + Vector3.up * InitialHeight;
 	}
 
-    protected override void Awake ()
-    {
-        GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
-    }
-
     protected override void Update ()
     {
         if (Health.Dead)
@@ -67,7 +62,7 @@ public class Goose : BaseEnemy
 
 	protected override void die ()
 	{
-        GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
+        GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
 	}
 
     Vector2 getFollowPosition ()

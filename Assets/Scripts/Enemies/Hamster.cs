@@ -29,8 +29,6 @@ public class Hamster : BaseEnemy
 	protected override void Awake ()
 	{
 		base.Awake();
-
-		GetComponent<DestroyWhenChildrenInvisible>().enabled = false;
 	}
 
 	public void Start ()
@@ -66,7 +64,7 @@ public class Hamster : BaseEnemy
 		if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
 
 		GetComponent<Collider2D>().enabled = false;
-		GetComponent<DestroyWhenChildrenInvisible>().enabled = true;
+		GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
 	}
 
 	IEnumerator startRoutine ()

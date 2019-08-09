@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class DestroyWhenChildrenInvisible : MonoBehaviour
 {
+	public bool ShouldDestroy;
+
+	public bool ChildrenInvisible => GetComponentsInChildren<Renderer>().All(r => !r.isVisible);
+
     void Update ()
 	{
-		if (GetComponentsInChildren<Renderer>().All(r => !r.isVisible)) Destroy(gameObject);
+		if (ShouldDestroy && ChildrenInvisible) Destroy(gameObject);
 	}
 }
