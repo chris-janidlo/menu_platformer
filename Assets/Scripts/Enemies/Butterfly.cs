@@ -8,7 +8,6 @@ public class Butterfly : BaseEnemy
 {
     [Header("Stats")]
     public float MaxAngleDeltaPerSecond;
-    public float DeltaDeltaPerSecond;
     public float RoundRotationTo;
     public float FlySpeedNormal, FlySpeedChase;
     public float ChaseDistance;
@@ -20,8 +19,7 @@ public class Butterfly : BaseEnemy
 
     MagicColor color => Health.Color;
 
-    [SerializeField]
-    float movementAngle, currentDelta;
+    float movementAngle, movementAngleSmoothed, smoothmentSpeed;
     float damageRefractoryTimer;
 
     Rigidbody2D rb;
@@ -70,7 +68,11 @@ public class Butterfly : BaseEnemy
         // keep angle in range (0, 360) so it doesn't overflow
         movementAngle = Mathf.Repeat(movementAngle, 360);
 
-        var movementAngleRounded = Mathf.Round(movementAngle / RoundRotationTo) * RoundRotationTo;
+        // smooth the value by making the actually used angle take longer to catch up with the internal angle the closer they are. also provide a minimum value that's greater than zero to avoid divide by zero
+        var smoother = 1 / Mathf.Max(Mathf.Epsilon, Mathf.Abs(movementAngle - movementAngleSmoothed));
+        movementAngleSmoothed = Mathf.SmoothDamp(movementAngleSmoothed, movementAngle, ref smoothmentSpeed, smoother);
+
+        var movementAngleRounded = Mathf.Round(movementAngleSmoothed / RoundRotationTo) * RoundRotationTo;
 
         var flySpeed =
             (chasing ? FlySpeedChase : FlySpeedNormal) *

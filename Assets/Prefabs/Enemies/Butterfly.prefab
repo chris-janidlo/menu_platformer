@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 8160551573009399475}
   - component: {fileID: 615388339779830979}
   - component: {fileID: 9075212394032573367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Butterfly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: {fileID: 8160551573009399485}
   MaxAngleDeltaPerSecond: 540
-  RoundRotationTo: 22.5
+  RoundRotationTo: 15
   FlySpeedNormal: 30
   FlySpeedChase: 60
   ChaseDistance: 100
@@ -308,6 +308,7 @@ MonoBehaviour:
   PostDamageRefractoryPeriod: 10
   ColoredPart: {fileID: 2426712318673010105}
   movementAngle: 0
+  movementAngleSmoothed: 0
 --- !u!114 &8160551573009399485
 MonoBehaviour:
   m_ObjectHideFlags: 0
