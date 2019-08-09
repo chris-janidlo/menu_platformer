@@ -298,6 +298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 8160551573009399485}
+  ElementalParticleEffectPrefab: {fileID: 7166876173075551717, guid: 1eb8b2b794033674fb290c10b4404e45,
+    type: 3}
   MaxAngleDeltaPerSecond: 540
   RoundRotationTo: 15
   FlySpeedNormal: 30

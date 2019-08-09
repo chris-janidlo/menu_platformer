@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldDestroy: 0
 --- !u!50 &3515311895813577453
 Rigidbody2D:
   serializedVersion: 4
@@ -225,6 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 7701606473248748580}
+  ElementalParticleEffectPrefab: {fileID: 7166876173075551717, guid: 1eb8b2b794033674fb290c10b4404e45,
+    type: 3}
   Gravity: 500
   AmbleSpeed: 30
   AmbleTime: 2
@@ -250,6 +253,9 @@ MonoBehaviour:
   IsColored: 1
   Color: 0
   MaxHealth: 50
+  HurtFlashes: 4
+  HurtFlashOnTime: 0.1
+  HurtFlashOffTime: 0.1
   Death:
     m_PersistentCalls:
       m_Calls: []
@@ -273,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldDestroy: 0
 --- !u!95 &3809552218200094724
 Animator:
   serializedVersion: 3

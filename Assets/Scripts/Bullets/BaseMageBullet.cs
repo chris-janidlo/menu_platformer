@@ -6,14 +6,14 @@ using crass;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class BaseMageBullet : MonoBehaviour
 {
-    public const float ExtraEffectChance = 0.1f;
+    public const float ExtraEffectChance = 0.05f;
     // red effect
     public const float FireDamagePerSecond = 10;
     public const float FireTimeMin = 1, FireTimMax = 5;
     // green effect
     public const float HealAmount = 10;
     // blue effect
-    public const float IceSlowPercent = .8f;
+    public const float IceSlowPercent = .5f;
     public const float IceTimeMin = 2, IceTimeMax = 7;
 
     public MagicColor Color => Visuals.Color;

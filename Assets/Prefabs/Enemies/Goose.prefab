@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 2042988747190018426}
+  ElementalParticleEffectPrefab: {fileID: 7166876173075551717, guid: 1eb8b2b794033674fb290c10b4404e45,
+    type: 3}
   HorizontalFollowDistance: 36
   FollowTime: 0.5
   InitialHeight: 400
@@ -193,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172d76987c738c4cbbb6234479336d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldDestroy: 0
 --- !u!50 &2042988747190018424
 Rigidbody2D:
   serializedVersion: 4

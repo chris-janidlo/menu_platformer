@@ -1515,7 +1515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b6cfdf811664b19a8ca6f0f38d7393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveMage: {fileID: 0}
   RedMage: {fileID: 1220847049}
   GreenMage: {fileID: 740562873}
   BlueMage: {fileID: 1239254741}
@@ -5177,8 +5176,7 @@ MonoBehaviour:
     Items:
     - {x: 340, y: -80}
     - {x: 340, y: 80}
-    - {x: 140, y: 250}
-    - {x: -140, y: 250}
+    - {x: 0, y: 250}
     - {x: -340, y: 80}
     - {x: -340, y: -80}
     AvoidRepeats: 1
