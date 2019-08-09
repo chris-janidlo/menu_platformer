@@ -34,6 +34,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public int CurrentWave { get; private set; }
 
     List<Mage> currentGooseTargets = new List<Mage>();
+    bool currentWaveDefeated;
+    IEnumerator currentWaveEnum;
 
     void Awake ()
     {
@@ -52,31 +54,41 @@ public class EnemySpawner : Singleton<EnemySpawner>
         foreach (var wave in Waves)
         {
             CurrentWave++;
-            StartCoroutine(waveRoutine(wave));
+            if (currentWaveEnum != null) StopCoroutine(currentWaveEnum); // at this point, the last wave should only be waiting to be defeated, if it's still running at all
+            StartCoroutine(currentWaveEnum = waveRoutine(wave));
 
             float timer = 0;
-            while (timer < wave.TimeUntilNext && BaseEnemy.TotalEnemies != 0)
+            while (timer < wave.TimeUntilNext && !currentWaveDefeated)
             {
                 timer += Time.deltaTime;
                 yield return null;
             }
         }
 
-        yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
+        yield return new WaitUntil(() => currentWaveDefeated);
 
         EndScreen.Victory.StartSequence();
     }
 
     IEnumerator waveRoutine (Wave wave)
     {
+        currentWaveDefeated = false;
+
         var copyList = new List<EnemyCategory>(wave.Enemies);
         copyList.ShuffleInPlace();
 
-        foreach (var enemy in copyList)
+		for (int i = 0; i < copyList.Count; i++)
         {
-            spawnEnemy(enemy);
-            yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
+            // wait in between every spawn, but not before the first or after the last
+            if (i > 0) yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
+
+			EnemyCategory enemy = copyList[i];
+			spawnEnemy(enemy);
         }
+
+        yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
+
+        currentWaveDefeated = true;
     }
 
     void spawnEnemy (EnemyCategory enemy)
