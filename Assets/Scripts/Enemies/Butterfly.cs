@@ -27,7 +27,7 @@ public class Butterfly : BaseEnemy
     Animator animator;
     DestroyWhenChildrenInvisible destroyer;
 
-    public void Initialize (MagicColor color)
+    public void Initialize ()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
@@ -37,6 +37,8 @@ public class Butterfly : BaseEnemy
         col.enabled = false; // so we don't freak out while we're in the walls
         
         destroyer.ShouldDestroy = false;
+
+        var color = (MagicColor) Random.Range(0, 3);
 
         Health.Color = color;
         ColoredPart.ChangeColor(color);

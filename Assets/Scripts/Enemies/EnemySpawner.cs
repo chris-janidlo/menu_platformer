@@ -8,9 +8,16 @@ using crass;
 public class EnemySpawner : Singleton<EnemySpawner>
 {
     [Serializable]
+    public class EnemyPack
+    {
+        public EnemyCategory Category;
+        public int Number = 1;
+    }
+
+    [Serializable]
     public class Wave
     {
-        public List<EnemyCategory> Enemies;
+        public List<EnemyPack> Packs;
         public Vector2 TimeRangeBetweenSpawns;
         public float TimeUntilNext;
     }
@@ -21,7 +28,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public float StartGameReadyTime;
 
     public Vector2Bag ButterflySpawnLocations, HamsterSpawnLocations;
-    public Vector2Int HamsterHordeSizeRange;
 
     [Range(0, 1)]
     public float GooseTargetsActiveChance;
@@ -74,7 +80,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
     {
         currentWaveDefeated = false;
 
-        var copyList = new List<EnemyCategory>(wave.Enemies);
+        var copyList = new List<EnemyPack>(wave.Packs);
         copyList.ShuffleInPlace();
 
 		for (int i = 0; i < copyList.Count; i++)
@@ -82,8 +88,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
             // wait in between every spawn, but not before the first or after the last
             if (i > 0) yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
 
-			EnemyCategory enemy = copyList[i];
-			spawnEnemy(enemy);
+			EnemyPack pack = copyList[i];
+			spawnPack(pack);
         }
 
         yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
@@ -91,30 +97,31 @@ public class EnemySpawner : Singleton<EnemySpawner>
         currentWaveDefeated = true;
     }
 
-    void spawnEnemy (EnemyCategory enemy)
+    void spawnPack (EnemyPack pack)
     {
-        switch (enemy)
+        Action spawner = null;
+
+        switch (pack.Category)
         {
             case EnemyCategory.Hamster:
-                spawnHamsterHorde();
-                break;
-
-            case EnemyCategory.Goose:
-                spawnGoose();
+                spawner = () => Instantiate(HamsterPrefab);
                 break;
 
             case EnemyCategory.Butterfly:
-                spawnButterfly();
+                spawner = () => Instantiate(ButterflyPrefab);
                 break;
-        }
-    }
 
-    void spawnHamsterHorde ()
-    {
-        int limit = RandomExtra.Range(HamsterHordeSizeRange);
-        for (int i = 0; i < limit; i++)
+            case EnemyCategory.Goose:
+                spawner = spawnGoose;
+                break;
+
+            default:
+                throw new ArgumentException($"unexpected enemy type {pack.Category}");
+        }
+
+        for (int i = 0; i < pack.Number; i++)
         {
-            Instantiate(HamsterPrefab);
+            spawner();
         }
     }
 
@@ -147,11 +154,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
         var goose = Instantiate(GoosePrefab);
         goose.Initialize(target.transform);
         goose.Health.Death.AddListener(() => currentGooseTargets.Remove(target));
-    }
-
-    void spawnButterfly ()
-    {
-        Instantiate(ButterflyPrefab).Initialize((MagicColor) UnityEngine.Random.Range(0, 3));
     }
 }
 
