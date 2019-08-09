@@ -7,13 +7,15 @@ using crass;
 
 public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
 {
-    public Mage ActiveMage, RedMage, GreenMage, BlueMage;
+    public Mage RedMage, GreenMage, BlueMage;
 
     public float StartMenuFollowDelay, StartMenuFollowSpacing;
 
     public float HealthPotGain, ManaPotGain;
 
     public ActiveMageChangeEvent ActiveMageChanged;
+
+    public Mage ActiveMage { get; private set; }
 
     [SerializeField]
     int _healthPots, _manaPots;

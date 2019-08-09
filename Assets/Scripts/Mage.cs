@@ -465,19 +465,23 @@ public class Mage : MonoBehaviour
     {
         Visuals.GetComponent<SpriteRenderer>().SetAlpha(.5f);
 
-        MageSquad.Instance.ActiveMage = null;
+        MagicColor? activeColor = null;
         foreach (var mage in MageSquad.Instance)
         {
             if (!mage.Health.Dead)
             {
-                MageSquad.Instance.ActiveMage = mage;
+                activeColor = mage.Color;
                 break;
             }
         }
 
-        if (MageSquad.Instance.ActiveMage == null)
+        if (activeColor == null)
         {
             GameOver.Instance.StartSequence();
+        }
+        else
+        {
+            MageSquad.Instance.SetActive((MagicColor) activeColor);
         }
     }
 
