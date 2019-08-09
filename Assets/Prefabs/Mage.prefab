@@ -73,7 +73,7 @@ MonoBehaviour:
   Gravity: 500
   JumpFudgeTime: 0.08
   GroundedFudgeVertical: 0.1
-  GroundedFudgeHorizontal: 0.1
+  GroundedFudgeHorizontal: 0
   NimbilityTime: 4
   NimbilityNewSpeed: 220
   NimbilityNewJumpBurst: 400

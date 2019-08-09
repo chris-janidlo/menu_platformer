@@ -84,8 +84,8 @@ public class Mage : MonoBehaviour
         halfHeight = extents.y;
         groundedExtents = new Vector2
         (
-            extents.x + GroundedFudgeHorizontal / 2,
-            GroundedFudgeVertical / 2
+            2 * extents.x + GroundedFudgeHorizontal,
+            GroundedFudgeVertical
         );
 
         groundedFilter = new ContactFilter2D();
