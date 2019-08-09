@@ -44,11 +44,6 @@ public class Butterfly : BaseEnemy
         transform.position = EnemySpawner.Instance.ButterflySpawnLocations.GetNext();
     }
 
-    void Start ()
-    {
-        Initialize(MagicColor.Green);
-    }
-
     protected override void Update ()
     {
         base.Update();
