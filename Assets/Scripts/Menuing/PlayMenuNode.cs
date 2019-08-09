@@ -10,6 +10,21 @@ public abstract class PlayMenuNode
 
     public List<PlayMenuNode> Siblings => Parent.Children;
 
+    public PlayMenuInternalNode Root
+    {
+        get
+        {
+            var root = this;
+
+            while (root.Parent.Parent != null)
+            {
+                root = root.Parent;
+            }
+
+            return (PlayMenuInternalNode) root;
+        }
+    }
+
     public PlayMenuNode (string label)
     {
         Label = label;

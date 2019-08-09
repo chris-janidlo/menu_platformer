@@ -135,6 +135,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         initialMaskPosition = Mask.transform.localPosition;
         initialButtonColor = MenuEntries.color;
+
+        lastSelected = tree.Children[0]; // so when we first open the menu, we open it to the start of the tree
     }
 
     void Update ()
@@ -148,6 +150,14 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     public void StartGame ()
     {
+        StartCoroutine(startRoutine());
+    }
+
+    IEnumerator startRoutine ()
+    {
+        // wait one frame before activating so that if the user pressed spacebar to start the game the menu won't open up
+        yield return null;
+
         active = true;
         GetComponent<PlayMenuFollower>().enabled = true;
     }
@@ -203,7 +213,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 if (currentlySelected == null)
                 {
                     startAnimation("sizeAnimation", true);
-                    setSelected(tree.Children[0]);
+                    setSelected(lastSelected.Root);
                 }
                 else // when currentlySelected is PlayMenuInternalNode
                 {
