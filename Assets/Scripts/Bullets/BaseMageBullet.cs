@@ -20,20 +20,17 @@ public abstract class BaseMageBullet : MonoBehaviour
 
     [Header("Stats")]
     [Header("Base")]
-    public SpellPowerContainer Damages;
+    public float Damage;
 
     [Header("References")]
     public ColorMapApplier Visuals;
 
     bool appliedExtraEffect;
-    protected SpellPower power;
     protected Rigidbody2D rb;
 
-    public virtual void Initialize (MagicColor color, SpellPower power)
+    public virtual void Initialize (MagicColor color)
     {
         Visuals.Color = color;
-        this.power = power;
-
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -59,7 +56,7 @@ public abstract class BaseMageBullet : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.Health.ColorDamage(Damages[power], Color);
+            enemy.Health.ColorDamage(Damage, Color);
 
             if (effect)
             {
@@ -76,11 +73,5 @@ public abstract class BaseMageBullet : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    protected void setScale (SpellPowerContainer scales)
-    {
-        var scale = scales[power];
-        transform.localScale = new Vector3(scale, scale, scale);
     }
 }

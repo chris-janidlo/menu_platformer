@@ -30,18 +30,18 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
             new PlayMenuLeafNode
             (
                 "Burst",
-                activeMage => activeMage.CastBurst(SpellPower.Normal)
+                activeMage => activeMage.CastBurst()
             ),
             new PlayMenuLeafNode
             (
                 "Shoot",
-                activeMage => activeMage.CastLine(SpellPower.Normal)
+                activeMage => activeMage.CastLine()
                 
             ),
             new PlayMenuLeafNode
             (
                 "Lob",
-                activeMage => activeMage.CastLob(SpellPower.Normal)
+                activeMage => activeMage.CastLob()
                 
             )
         ),

@@ -6,22 +6,21 @@ public class BurstBullet : BaseMageBullet
 {
     [Header("Stats")]
     [Header("Burst")]
-    public SpellPowerContainer Speeds;
+    public float Speed;
     public AnimationCurve ShrinkCurve;
-    public SpellPowerContainer ScaleMultipliers;
 
     float lifeTimer;
 
-    public void Initialize (Vector2 direction, MagicColor color, SpellPower power)
+    public void Initialize (Vector2 direction, MagicColor color)
     {
-        base.Initialize(color, power);
+        base.Initialize(color);
 
-        rb.velocity = direction.normalized * Speeds[power];
+        rb.velocity = direction.normalized * Speed;
     }
 
     void Update ()
     {
-        float scale = ShrinkCurve.Evaluate(lifeTimer) * ScaleMultipliers[power];
+        float scale = ShrinkCurve.Evaluate(lifeTimer);
 
         if (scale <= 0)
         {

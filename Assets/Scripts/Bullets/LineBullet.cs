@@ -6,14 +6,12 @@ public class LineBullet : BaseMageBullet
 {
     [Header("Stats")]
     [Header("Line")]
-    public SpellPowerContainer Speeds;
-    public SpellPowerContainer Scales;
+    public float Speed;
 
-    public void Initialize (bool goingLeft, MagicColor color, SpellPower power)
+    public void Initialize (bool goingLeft, MagicColor color)
     {
-        base.Initialize(color, power);
+        base.Initialize(color);
 
-        rb.velocity = (goingLeft ? Vector3.left : Vector3.right) * Speeds[power];
-        setScale(Scales);
+        rb.velocity = (goingLeft ? Vector3.left : Vector3.right) * Speed;
     }
 }

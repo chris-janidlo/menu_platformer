@@ -47,19 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23951152268e24e6783605bec9c9dbe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damages:
-    Light: 2
-    Normal: 10
-    Heavy: 50
+  Damage: 10
   Visuals: {fileID: 7108902270381758676}
-  Speeds:
-    Light: 500
-    Normal: 300
-    Heavy: 40
-  Scales:
-    Light: 0.9
-    Normal: 1
-    Heavy: 4
+  Speed: 300
 --- !u!114 &5943528480097966903
 MonoBehaviour:
   m_ObjectHideFlags: 0

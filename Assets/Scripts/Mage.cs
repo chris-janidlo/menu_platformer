@@ -28,7 +28,7 @@ public class Mage : MonoBehaviour
     [Header("Stats")]
     public MagicColor Color;
     public float ManaGain;
-    public SpellPowerContainer BurstCosts, LineCosts, LobCosts;
+    public float BurstCost, LineCost, LobCost;
     public AbilityCosts RedAbilityCosts, GreenAbilityCosts, BlueAbilityCosts;
 
     public float MoveSpeed;
@@ -128,9 +128,9 @@ public class Mage : MonoBehaviour
     }
 
     // returns whether the cast was successful
-    public void CastBurst (SpellPower power)
+    public void CastBurst ()
     {
-        var cost = BurstCosts[power];
+        var cost = BurstCost;
         
         if (Mana < cost)
         {
@@ -154,14 +154,14 @@ public class Mage : MonoBehaviour
         foreach (var dir in dirs)
         {
             var bullet = Instantiate(BurstPrefab, transform.position, Quaternion.identity);
-            bullet.Initialize(dir, Color, power);
+            bullet.Initialize(dir, Color);
         }
     }
 
     // returns whether the cast was successful
-    public void CastLine (SpellPower power)
+    public void CastLine ()
     {
-        var cost = LineCosts[power];
+        var cost = LineCost;
         
         if (Mana < cost)
         {
@@ -171,13 +171,13 @@ public class Mage : MonoBehaviour
         Mana -= cost;
 
         var bullet = Instantiate(LinePrefab, transform.position, Quaternion.identity);
-        bullet.Initialize(FacingLeft, Color, power);
+        bullet.Initialize(FacingLeft, Color);
     }
 
     // returns whether the cast was successful
-    public void CastLob (SpellPower power)
+    public void CastLob ()
     {
-        var cost = LobCosts[power];
+        var cost = LobCost;
         
         if (Mana < cost)
         {
@@ -187,7 +187,7 @@ public class Mage : MonoBehaviour
         Mana -= cost;
 
         var bullet = Instantiate(LobPrefab, transform.position, Quaternion.identity);
-        bullet.Initialize(FacingLeft, Color, power);
+        bullet.Initialize(FacingLeft, Color);
     }
 
     public void LongJump ()

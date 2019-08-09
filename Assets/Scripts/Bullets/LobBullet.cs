@@ -8,21 +8,19 @@ public class LobBullet : BaseMageBullet
     [Header("Stats")]
     [Header("Line")]
     public float Gravity;
-    public SpellPowerContainer LaunchYs, LaunchSpeeds, Scales;
+    public Vector2 LaunchSpeed;
 
     DestroyWhenChildrenInvisible destroyInvisible;
 
-    public void Initialize (bool goingLeft, MagicColor color, SpellPower power)
+    public void Initialize (bool goingLeft, MagicColor color)
     {
-        base.Initialize(color, power);
+        base.Initialize(color);
 
         rb.velocity = new Vector2
         (
-            goingLeft ? -1 : 1,
-            LaunchYs[power]
-        ).normalized * LaunchSpeeds[power];
-
-        setScale(Scales);
+            LaunchSpeed.x * (goingLeft ? -1 : 1),
+            LaunchSpeed.y
+        );
 
         destroyInvisible = GetComponent<DestroyWhenChildrenInvisible>();
     }
