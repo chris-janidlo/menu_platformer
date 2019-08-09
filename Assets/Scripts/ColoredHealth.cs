@@ -57,7 +57,7 @@ public class ColoredHealth : MonoBehaviour
         }
     }
 
-    public bool Dead => CurrentHealth == 0;
+    public bool Dead => CurrentHealth <= 0;
 
     bool dead, flashing;
 
