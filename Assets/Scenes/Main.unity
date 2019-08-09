@@ -1627,8 +1627,8 @@ MonoBehaviour:
   BlueMage: {fileID: 1239254741}
   StartMenuFollowDelay: 0.1
   StartMenuFollowSpacing: 20
-  HealthPotGain: 0
-  ManaPotGain: 0
+  HealthPotGain: 50
+  ManaPotGain: 50
   ActiveMageChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5560,7 +5560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waves:
-  - Enemies: 01000000010000000100000001000000010000000100000001000000010000000100000001000000
+  - Enemies: 01000000010000000100000002000000010000000100000001000000020000000100000001000000
     TimeRangeBetweenSpawns: {x: 4, y: 5}
     TimeUntilNext: 0
   StartGameReadyTime: 5

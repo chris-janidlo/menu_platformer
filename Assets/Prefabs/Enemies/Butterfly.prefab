@@ -300,6 +300,10 @@ MonoBehaviour:
   Health: {fileID: 8160551573009399485}
   ElementalParticleEffectPrefab: {fileID: 7166876173075551717, guid: 1eb8b2b794033674fb290c10b4404e45,
     type: 3}
+  HealthPotPrefab: {fileID: 8597196213851952340, guid: e7ac104183e6e37479c561cad3d07ddb,
+    type: 3}
+  ManaPotPrefab: {fileID: 7373291636492479357, guid: d4bd4ae11b7ee4c4d817854bc27beb59,
+    type: 3}
   MaxAngleDeltaPerSecond: 540
   RoundRotationTo: 15
   FlySpeedNormal: 30

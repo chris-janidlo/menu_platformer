@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using crass;
 
 [RequireComponent(typeof(ColoredHealth))]
 public abstract class BaseEnemy : MonoBehaviour
 {
+    public const float ItemDropRate = .1f;
+    public const float HealthPotChance = .4f;
+
     public static int TotalEnemies { get; private set; }
 
     public ColoredHealth Health;
     public ElementalParticleEffect ElementalParticleEffectPrefab;
+    public Item HealthPotPrefab, ManaPotPrefab;
 
     protected bool isFrozen => iceTimer >= 0;
 
@@ -19,8 +24,16 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         TotalEnemies++;
 
-        Health.Death.AddListener(die);
-        Health.Death.AddListener(() => TotalEnemies--);
+        Health.Death.AddListener(() => {
+            TotalEnemies--;
+
+            if (RandomExtra.Chance(ItemDropRate))
+            {
+                Instantiate(RandomExtra.Chance(HealthPotChance) ? HealthPotPrefab : ManaPotPrefab, transform.position, Quaternion.identity);
+            }
+
+            die();
+        });
     }
 
     protected virtual void Update ()
