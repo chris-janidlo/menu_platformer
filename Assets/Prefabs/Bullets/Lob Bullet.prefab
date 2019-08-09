@@ -52,7 +52,7 @@ MonoBehaviour:
     Normal: 0
     Heavy: 0
   Visuals: {fileID: 7108902270381758676}
-  Gravity: 200
+  Gravity: 500
   LaunchYs:
     Light: 6
     Normal: 4
