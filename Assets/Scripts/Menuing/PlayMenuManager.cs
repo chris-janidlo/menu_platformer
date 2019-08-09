@@ -29,11 +29,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
             "Magic",
             new PlayMenuLeafNode
             (
-                "Burst",
-                activeMage => activeMage.CastBurst()
-            ),
-            new PlayMenuLeafNode
-            (
                 "Shoot",
                 activeMage => activeMage.CastLine()
                 
@@ -43,6 +38,11 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 "Lob",
                 activeMage => activeMage.CastLob()
                 
+            ),
+            new PlayMenuLeafNode
+            (
+                "Burst",
+                activeMage => activeMage.CastBurst()
             )
         ),
         new PlayMenuInternalNode
