@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,11 +75,6 @@ public class Mage : MonoBehaviour
     // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
     ContactFilter2D groundedFilter;
 
-    void Awake ()
-    {
-        Visuals.Color = Color;
-    }
-
     void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -97,6 +92,7 @@ public class Mage : MonoBehaviour
         // bullets don't affect grounded state
         groundedFilter.layerMask = ~LayerMask.NameToLayer("Player Bullet");
 
+        Visuals.ChangeColor(Color);
         Health.Color = Color;
         Health.Death.AddListener(die);
         Health.Revival.AddListener(revive);
