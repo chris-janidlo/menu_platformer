@@ -9,6 +9,7 @@ public class Goose : BaseEnemy
     public float HorizontalFollowDistance, FollowTime;
     public float InitialHeight, Gravity;
     public float AttackRoutineStartDistance, AttackChargeTime;
+    public float SpeedConsideredFalling;
     public float ShakeMagnitudeMax;
     public Vector2 TimeRangeBetweenAttacks, LaserSpawnOffset;
 
@@ -17,15 +18,23 @@ public class Goose : BaseEnemy
 
     Transform target;
 
+    Animator animator;
     Rigidbody2D rb;
-    Vector2 vel;
+    Vector2 smoothDampVel, previousPosition;
 
-    bool following, attacking;
+    bool following;
 
     bool facingLeft => transform.position.x > target.position.x;
 
+    bool attacking
+    {
+        get => animator.GetBool("Attacking");
+        set => animator.SetBool("Attacking", value);
+    }
+
 	public void Initialize (Transform target)
 	{
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
         this.target = target;
@@ -49,12 +58,16 @@ public class Goose : BaseEnemy
                 followTime *= 2 - BaseMageBullet.IceSlowPercent;
             }
 
-            transform.position = Vector2.SmoothDamp(transform.position, getFollowPosition(), ref vel, followTime);
+            transform.position = Vector2.SmoothDamp(transform.position, getFollowPosition(), ref smoothDampVel, followTime);
 
             if (attacking) transform.position += (Vector3) Random.insideUnitCircle * ShakeMagnitudeMax;
 
             Visuals.flipX = facingLeft;
         }
+
+        Vector2 velocity = ((Vector2) transform.position - previousPosition) / Time.deltaTime;
+        animator.SetBool("Falling", velocity.y <= -SpeedConsideredFalling);
+        previousPosition = transform.position;
 
         if (!following && Vector2.Distance(transform.position, target.position) <= AttackRoutineStartDistance)
         {
@@ -84,7 +97,6 @@ public class Goose : BaseEnemy
             yield return new WaitForSeconds(AttackChargeTime);
 
             attacking = false;
-            // TODO: open mouth attack animation?
 
             Vector3 laserPos = transform.position + new Vector3
             (
