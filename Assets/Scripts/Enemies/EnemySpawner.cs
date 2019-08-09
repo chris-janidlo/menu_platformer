@@ -64,8 +64,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
         yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
 
-        // TODO: victory screen
-        Debug.Log("you win");
+        EndScreen.Victory.StartSequence();
     }
 
     IEnumerator waveRoutine (Wave wave)

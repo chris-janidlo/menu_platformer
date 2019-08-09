@@ -477,7 +477,7 @@ public class Mage : MonoBehaviour
 
         if (activeColor == null)
         {
-            GameOver.Instance.StartSequence();
+            EndScreen.GameOver.StartSequence();
         }
         else if (Active)
         {

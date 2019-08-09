@@ -6,26 +6,37 @@ using TMPro;
 using crass;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class GameOver : Singleton<GameOver>
+public class EndScreen : MonoBehaviour
 {
+    public static EndScreen Victory, GameOver;
+ 
+    public bool IsGameOver;
     public float FadeTime, PromptDelay, PromptFadeTime;
     public TextMeshProUGUI Prompt;
 
     CanvasGroup group;
 
-    void Awake ()
+    void Start ()
     {
-        SingletonSetInstance(this, true);
         group = GetComponent<CanvasGroup>();
+
+        if (IsGameOver)
+        {
+            GameOver = this;
+        }
+        else
+        {
+            Victory = this;
+        }
     }
 
     [ContextMenu("test run")]
     public void StartSequence ()
     {
-        StartCoroutine(gameOverRoutine());
+        StartCoroutine(displayRoutine());
     }
 
-    IEnumerator gameOverRoutine ()
+    IEnumerator displayRoutine ()
     {
         Prompt.alpha = 0;
         PlayMenuManager.Instance.gameObject.SetActive(false);
