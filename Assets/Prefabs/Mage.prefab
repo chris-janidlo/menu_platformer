@@ -50,10 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mana: 100
   Color: 0
-  ManaGain: 20
-  BurstCost: 0
-  LineCost: 0
-  LobCost: 0
+  ManaGain: 15
+  BurstCost: 30
+  LineCost: 10
+  LobCost: 15
   RedAbilityCosts:
     Special1: 20
     Special2: 30
