@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -479,7 +479,7 @@ public class Mage : MonoBehaviour
         {
             GameOver.Instance.StartSequence();
         }
-        else
+        else if (Active)
         {
             MageSquad.Instance.SetActive((MagicColor) activeColor);
         }
