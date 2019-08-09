@@ -47,25 +47,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         ),
         new PlayMenuInternalNode
         (
-            "Team",
-            new PlayMenuLeafNode
-            (
-                "Red Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Red)
-            ),
-            new PlayMenuLeafNode
-            (
-                "Green Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Green)
-            ),
-            new PlayMenuLeafNode
-            (
-                "Blue Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Blue)
-            )
-        ),
-        new PlayMenuInternalNode
-        (
             "Movement",
             new PlayMenuLeafNode
             (
@@ -105,6 +86,25 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 "Mana Pot",
                 activeMage => activeMage.DrinkManaPotion()
             )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Team",
+            new PlayMenuLeafNode
+            (
+                "Red Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Red)
+            ),
+            new PlayMenuLeafNode
+            (
+                "Green Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Green)
+            ),
+            new PlayMenuLeafNode
+            (
+                "Blue Mage",
+                () => MageSquad.Instance.SetActive(MagicColor.Blue)
+            )
         )
     );
 
@@ -117,8 +117,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     bool active;
     bool atTop => currentlySelected.Parent.Label == "_top";
 
-    PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[0];
-    PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children[3]).Children[1];
+    PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Blood Magic")).Children[0];
+    PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Blood Magic")).Children[1];
 
     Vector2 initialMaskPosition;
 
