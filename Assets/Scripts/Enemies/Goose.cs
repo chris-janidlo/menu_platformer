@@ -9,6 +9,7 @@ public class Goose : BaseEnemy
     public float HorizontalFollowDistance, FollowTime;
     public float InitialHeight, Gravity;
     public float AttackRoutineStartDistance, AttackChargeTime;
+    public float ShakeMagnitudeMax;
     public Vector2 TimeRangeBetweenAttacks, LaserSpawnOffset;
 
     public GooseLaser LaserPrefab;
@@ -19,7 +20,7 @@ public class Goose : BaseEnemy
     Rigidbody2D rb;
     Vector2 vel;
 
-    bool attacking;
+    bool following, attacking;
 
     bool facingLeft => transform.position.x > target.position.x;
 
@@ -50,12 +51,14 @@ public class Goose : BaseEnemy
 
             transform.position = Vector2.SmoothDamp(transform.position, getFollowPosition(), ref vel, followTime);
 
+            if (attacking) transform.position += (Vector3) Random.insideUnitCircle * ShakeMagnitudeMax;
+
             Visuals.flipX = facingLeft;
         }
 
-        if (!attacking && Vector2.Distance(transform.position, target.position) <= AttackRoutineStartDistance)
+        if (!following && Vector2.Distance(transform.position, target.position) <= AttackRoutineStartDistance)
         {
-            attacking = true;
+            following = true;
             StartCoroutine(attackRoutine());
         }
     }
@@ -76,11 +79,12 @@ public class Goose : BaseEnemy
         {
             yield return new WaitForSeconds(RandomExtra.Range(TimeRangeBetweenAttacks));
 
-            // TODO: show charging animation
+            attacking = true;
 
             yield return new WaitForSeconds(AttackChargeTime);
 
-            // TODO: show attack animation
+            attacking = false;
+            // TODO: open mouth attack animation?
 
             Vector3 laserPos = transform.position + new Vector3
             (

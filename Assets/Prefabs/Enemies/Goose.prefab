@@ -149,6 +149,7 @@ MonoBehaviour:
   Gravity: 500
   AttackRoutineStartDistance: 72
   AttackChargeTime: 1
+  ShakeMagnitudeMax: 2
   TimeRangeBetweenAttacks: {x: 4, y: 5}
   LaserSpawnOffset: {x: 5, y: 5}
   LaserPrefab: {fileID: 2437595743221137011, guid: 9dd0bd4b9a4816f4881acf6ca37f60ea,
