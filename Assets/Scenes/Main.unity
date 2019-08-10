@@ -5492,8 +5492,9 @@ MonoBehaviour:
       Number: 1
     - Category: 0
       Number: 1
+    TimeUntilFirstSpawm: 0
     TimeRangeBetweenSpawns: {x: 10, y: 10}
-    TimeUntilNext: 60
+    MaxTimeUntilNextWave: 55
   - Packs:
     - Category: 0
       Number: 2
@@ -5501,8 +5502,9 @@ MonoBehaviour:
       Number: 2
     - Category: 0
       Number: 2
+    TimeUntilFirstSpawm: 5
     TimeRangeBetweenSpawns: {x: 10, y: 10}
-    TimeUntilNext: 60
+    MaxTimeUntilNextWave: 0
   StartGameReadyTime: 5
   ButterflySpawnLocations:
     Items:

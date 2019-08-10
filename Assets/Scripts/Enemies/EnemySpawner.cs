@@ -18,8 +18,9 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public class Wave
     {
         public List<EnemyPack> Packs;
+        public float TimeUntilFirstSpawm;
         public Vector2 TimeRangeBetweenSpawns;
-        public float TimeUntilNext;
+        public float MaxTimeUntilNextWave;
     }
 
     [Header("Stats")]
@@ -64,7 +65,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
             StartCoroutine(currentWaveEnum = waveRoutine(wave));
 
             float timer = 0;
-            while (timer < wave.TimeUntilNext && !currentWaveDefeated)
+            while (timer < wave.MaxTimeUntilNextWave && !currentWaveDefeated)
             {
                 timer += Time.deltaTime;
                 yield return null;
@@ -85,8 +86,14 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
 		for (int i = 0; i < copyList.Count; i++)
         {
-            // wait in between every spawn, but not before the first or after the last
-            if (i > 0) yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
+            if (i == 0)
+            {
+                yield return new WaitForSeconds(wave.TimeUntilFirstSpawm);
+            }
+            else
+            {
+                yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
+            }
 
 			EnemyPack pack = copyList[i];
 			spawnPack(pack);
