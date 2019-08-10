@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ public class Butterfly : BaseEnemy
     Animator animator;
     DestroyWhenChildrenInvisible destroyer;
 
-    public void Initialize ()
+    public void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
