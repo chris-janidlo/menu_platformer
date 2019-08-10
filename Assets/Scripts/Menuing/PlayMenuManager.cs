@@ -47,20 +47,6 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         ),
         new PlayMenuInternalNode
         (
-            "Movement",
-            new PlayMenuLeafNode
-            (
-                "High Jump",
-                activeMage => activeMage.HighJump()
-            ),
-            new PlayMenuLeafNode
-            (
-                "Long Jump",
-                activeMage => activeMage.LongJump()
-            )
-        ),
-        new PlayMenuInternalNode
-        (
             "Ability",
             new PlayMenuLeafNode
             (
@@ -71,6 +57,20 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
             (
                 "special2",
                 activeMage => activeMage.Special2()
+            )
+        ),
+        new PlayMenuInternalNode
+        (
+            "Movement",
+            new PlayMenuLeafNode
+            (
+                "High Jump",
+                activeMage => activeMage.HighJump()
+            ),
+            new PlayMenuLeafNode
+            (
+                "Long Jump",
+                activeMage => activeMage.LongJump()
             )
         ),
         new PlayMenuInternalNode
