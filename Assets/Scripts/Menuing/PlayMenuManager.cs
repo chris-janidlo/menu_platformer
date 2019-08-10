@@ -61,7 +61,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         ),
         new PlayMenuInternalNode
         (
-            "Blood Magic",
+            "Ability",
             new PlayMenuLeafNode
             (
                 "special1",
@@ -117,8 +117,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     bool active;
     bool atTop => currentlySelected.Parent.Label == "_top";
 
-    PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Blood Magic")).Children[0];
-    PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Blood Magic")).Children[1];
+    PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Ability")).Children[0];
+    PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Ability")).Children[1];
 
     Vector2 initialMaskPosition;
 

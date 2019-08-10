@@ -6,12 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(ColoredHealth))]
 public class Mage : MonoBehaviour
 {
-    [Serializable]
-    public class AbilityCosts
-    {
-        public float Special1, Special2;
-    }
-
     public const float MaxMana = 100;
 
     [SerializeField]
@@ -29,7 +23,7 @@ public class Mage : MonoBehaviour
     public MagicColor Color;
     public float ManaGain;
     public float BurstCost, LineCost, LobCost;
-    public AbilityCosts RedAbilityCosts, GreenAbilityCosts, BlueAbilityCosts;
+    public float Ability1CooldownTime, Ability2CooldownTime;
 
     public float MoveSpeed;
     public float GroundAcceleration;
@@ -57,6 +51,9 @@ public class Mage : MonoBehaviour
     public BurstBullet BurstPrefab;
     public LineBullet LinePrefab;
     public LobBullet LobPrefab;
+
+    public float Ability1Cooldown { get; private set; }
+    public float Ability2Cooldown { get; private set; }
 
     Rigidbody2D rb;
     float halfHeight;
@@ -105,6 +102,9 @@ public class Mage : MonoBehaviour
         platform();
 
         Mana += ManaGain * Time.deltaTime;
+
+        Ability1Cooldown -= Time.deltaTime;
+        Ability2Cooldown -= Time.deltaTime;
 
         if (moveInput < 0 && !Wand.flipX)
         {
@@ -234,10 +234,9 @@ public class Mage : MonoBehaviour
     // returns whether the cast was successful
     public void Special1 ()
     {
-        var cost = getCosts().Special1;
-        if (Health.CurrentHealth <= cost)
+        if (Ability1Cooldown > 0)
         {
-            CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
+            CantDoThatFeedback.Instance.DisplayMessage($"wait {Mathf.RoundToInt(Ability1Cooldown)} more seconds!");
             return;
         }
 
@@ -258,7 +257,7 @@ public class Mage : MonoBehaviour
                 break;
         }
 
-        if (castSuccessful) Health.PureDamage(cost);
+        if (castSuccessful) Ability1Cooldown = Ability1CooldownTime;
     }
 
     bool nimbility ()
@@ -327,10 +326,9 @@ public class Mage : MonoBehaviour
     // returns whether the cast was successful
     public void Special2 ()
     {
-        var cost = getCosts().Special2;
-        if (Health.CurrentHealth <= cost)
+        if (Ability2Cooldown > 0)
         {
-            CantDoThatFeedback.Instance.DisplayMessage("not enough health!");
+            CantDoThatFeedback.Instance.DisplayMessage($"wait {Mathf.RoundToInt(Ability2Cooldown)} more seconds!");
             return;
         }
 
@@ -351,7 +349,7 @@ public class Mage : MonoBehaviour
                 break;
         }
 
-        if (castSuccessful) Health.PureDamage(cost);
+        if (castSuccessful) Ability2Cooldown = Ability2CooldownTime;
     }
 
     bool bombash ()
@@ -412,24 +410,6 @@ public class Mage : MonoBehaviour
 
         Time.timeScale = 1;
         ability2Flag = false;
-    }
-
-    AbilityCosts getCosts ()
-    {
-        switch (Color)
-        {
-            case MagicColor.Red:
-                return RedAbilityCosts;
-
-            case MagicColor.Green:
-                return GreenAbilityCosts;
-
-            case MagicColor.Blue:
-                return BlueAbilityCosts;
-
-            default:
-                throw new InvalidOperationException($"Mage has unexpected color {Color}");
-        }
     }
 
     // returns true if there was at least one potion at method call
