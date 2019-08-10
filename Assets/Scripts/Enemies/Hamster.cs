@@ -63,6 +63,8 @@ public class Hamster : BaseEnemy
 		currentSpeed = DeathSpeed;
 		if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
 
+		StopAllCoroutines();
+
 		GetComponent<Collider2D>().enabled = false;
 		GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
 	}
@@ -89,7 +91,7 @@ public class Hamster : BaseEnemy
 
 	IEnumerator ambleRoutine ()
 	{
-		while (!Health.Dead)
+		while (true)
 		{
 			currentSpeed = 0;
 			animator.SetBool("Walking", false);
@@ -110,7 +112,7 @@ public class Hamster : BaseEnemy
 
 	IEnumerator fartRoutine ()
 	{
-		while (!Health.Dead)
+		while (true)
 		{
 			yield return new WaitForSeconds(RandomExtra.Range(FartTimeRange));
 

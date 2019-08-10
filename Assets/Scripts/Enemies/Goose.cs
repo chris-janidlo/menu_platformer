@@ -79,6 +79,8 @@ public class Goose : BaseEnemy
 	protected override void die ()
 	{
         GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
+
+        StopAllCoroutines();
 	}
 
     Vector2 getFollowPosition ()
@@ -88,7 +90,7 @@ public class Goose : BaseEnemy
 
     IEnumerator attackRoutine ()
     {
-        while (!Health.Dead)
+        while (true)
         {
             yield return new WaitForSeconds(RandomExtra.Range(TimeRangeBetweenAttacks));
 
