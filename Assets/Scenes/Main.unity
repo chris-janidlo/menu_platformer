@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5560,9 +5560,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waves:
-  - Enemies: 01000000010000000100000002000000010000000100000001000000020000000100000001000000
-    TimeRangeBetweenSpawns: {x: 4, y: 5}
-    TimeUntilNext: 0
+  - Packs:
+    - Category: 0
+      Number: 1
+    - Category: 0
+      Number: 1
+    - Category: 0
+      Number: 1
+    - Category: 0
+      Number: 1
+    - Category: 0
+      Number: 1
+    TimeRangeBetweenSpawns: {x: 10, y: 10}
+    TimeUntilNext: 60
+  - Packs:
+    - Category: 0
+      Number: 2
+    - Category: 0
+      Number: 2
+    - Category: 0
+      Number: 2
+    TimeRangeBetweenSpawns: {x: 10, y: 10}
+    TimeUntilNext: 60
   StartGameReadyTime: 5
   ButterflySpawnLocations:
     Items:
@@ -5590,8 +5609,7 @@ MonoBehaviour:
     - {x: 100, y: -130}
     - {x: 250, y: -130}
     AvoidRepeats: 1
-  HamsterHordeSizeRange: {x: 2, y: 3}
-  GooseTargetsActiveChance: 0.15
+  GooseTargetsActiveChance: 0.3
   ButterflyPrefab: {fileID: 8160551573009399486, guid: 90b56c99bbc77a54cadb8c0deacc64c0,
     type: 3}
   HamsterPrefab: {fileID: 640153119151828321, guid: cf1be78d523d3f84dbb38b5d8cd37833,
