@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ public class Butterfly : BaseEnemy
     public float FlySpeedNormal, FlySpeedChase, FlySpeedDead;
     public float ChaseDistance;
     public float ChaseAnimationSpeed;
+    public float DeathGravity;
     public float Damage, PostDamageRefractoryPeriod;
 
     [Header("References")]
@@ -52,8 +53,11 @@ public class Butterfly : BaseEnemy
 
         if (Health.Dead)
         {
-            // fly away from center
-            rb.velocity = transform.position.normalized * FlySpeedDead;
+            rb.velocity = new Vector2
+            (
+                rb.velocity.x,
+                rb.velocity.y - DeathGravity * Time.deltaTime
+            );
             return;
         }
 
@@ -141,6 +145,7 @@ public class Butterfly : BaseEnemy
 	{
 		col.enabled = false;
         destroyer.ShouldDestroy = true;
+        animator.speed = 0; // stop animations
 	}
 
     float distanceToClosestLivingMage (out Mage mage)

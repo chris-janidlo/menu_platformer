@@ -311,6 +311,7 @@ MonoBehaviour:
   FlySpeedDead: 120
   ChaseDistance: 100
   ChaseAnimationSpeed: 2
+  DeathGravity: 500
   Damage: 50
   PostDamageRefractoryPeriod: 10
   ColoredPart: {fileID: 2426712318673010105}
@@ -371,7 +372,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
