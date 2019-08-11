@@ -54,16 +54,9 @@ MonoBehaviour:
   BurstCost: 30
   LineCost: 10
   LobCost: 15
-  RedAbilityCosts:
-    Special1: 20
-    Special2: 30
-  GreenAbilityCosts:
-    Special1: 50
-    Special2: 50
-  BlueAbilityCosts:
-    Special1: 10
-    Special2: 80
-  MoveSpeed: 140
+  Ability1CooldownTime: 0
+  Ability2CooldownTime: 0
+  MoveSpeed: 120
   GroundAcceleration: 4000
   AirAcceleration: 800
   JumpSpeedBurst: 250
