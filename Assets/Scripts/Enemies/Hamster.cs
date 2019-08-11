@@ -37,7 +37,7 @@ public class Hamster : BaseEnemy
 		Gem.ColorPart.ChangeColor(color);
 		Health.Color = color;
 
-		transform.position = EnemySpawner.Instance.HamsterSpawnLocations.GetNext();
+		transform.position = EnemySpawner.Instance.HamsterSpawnLocations.GetNext().position;
 
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();

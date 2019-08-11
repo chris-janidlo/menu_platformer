@@ -44,7 +44,7 @@ public class Butterfly : BaseEnemy
         Health.Color = color;
         ColoredPart.ChangeColor(color);
 
-        transform.position = EnemySpawner.Instance.ButterflySpawnLocations.GetNext();
+        transform.position = EnemySpawner.Instance.ButterflySpawnLocations.GetNext().position;
     }
 
     protected override void Update ()

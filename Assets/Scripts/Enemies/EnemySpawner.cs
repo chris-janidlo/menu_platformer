@@ -28,7 +28,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     public float StartGameReadyTime;
 
-    public Vector2Bag ButterflySpawnLocations, HamsterSpawnLocations;
+    public TransformBag ButterflySpawnLocations, HamsterSpawnLocations;
 
     [Range(0, 1)]
     public float GooseTargetsActiveChance;
@@ -170,4 +170,4 @@ public enum EnemyCategory
 }
 
 [Serializable]
-public class Vector2Bag : BagRandomizer<Vector2> {}
+public class TransformBag : BagRandomizer<Transform> {}
