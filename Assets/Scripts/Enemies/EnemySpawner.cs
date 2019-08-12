@@ -24,6 +24,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
     }
 
     [Header("Stats")]
+    public int CurrentWave;
     public List<Wave> Waves;
 
     public float StartGameReadyTime;
@@ -37,8 +38,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public Butterfly ButterflyPrefab;
     public Hamster HamsterPrefab;
     public Goose GoosePrefab;
-
-    public int CurrentWave { get; private set; }
 
     List<Mage> currentGooseTargets = new List<Mage>();
     bool currentWaveDefeated;
@@ -58,9 +57,11 @@ public class EnemySpawner : Singleton<EnemySpawner>
     {
         yield return new WaitForSeconds(StartGameReadyTime);
 
-        foreach (var wave in Waves)
+        // allow the game to start at any initial wave position
+        for (; CurrentWave < Waves.Count; CurrentWave++)
         {
-            CurrentWave++;
+            var wave = Waves[CurrentWave];
+
             if (currentWaveEnum != null) StopCoroutine(currentWaveEnum); // at this point, the last wave should only be waiting to be defeated, if it's still running at all
             StartCoroutine(currentWaveEnum = waveRoutine(wave));
 
@@ -95,8 +96,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
                 yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
             }
 
-			EnemyPack pack = copyList[i];
-			spawnPack(pack);
+			spawnPack(copyList[i]);
         }
 
         yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
