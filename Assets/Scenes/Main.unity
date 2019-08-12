@@ -8460,10 +8460,10 @@ MonoBehaviour:
     - Category: 0
       Number: 2
     - Category: 0
+      Number: 2
+    - Category: 2
       Number: 1
-    - Category: 0
-      Number: 1
-    - Category: 1
+    - Category: 2
       Number: 1
     TimeUntilFirstSpawm: 5
     TimeRangeBetweenSpawns: {x: 10, y: 12}
@@ -8477,14 +8477,30 @@ MonoBehaviour:
       Number: 2
     - Category: 0
       Number: 1
-    - Category: 1
+    - Category: 2
       Number: 1
-    - Category: 1
-      Number: 2
+    - Category: 2
+      Number: 1
     TimeUntilFirstSpawm: 5
-    TimeRangeBetweenSpawns: {x: 10, y: 12}
-    MaxTimeUntilNextWave: 0
-  StartGameReadyTime: 10
+    TimeRangeBetweenSpawns: {x: 10, y: 10}
+    MaxTimeUntilNextWave: 45
+  - Packs:
+    - Category: 0
+      Number: 3
+    - Category: 0
+      Number: 2
+    - Category: 0
+      Number: 2
+    - Category: 2
+      Number: 1
+    - Category: 2
+      Number: 1
+    - Category: 2
+      Number: 1
+    TimeUntilFirstSpawm: 5
+    TimeRangeBetweenSpawns: {x: 8, y: 10}
+    MaxTimeUntilNextWave: 45
+  StartGameReadyTime: 5
   ButterflySpawnLocations:
     Items:
     - {fileID: 811644451}
@@ -8526,6 +8542,7 @@ MonoBehaviour:
     type: 3}
   GoosePrefab: {fileID: 2042988747190018427, guid: 663031744ee1143198a7b729d49f6ea7,
     type: 3}
+  CurrentWave: 0
 --- !u!1 &2040789364
 GameObject:
   m_ObjectHideFlags: 0
