@@ -73,8 +73,6 @@ public class GameStartAnimation : MonoBehaviour
             {
 				SlideIn.SlidingObject obj = slideIn.SlidingObjects[i];
 
-				// obj.Transform.anchoredPosition = Vector2.SmoothDamp(obj.Transform.anchoredPosition, obj.EndLocation, ref vels[i], slideIn.Time / 4);
-
                 obj.Transform.anchoredPosition = Vector2.Lerp(obj.StartLocation, obj.EndLocation, timer / slideIn.Time);
             }
 
