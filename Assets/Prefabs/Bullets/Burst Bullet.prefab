@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a2a7894091a4eb28ba2ca54a2646f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 40
+  Damage: 180
   Visuals: {fileID: 7108902270381758676}
   Speed: 80
   ShrinkCurve:

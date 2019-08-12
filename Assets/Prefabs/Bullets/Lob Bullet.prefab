@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80b999b5dc754035b027650b87b5dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 30
+  Damage: 120
   Visuals: {fileID: 7108902270381758676}
   Gravity: 500
   LaunchSpeed: {x: 80, y: 400}

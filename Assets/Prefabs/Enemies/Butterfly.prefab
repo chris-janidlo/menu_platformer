@@ -312,8 +312,8 @@ MonoBehaviour:
   ChaseDistance: 100
   ChaseAnimationSpeed: 2
   DeathGravity: 500
-  Damage: 50
-  PostDamageRefractoryPeriod: 10
+  Damage: 20
+  PostDamageRefractoryPeriod: 5
   ColoredPart: {fileID: 2426712318673010105}
 --- !u!114 &8160551573009399485
 MonoBehaviour:
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsColored: 1
   Color: 0
-  MaxHealth: 50
+  MaxHealth: 180
   HurtFlashes: 4
   HurtFlashOnTime: 0.1
   HurtFlashOffTime: 0.1

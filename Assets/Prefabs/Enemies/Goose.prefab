@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsColored: 0
   Color: 0
-  MaxHealth: 50
+  MaxHealth: 150
   HurtFlashes: 4
   HurtFlashOnTime: 0.1
   HurtFlashOffTime: 0.1
