@@ -45,7 +45,7 @@ public class EndScreen : MonoBehaviour
         while (timer < FadeTime)
         {
             group.alpha = timer / FadeTime;
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
         group.alpha = 1;
@@ -56,7 +56,7 @@ public class EndScreen : MonoBehaviour
         while (timer < PromptFadeTime)
         {
             Prompt.alpha = timer / PromptFadeTime;
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
         Prompt.alpha = 1;

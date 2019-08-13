@@ -317,7 +317,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         while (timer < ClickFlashFadeTime)
         {
             setSelectedColor(Color.Lerp(MageSquad.Instance.CurrentColorValue, initialButtonColor, timer / ClickFlashFadeTime));
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -334,7 +334,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         while (transform.localScale != target)
         {
-            transform.localScale = Vector3.SmoothDamp(transform.localScale, target, ref vel, smoothTime);
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, target, ref vel, smoothTime * Time.timeScale);
             yield return null;
         }
 
@@ -349,7 +349,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         while (Mask.transform.localPosition != (Vector3) initialMaskPosition)
         {
-            Mask.transform.localPosition = Vector2.SmoothDamp(Mask.transform.localPosition, initialMaskPosition, ref vel, ShiftAnimationTime);
+            Mask.transform.localPosition = Vector2.SmoothDamp(Mask.transform.localPosition, initialMaskPosition, ref vel, ShiftAnimationTime * Time.timeScale);
             yield return null;
         }
 
@@ -364,7 +364,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         while (MenuEntries.transform.localPosition != Vector3.zero)
         {
-            MenuEntries.transform.localPosition = Vector2.SmoothDamp(MenuEntries.transform.localPosition, Vector2.zero, ref vel, CarouselAnimationTime);
+            MenuEntries.transform.localPosition = Vector2.SmoothDamp(MenuEntries.transform.localPosition, Vector2.zero, ref vel, CarouselAnimationTime * Time.timeScale);
             yield return null;
         }
 

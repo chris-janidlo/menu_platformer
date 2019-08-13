@@ -85,7 +85,7 @@ public class BottomMenuStats : MonoBehaviour
             while (timer <= PanicFlashTime)
             {
                 bar.color = Color.Lerp(BarPanicColor, BarNormalColor, timer / PanicFlashTime);
-                timer += Time.deltaTime;
+                timer += Time.unscaledDeltaTime;
                 yield return null;
             }
             bar.color = BarNormalColor;
@@ -117,7 +117,7 @@ public class BottomMenuStats : MonoBehaviour
             while (timer > 0)
             {
                 getCircle().color = Color.Lerp(CDNormalColor, MagicColorStats.ColorMap[MagicColor], timer / CDFlashTime);
-                timer -= Time.deltaTime;
+                timer -= Time.unscaledDeltaTime;
                 yield return null;
             }
         }
