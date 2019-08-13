@@ -74,6 +74,8 @@ public class Mage : MonoBehaviour
     // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
     ContactFilter2D groundedFilter;
 
+    SpriteRenderer bodyRenderer;
+
     IEnumerator particleEnum;
 
     void Start ()
@@ -97,12 +99,15 @@ public class Mage : MonoBehaviour
         Particles.ChangeColor(Color);
         Health.Color = Color;
         Health.Death.AddListener(die);
-        Health.Revival.AddListener(revive);
+
+        bodyRenderer = Body.GetComponent<SpriteRenderer>();
     }
 
     void Update ()
     {
         if (!gameStarted) return;
+
+        bodyRenderer.SetAlpha(Health.Dead ? .5f : 1);
 
         platform();
 
@@ -482,8 +487,6 @@ public class Mage : MonoBehaviour
 
     void die ()
     {
-        Body.GetComponent<SpriteRenderer>().SetAlpha(.5f);
-
         MagicColor? activeColor = null;
         foreach (var mage in MageSquad.Instance)
         {
@@ -502,11 +505,6 @@ public class Mage : MonoBehaviour
         {
             MageSquad.Instance.SetActive((MagicColor) activeColor);
         }
-    }
-
-    void revive ()
-    {
-        Body.GetComponent<SpriteRenderer>().SetAlpha(1);
     }
 
     void platform ()
