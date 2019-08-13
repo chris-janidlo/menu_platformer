@@ -218,7 +218,12 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 else // when currentlySelected is PlayMenuInternalNode
                 {
                     startAnimation("shiftAnimation", true);
-                    setSelected(((PlayMenuInternalNode) currentlySelected).Children[0]);
+
+                    var toSelect = currentlySelected.Label == "Team"
+                        ? getTeammateToSelect()
+                        : ((PlayMenuInternalNode) currentlySelected).Children[0];
+
+                    setSelected(toSelect);
                 }
             }
         }
@@ -273,8 +278,32 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         }
     }
 
+    // assumes the currently selected node is the Team menu parent
+    PlayMenuNode getTeammateToSelect ()
+    {
+        PlayMenuInternalNode parent = (PlayMenuInternalNode) currentlySelected;
+        var col = MageSquad.Instance.ActiveMage.Color;
+
+        switch (col)
+        {
+            case MagicColor.Red:
+                return parent.Children[1];
+
+            case MagicColor.Green:
+                return parent.Children[2];
+
+            case MagicColor.Blue:
+                return parent.Children[0];
+
+            default:
+                throw new ArgumentException($"unexpected active mage color {col}");
+        }
+    }
+
     IEnumerator clickAnimation ()
     {
+        yield return null; // so the color doesn't flash the previous mage's color for one frame when switching mages
+
         Action<Color> setSelectedColor = c =>
         {
             MenuEntries.text = MenuEntries.text.Replace
