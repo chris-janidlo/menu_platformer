@@ -92,18 +92,13 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
             "Team",
             new PlayMenuLeafNode
             (
-                "Red Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Red)
+                "next",
+                () => MageSquad.Instance.SetActive(getTeamMate(true))
             ),
             new PlayMenuLeafNode
             (
-                "Green Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Green)
-            ),
-            new PlayMenuLeafNode
-            (
-                "Blue Mage",
-                () => MageSquad.Instance.SetActive(MagicColor.Blue)
+                "previous",
+                () => MageSquad.Instance.SetActive(getTeamMate(false))
             )
         )
     );
@@ -119,6 +114,9 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     PlayMenuNode special1Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Ability")).Children[0];
     PlayMenuNode special2Ref => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Ability")).Children[1];
+
+    PlayMenuNode teamNextRef => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Team")).Children[0];
+    PlayMenuNode teamPrevRef => ((PlayMenuInternalNode) tree.Children.Single(n => n.Label == "Team")).Children[1];
 
     Vector2 initialMaskPosition;
 
@@ -144,8 +142,12 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         if (!active) return;
 
-        setSpecialNames();
-        if (currentlySelected != null) setText();
+        if (currentlySelected != null)
+        {
+            setSpecialNames();
+            setTeamNames();
+            setText();
+        }
 
         traverseMenu();
     }
@@ -162,6 +164,31 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         active = true;
         GetComponent<PlayMenuFollower>().enabled = true;
+    }
+
+    static MagicColor getTeamMate (bool next)
+    {
+        return Instance._getTeamMate(next);
+    }
+
+    MagicColor _getTeamMate (bool next)
+    {
+        MagicColor col = MageSquad.Instance.ActiveMage.Color;
+
+        switch (col)
+        {
+            case MagicColor.Red:
+                return next ? MagicColor.Green : MagicColor.Blue;
+            
+            case MagicColor.Green:
+                return next ? MagicColor.Blue : MagicColor.Red;
+
+            case MagicColor.Blue:
+                return next ? MagicColor.Red : MagicColor.Green;
+
+            default:
+                throw new Exception($"unexpected active mage color {col}");
+        }
     }
 
     void setSpecialNames ()
@@ -194,6 +221,36 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         special2Ref.Label = name2;
     }
 
+    void setTeamNames ()
+    {
+        string name1 = "", name2 = "";
+
+        var col = MageSquad.Instance.ActiveMage.Color;
+        switch (col)
+        {
+            case MagicColor.Red:
+                name1 = "Green Mage";
+                name2 = "Blue Mage";
+                break;
+
+            case MagicColor.Green:
+                name1 = "Blue Mage";
+                name2 = "Red Mage";
+                break;
+
+            case MagicColor.Blue:
+                name1 = "Red Mage";
+                name2 = "Green Mage";
+                break;
+
+            default:
+                throw new ArgumentException($"unexpected MagicColor {col}");
+        }
+
+        teamNextRef.Label = name1;
+        teamPrevRef.Label = name2;
+    }
+
     void traverseMenu ()
     {
         if (Input.GetButtonDown("Play Menu Quick Toggle"))
@@ -207,7 +264,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         {
             if (currentlySelected is PlayMenuLeafNode)
             {
-                startAnimation("clickAnimation");
+                if (!currentlySelected.Parent.Label.Equals("Team")) startAnimation("clickAnimation");
                 ((PlayMenuLeafNode) currentlySelected).OnSelect();
             }
             else
@@ -220,12 +277,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 else // when currentlySelected is PlayMenuInternalNode
                 {
                     startAnimation("shiftAnimation", true);
-
-                    var toSelect = currentlySelected.Label == "Team"
-                        ? getTeammateToSelect()
-                        : ((PlayMenuInternalNode) currentlySelected).Children[0];
-
-                    setSelected(toSelect);
+                    setSelected(((PlayMenuInternalNode) currentlySelected).Children[0]);
                 }
             }
         }
@@ -294,32 +346,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         }
     }
 
-    // assumes the currently selected node is the Team menu parent
-    PlayMenuNode getTeammateToSelect ()
-    {
-        PlayMenuInternalNode parent = (PlayMenuInternalNode) currentlySelected;
-        var col = MageSquad.Instance.ActiveMage.Color;
-
-        switch (col)
-        {
-            case MagicColor.Red:
-                return parent.Children[1];
-
-            case MagicColor.Green:
-                return parent.Children[2];
-
-            case MagicColor.Blue:
-                return parent.Children[0];
-
-            default:
-                throw new ArgumentException($"unexpected active mage color {col}");
-        }
-    }
-
     IEnumerator clickAnimation ()
     {
-        yield return null; // so the color doesn't flash the previous mage's color for one frame when switching mages
-
         float timer = 0;
         while (timer < ClickFlashFadeTime)
         {
