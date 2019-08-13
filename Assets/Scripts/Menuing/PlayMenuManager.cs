@@ -180,8 +180,8 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
                 break;
 
             case MagicColor.Blue:
-                name1 = "Embank";
-                name2 = "???";
+                name1 = "Swap";
+                name2 = "Stop";
                 break;
 
             default:

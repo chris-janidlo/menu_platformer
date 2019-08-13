@@ -39,8 +39,6 @@ public class Mage : MonoBehaviour
     public float NimbilityNewSpeed, NimbilityNewJumpBurst;
     public float BombashDamage;
     public float RejuveHeal;
-    public EmbankObject EmbankPrefab;
-    public Vector2 EmbankSpawnOffset;
     public float TimeSlowAmount;
     public float TimeSlowTime;
 
@@ -253,7 +251,7 @@ public class Mage : MonoBehaviour
                 break;
 
             case MagicColor.Blue:
-                castSuccessful = embank();
+                castSuccessful = swap();
                 break;
         }
 
@@ -304,21 +302,34 @@ public class Mage : MonoBehaviour
         return true;
     }
 
-    bool embank ()
+    bool swap ()
     {
-        var current = FindObjectOfType<EmbankObject>();
-        if (current != null)
+        // want to find the derangement https://en.wikipedia.org/wiki/Derangement since that will feel the best
+        // there are only 2 derangements of a set of 3 elements https://math.stackexchange.com/a/2718953/574705
+
+        List<List<Vector3>> derangements = new List<List<Vector3>>
         {
-            Destroy(current.gameObject);
+            new List<Vector3>
+            {
+                MageSquad.Instance.GreenMage.transform.position,
+                MageSquad.Instance.BlueMage.transform.position,
+                MageSquad.Instance.RedMage.transform.position
+            },
+            new List<Vector3>
+            {
+                MageSquad.Instance.BlueMage.transform.position,
+                MageSquad.Instance.RedMage.transform.position,
+                MageSquad.Instance.GreenMage.transform.position
+            },
+        };
+
+        List<Vector3> derangement = derangements[UnityEngine.Random.Range(0, 1)];
+
+        // TODO: animate
+        for (int i = 0; i < 3; i++)
+        {
+            MageSquad.Instance[(MagicColor) i].transform.position = derangement[i];
         }
-
-        var offset = new Vector3
-        (
-            FacingLeft ? -EmbankSpawnOffset.x : EmbankSpawnOffset.x,
-            EmbankSpawnOffset.y
-        );
-
-        Instantiate(EmbankPrefab, transform.position + offset, Quaternion.identity);
 
         return true;
     }
