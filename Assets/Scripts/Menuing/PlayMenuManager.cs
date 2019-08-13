@@ -122,7 +122,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     Vector2 initialMaskPosition;
 
-    Color initialButtonColor;
+    Color initialButtonColor, currentClickColor;
 
     void Awake ()
     {
@@ -135,6 +135,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         initialMaskPosition = Mask.transform.localPosition;
         initialButtonColor = MenuEntries.color;
+        currentClickColor = initialButtonColor;
 
         lastSelected = tree.Children[0]; // so when we first open the menu, we open it to the start of the tree
     }
@@ -144,6 +145,7 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         if (!active) return;
 
         setSpecialNames();
+        if (currentlySelected != null) setText();
 
         traverseMenu();
     }
@@ -257,10 +259,24 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
         lastSelected = selected;
 
+        setText();
+    }
+
+    void setText ()
+    {
         MenuEntries.text = String.Join
         (
             MenuEntrySeparator,
-            selected.GetSurrounding().Select(s => s.Label)
+            currentlySelected.GetSurrounding().Select(s => {
+                if (s.Label.Equals(currentlySelected.Label))
+                {
+                    return $"<#{ColorUtility.ToHtmlStringRGB(currentClickColor)}>{currentlySelected.Label}</color>";
+                }
+                else
+                {
+                    return s.Label;
+                }
+            })
         );
     }
 
@@ -304,24 +320,15 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
     {
         yield return null; // so the color doesn't flash the previous mage's color for one frame when switching mages
 
-        Action<Color> setSelectedColor = c =>
-        {
-            MenuEntries.text = MenuEntries.text.Replace
-            (
-                currentlySelected.Label,
-                $"<#{ColorUtility.ToHtmlStringRGB(c)}>{currentlySelected.Label}</color>"
-            );
-        };
-
         float timer = 0;
         while (timer < ClickFlashFadeTime)
         {
-            setSelectedColor(Color.Lerp(MageSquad.Instance.CurrentColorValue, initialButtonColor, timer / ClickFlashFadeTime));
+            currentClickColor = Color.Lerp(MageSquad.Instance.CurrentColorValue, initialButtonColor, timer / ClickFlashFadeTime);
             timer += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        MenuEntries.color = initialButtonColor;
+        currentClickColor = initialButtonColor;
     }
 
     IEnumerator sizeAnimation (bool growing)
