@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using crass;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(ColoredHealth))]
 public class Mage : MonoBehaviour
@@ -33,19 +34,22 @@ public class Mage : MonoBehaviour
     public float Gravity;
     public float JumpFudgeTime;
     public float GroundedFudgeVertical = 0.1f, GroundedFudgeHorizontal = 0.1f;
+    public float ParticleStopTime;
 
     [Header("Ability Stats")]
     public float NimbilityTime;
     public float NimbilityNewSpeed, NimbilityNewJumpBurst;
     public float BombashDamage;
+    public float BombashShakeTime, BombashShakeAmount;
     public float RejuveHeal;
     public float TimeSlowAmount;
     public float TimeSlowTime;
 
     [Header("References")]
     public ColoredHealth Health;
-    public ColorMapApplier Visuals;
+    public ColorMapApplier Body;
     public SpriteRenderer Wand;
+    public ColorMapApplierParticles Particles;
     public BurstBullet BurstPrefab;
     public LineBullet LinePrefab;
     public LobBullet LobPrefab;
@@ -70,6 +74,8 @@ public class Mage : MonoBehaviour
     // grounded needs to call the Physics2D.BoxCast that returns an array of results in order to ignore ourselves without ignoring other player objects. that method takes its options as a ContactFilter2D, but that never changes between calls to isGrounded, so we create it once for free GC savings
     ContactFilter2D groundedFilter;
 
+    IEnumerator particleEnum;
+
     void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -87,7 +93,8 @@ public class Mage : MonoBehaviour
         // bullets don't affect grounded state
         groundedFilter.layerMask = ~LayerMask.NameToLayer("Player Bullet");
 
-        Visuals.ChangeColor(Color);
+        Body.ChangeColor(Color);
+        Particles.ChangeColor(Color);
         Health.Color = Color;
         Health.Death.AddListener(die);
         Health.Revival.AddListener(revive);
@@ -229,6 +236,21 @@ public class Mage : MonoBehaviour
         specialJumpAir = true;
     }
 
+    void playParticles ()
+    {
+        if (particleEnum != null) StopCoroutine(particleEnum);
+        StartCoroutine(particleEnum = particleRoutine());
+    }
+
+    IEnumerator particleRoutine ()
+    {
+        Particles.ParticleSystem.Play();
+
+        yield return new WaitForSeconds(ParticleStopTime);
+
+        Particles.ParticleSystem.Stop();
+    }
+
     // returns whether the cast was successful
     public void Special1 ()
     {
@@ -266,6 +288,7 @@ public class Mage : MonoBehaviour
             return false;
         }
 
+        playParticles();
         StartCoroutine(nimbilityRoutine());
         return true;
     }
@@ -299,6 +322,7 @@ public class Mage : MonoBehaviour
         }
 
         lowestMage.Health.Heal(RejuveHeal);
+        lowestMage.playParticles();
         return true;
     }
 
@@ -325,10 +349,11 @@ public class Mage : MonoBehaviour
 
         List<Vector3> derangement = derangements[UnityEngine.Random.Range(0, 1)];
 
-        // TODO: animate
         for (int i = 0; i < 3; i++)
         {
-            MageSquad.Instance[(MagicColor) i].transform.position = derangement[i];
+            var mage = MageSquad.Instance[(MagicColor) i];
+            mage.transform.position = derangement[i];
+            mage.playParticles();
         }
 
         return true;
@@ -378,26 +403,33 @@ public class Mage : MonoBehaviour
             enemy.Health.PureDamage(BombashDamage);
         }
 
+        CameraCache.Main.ShakeScreen2D(BombashShakeTime, BombashShakeAmount);
+
         return true;
     }
 
     bool recoup ()
     {
+        Mage toHeal;
+
         if (MageSquad.Instance.RedMage.Health.Dead)
         {
-            MageSquad.Instance.RedMage.Health.FullHeal();
-            return true;
+            toHeal = MageSquad.Instance.RedMage;
         }
         else if (MageSquad.Instance.BlueMage.Health.Dead)
         {
-            MageSquad.Instance.BlueMage.Health.FullHeal();
-            return true;
+            toHeal = MageSquad.Instance.BlueMage;
         }
         else
         {
             CantDoThatFeedback.Instance.DisplayMessage("no one is dead!");
             return false;
         }
+
+        toHeal.Health.FullHeal();
+        toHeal.playParticles();
+
+        return true;
     }
 
     bool timeStop ()
@@ -450,7 +482,7 @@ public class Mage : MonoBehaviour
 
     void die ()
     {
-        Visuals.GetComponent<SpriteRenderer>().SetAlpha(.5f);
+        Body.GetComponent<SpriteRenderer>().SetAlpha(.5f);
 
         MagicColor? activeColor = null;
         foreach (var mage in MageSquad.Instance)
@@ -474,7 +506,7 @@ public class Mage : MonoBehaviour
 
     void revive ()
     {
-        Visuals.GetComponent<SpriteRenderer>().SetAlpha(1);
+        Body.GetComponent<SpriteRenderer>().SetAlpha(1);
     }
 
     void platform ()
