@@ -47,16 +47,16 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         ),
         new PlayMenuInternalNode
         (
-            "Ability",
+            "Item",
             new PlayMenuLeafNode
             (
-                "special1",
-                activeMage => activeMage.Special1()
+                "Band-Aid",
+                activeMage => activeMage.DrinkHealthPotion()
             ),
             new PlayMenuLeafNode
             (
-                "special2",
-                activeMage => activeMage.Special2()
+                "Mana Pot",
+                activeMage => activeMage.DrinkManaPotion()
             )
         ),
         new PlayMenuInternalNode
@@ -75,16 +75,16 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
         ),
         new PlayMenuInternalNode
         (
-            "Item",
+            "Ability",
             new PlayMenuLeafNode
             (
-                "Band-Aid",
-                activeMage => activeMage.DrinkHealthPotion()
+                "special1",
+                activeMage => activeMage.Special1()
             ),
             new PlayMenuLeafNode
             (
-                "Mana Pot",
-                activeMage => activeMage.DrinkManaPotion()
+                "special2",
+                activeMage => activeMage.Special2()
             )
         ),
         new PlayMenuInternalNode
