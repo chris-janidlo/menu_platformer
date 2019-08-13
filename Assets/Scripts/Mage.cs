@@ -62,7 +62,7 @@ public class Mage : MonoBehaviour
 
     bool ability1Flag, ability2Flag;
 
-    bool platformingActive, gameStarted;
+    bool gameStarted;
     float moveInput;
 
     bool specialJumping => specialJumpLaunch || specialJumpAir;
@@ -479,7 +479,7 @@ public class Mage : MonoBehaviour
 
     void platform ()
     {
-        platformingActive = Active && !specialJumping;
+        bool platformingActive = Active && !specialJumping;
 
         moveInput = platformingActive ? Input.GetAxisRaw("Move") : 0;
         bool jumpHold = platformingActive ? Input.GetButton("Jump") : false;
