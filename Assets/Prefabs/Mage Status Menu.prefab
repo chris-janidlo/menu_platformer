@@ -866,7 +866,7 @@ MonoBehaviour:
   CDFlashes: 3
   BarNormalColor: {r: 0.87058824, g: 0.93333334, b: 0.8392157, a: 1}
   BarPanicColor: {r: 0.8156863, g: 0.27450982, b: 0.28235295, a: 1}
-  CDNormalColor: {r: 0.87058824, g: 0.93333334, b: 0.8392157, a: 1}
+  CDFlashColor: {r: 0.87058824, g: 0.93333334, b: 0.8392157, a: 1}
   Title: {fileID: 1571380851742866409}
   BorderColorApplier: {fileID: 1571380852708069240}
   TitleColorApplier: {fileID: 1571380851742866406}

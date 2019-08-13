@@ -11,7 +11,7 @@ public class BottomMenuStats : MonoBehaviour
     public MagicColor MagicColor;
     public float HealthPanicThreshold, ManaPanicThreshold, PanicFlashTime, CDFlashTime;
     public int CDFlashes;
-    public Color BarNormalColor, BarPanicColor, CDNormalColor;
+    public Color BarNormalColor, BarPanicColor, CDFlashColor;
 
     [Header("References")]
     public TextMeshProUGUI Title;
@@ -101,6 +101,8 @@ public class BottomMenuStats : MonoBehaviour
 
         getCircle().enabled = true;
 
+        getCircle().color = MagicColorStats.ColorMap[MagicColor];
+
         while (getCD() > 0)
         {
             getCircle().fillAmount = 1 - (getCD() / getMaxCD());
@@ -116,7 +118,7 @@ public class BottomMenuStats : MonoBehaviour
             timer = CDFlashTime;
             while (timer > 0)
             {
-                getCircle().color = Color.Lerp(CDNormalColor, MagicColorStats.ColorMap[MagicColor], timer / CDFlashTime);
+                getCircle().color = Color.Lerp(MagicColorStats.ColorMap[MagicColor], CDFlashColor, timer / CDFlashTime);
                 timer -= Time.unscaledDeltaTime;
                 yield return null;
             }
