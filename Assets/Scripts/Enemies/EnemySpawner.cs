@@ -136,24 +136,26 @@ public class EnemySpawner : Singleton<EnemySpawner>
     {
         Mage target;
 
-        if (RandomExtra.Chance(GooseTargetsActiveChance) && !currentGooseTargets.Contains(MageSquad.Instance.ActiveMage))
+        var nonActiveValidTargets = new List<Mage>
+        {
+            MageSquad.Instance.RedMage,
+            MageSquad.Instance.GreenMage,
+            MageSquad.Instance.BlueMage
+        }
+        .Where(m => !m.Active && !currentGooseTargets.Contains(m))
+        .ToList();
+
+        if ((nonActiveValidTargets.Count == 0 || RandomExtra.Chance(GooseTargetsActiveChance)) && !currentGooseTargets.Contains(MageSquad.Instance.ActiveMage))
         {
             target = MageSquad.Instance.ActiveMage;
         }
+        else if (nonActiveValidTargets.Count > 0)
+        {
+            target = nonActiveValidTargets.PickRandom();
+        }
         else
         {
-            var options = new List<Mage>
-            {
-                MageSquad.Instance.RedMage,
-                MageSquad.Instance.GreenMage,
-                MageSquad.Instance.BlueMage
-            }
-            .Where(m => !m.Active && !currentGooseTargets.Contains(m))
-            .ToList();
-
-            if (options.Count == 0) return;
-
-            target = options.PickRandom();
+            return;
         }
 
         currentGooseTargets.Add(target);
