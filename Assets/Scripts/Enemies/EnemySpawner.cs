@@ -7,25 +7,11 @@ using crass;
 
 public class EnemySpawner : Singleton<EnemySpawner>
 {
-    [Serializable]
-    public class EnemyPack
-    {
-        public EnemyCategory Category;
-        public int Number = 1;
-    }
-
-    [Serializable]
-    public class Wave
-    {
-        public List<EnemyPack> Packs;
-        public float TimeUntilFirstSpawm;
-        public Vector2 TimeRangeBetweenSpawns;
-        public float MaxTimeUntilNextWave;
-    }
-
     [Header("Stats")]
     public int CurrentWave;
-    public List<Wave> Waves;
+    public int MaxWave;
+    public EnemyBag Enemies;
+    public AnimationCurve SpawnTimeByEnemiesSpawned;
 
     public float StartGameReadyTime;
 
@@ -40,8 +26,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public Goose GoosePrefab;
 
     List<Mage> currentGooseTargets = new List<Mage>();
-    bool currentWaveDefeated;
-    IEnumerator currentWaveEnum;
 
     void Awake ()
     {
@@ -55,80 +39,46 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     IEnumerator gameRoutine ()
     {
+        CurrentWave = 0;
+
         yield return new WaitForSeconds(StartGameReadyTime);
 
-        // allow the game to start at any initial wave position
-        for (; CurrentWave < Waves.Count; CurrentWave++)
+        int enemies = 0;
+
+        while (CurrentWave <= MaxWave)
         {
-            var wave = Waves[CurrentWave];
+            if (enemies % Enemies.Items.Count == 0) CurrentWave++;
 
-            if (currentWaveEnum != null) StopCoroutine(currentWaveEnum); // at this point, the last wave should only be waiting to be defeated, if it's still running at all
-            StartCoroutine(currentWaveEnum = waveRoutine(wave));
+            spawnEnemy(Enemies.GetNext());
 
-            float timer = 0;
-            while (timer < wave.MaxTimeUntilNextWave && !currentWaveDefeated)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-        }
+            yield return new WaitForSeconds(SpawnTimeByEnemiesSpawned.Evaluate(enemies));
 
-        yield return new WaitUntil(() => currentWaveDefeated);
-
-        EndScreen.Victory.StartSequence();
-    }
-
-    IEnumerator waveRoutine (Wave wave)
-    {
-        currentWaveDefeated = false;
-
-        var copyList = new List<EnemyPack>(wave.Packs);
-        copyList.ShuffleInPlace();
-
-		for (int i = 0; i < copyList.Count; i++)
-        {
-            if (i == 0)
-            {
-                yield return new WaitForSeconds(wave.TimeUntilFirstSpawm);
-            }
-            else
-            {
-                yield return new WaitForSeconds(RandomExtra.Range(wave.TimeRangeBetweenSpawns));
-            }
-
-			spawnPack(copyList[i]);
+            enemies++;
         }
 
         yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
 
-        currentWaveDefeated = true;
+        EndScreen.Victory.StartSequence();
     }
 
-    void spawnPack (EnemyPack pack)
+    void spawnEnemy (EnemyCategory enemy)
     {
-        Action spawner = null;
-
-        switch (pack.Category)
+        switch (enemy)
         {
             case EnemyCategory.Hamster:
-                spawner = () => Instantiate(HamsterPrefab);
+                Instantiate(HamsterPrefab);
                 break;
 
             case EnemyCategory.Butterfly:
-                spawner = () => Instantiate(ButterflyPrefab);
+                Instantiate(ButterflyPrefab);
                 break;
 
             case EnemyCategory.Goose:
-                spawner = spawnGoose;
+                spawnGoose();
                 break;
 
             default:
-                throw new ArgumentException($"unexpected enemy type {pack.Category}");
-        }
-
-        for (int i = 0; i < pack.Number; i++)
-        {
-            spawner();
+                throw new ArgumentException($"unexpected enemy type {enemy}");
         }
     }
 
@@ -171,3 +121,6 @@ public enum EnemyCategory
 
 [Serializable]
 public class TransformBag : BagRandomizer<Transform> {}
+
+[Serializable]
+public class EnemyBag : BagRandomizer<EnemyCategory> {}
