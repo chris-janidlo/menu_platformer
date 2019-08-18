@@ -1055,7 +1055,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.078431375, g: 0.047058824, b: 0.07058824, a: 1}
+  m_BackGroundColor: {r: 0.078431375, g: 0.047058824, b: 0.10980392, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -5448,7 +5448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.07058824, a: 1}
+  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5579,7 +5579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.07058824, a: 1}
+  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6708,7 +6708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.07058824, a: 1}
+  m_Color: {r: 0.078431375, g: 0.047058824, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8457,7 +8457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWave: 0
-  EnemiesPerWave: 10
   MaxWave: 30
   Enemies:
     Items: 00000000000000000000000002000000020000000200000002000000010000000100000001000000
