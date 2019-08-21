@@ -1171,7 +1171,7 @@ MonoBehaviour:
   Second:
     SlidingObjects:
     - Transform: {fileID: 1729384309}
-      StartLocation: {x: -578.5, y: 0}
+      StartLocation: {x: -600, y: 0}
       EndLocation: {x: -59.5, y: 0}
     - Transform: {fileID: 1708461035}
       StartLocation: {x: -529, y: 5}
