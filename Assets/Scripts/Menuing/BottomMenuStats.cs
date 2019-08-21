@@ -27,6 +27,9 @@ public class BottomMenuStats : MonoBehaviour
         Title.text = MagicColor.ToString();
         BorderColorApplier.Color = MagicColor;
         TitleColorApplier.Color = MagicColor;
+
+        Cooldown1.enabled = false;
+        Cooldown2.enabled = false;
     }
 
     void Update ()
