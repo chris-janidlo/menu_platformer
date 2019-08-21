@@ -57,7 +57,7 @@ MonoBehaviour:
   LobCost: 20
   Ability1CooldownTime: 0
   Ability2CooldownTime: 0
-  MoveSpeed: 120
+  MoveSpeed: 140
   GroundAcceleration: 4000
   AirAcceleration: 800
   JumpSpeedBurst: 250
