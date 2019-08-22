@@ -9360,7 +9360,7 @@ GameObject:
   - component: {fileID: 1929090582}
   - component: {fileID: 1929090581}
   m_Layer: 5
-  m_Name: Can't Do That Feedback
+  m_Name: Feedback Messager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9762,63 +9762,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 10
-      inSlope: -0.2249342
-      outSlope: -0.2249342
+      value: 20
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.02377244
-    - serializedVersion: 3
-      time: 30
-      value: 7
-      inSlope: -0.07
-      outSlope: -0.07
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 80
-      value: 5
-      inSlope: -0.027142856
-      outSlope: -0.027142856
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 150
-      value: 4
-      inSlope: -0.017142856
-      outSlope: -0.017142856
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.15966131
     - serializedVersion: 3
       time: 200
-      value: 3
-      inSlope: -0.02
-      outSlope: -0.02
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 250
-      value: 2
-      inSlope: -0.02
-      outSlope: -0.02
+      value: 10
+      inSlope: -0.05
+      outSlope: -0.05
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 300
-      value: 1
-      inSlope: -0.02
-      outSlope: -0.02
+      value: 5
+      inSlope: -0.05
+      outSlope: -0.05
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -9880,7 +9844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63dea863103b1f47ac374a06b471e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalPartsUntilVictory: 2
+  GoalPartsUntilVictory: 30
   GoalPartSpawnLocations:
     Items:
     - {fileID: 428322621}
