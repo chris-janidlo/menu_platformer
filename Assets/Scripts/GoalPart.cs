@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,7 +31,10 @@ public class GoalPart : MonoBehaviour
                 StartCoroutine(collectRoutine());
             }
         }
-        // TODO: else feedback
+        else
+        {
+            CantDoThatFeedback.Instance.DisplayMessage($"you need to be {color.ToString()} to pick this up!");
+        }
     }
 
     IEnumerator collectRoutine ()
