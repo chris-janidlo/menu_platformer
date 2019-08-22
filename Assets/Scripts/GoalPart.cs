@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,7 +23,8 @@ public class GoalPart : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        if (other.GetComponent<Mage>().Color == color)
+        bool canCollect = !MageSquad.Instance.GreenMage.Health.Dead && !MageSquad.Instance[color].Health.Dead;
+        if (canCollect && other.GetComponent<Mage>().Color == color)
         {
             if (!flying)
             {
