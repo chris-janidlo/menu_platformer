@@ -55,10 +55,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
             enemies++;
         }
-
-        yield return new WaitUntil(() => BaseEnemy.TotalEnemies == 0);
-
-        EndScreen.Victory.StartSequence();
     }
 
     void spawnEnemy (EnemyCategory enemy)
@@ -120,9 +116,3 @@ public enum EnemyCategory
 {
     Hamster, Goose, Butterfly
 }
-
-[Serializable]
-public class TransformBag : BagRandomizer<Transform> {}
-
-[Serializable]
-public class EnemyBag : BagRandomizer<EnemyCategory> {}

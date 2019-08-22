@@ -19,6 +19,7 @@ public class StartButton : MonoBehaviour
     {
         MageSquad.Instance.StartGame();
         PauseMenu.Instance.StartGame();
+        GoalManager.Instance.StartGame();
         EnemySpawner.Instance.StartGame();
         PlayMenuManager.Instance.StartGame();
         Destroy(StartMenuSelectionFollower.Instance.gameObject);

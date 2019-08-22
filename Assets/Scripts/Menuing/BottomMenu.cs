@@ -11,7 +11,6 @@ public class BottomMenu : MonoBehaviour
     public float FadeInTime;
 
     [Header("References")]
-    public TextMeshProUGUI WaveDisplay;
     public TextMeshProUGUI HealthAmount;
     public TextMeshProUGUI ManaAmount;
 
@@ -25,7 +24,6 @@ public class BottomMenu : MonoBehaviour
 
     void Update ()
     {
-        WaveDisplay.text = "Wave\n" + EnemySpawner.Instance.CurrentWave;
         HealthAmount.text = "x" + MageSquad.Instance.HealthPots;
         ManaAmount.text = "x" + MageSquad.Instance.ManaPots;
     }
