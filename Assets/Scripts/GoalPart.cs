@@ -23,18 +23,22 @@ public class GoalPart : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        bool canCollect = !MageSquad.Instance.GreenMage.Health.Dead && !MageSquad.Instance[color].Health.Dead;
-        if (canCollect && other.GetComponent<Mage>().Color == color)
+        if (flying) return;
+
+        var mage = other.GetComponent<Mage>();
+
+        if (!mage.Active) return;
+
+        bool impossibleForColorsToMatch = MageSquad.Instance.GreenMage.Health.Dead && MageSquad.Instance[color].Health.Dead;
+
+        if (impossibleForColorsToMatch || mage.Color == color)
         {
-            if (!flying)
-            {
-                flying = true;
-                StartCoroutine(collectRoutine());
-            }
+            flying = true;
+            StartCoroutine(collectRoutine());
         }
         else
         {
-            CantDoThatFeedback.Instance.DisplayMessage($"you need to be {color.ToString()} to pick this up!");
+            CantDoThatFeedback.Instance.DisplayMessage($"only {color.ToString()} Mage can pick this up!");
         }
     }
 
