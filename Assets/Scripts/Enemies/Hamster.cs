@@ -43,6 +43,18 @@ public class Hamster : BaseEnemy
 		animator = GetComponent<Animator>();
 
 		StartCoroutine(startRoutine());
+
+		Health.Death.AddListener(() => {
+			Gem.Launch();
+
+			currentSpeed = DeathSpeed;
+			if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
+
+			StopAllCoroutines();
+
+			GetComponent<Collider2D>().enabled = false;
+			GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
+		});
 	}
 
 	protected override void Update ()
@@ -54,19 +66,6 @@ public class Hamster : BaseEnemy
 			var y = Health.Dead ? 0 : rb.velocity.y - Gravity * Time.deltaTime;
 			rb.velocity = new Vector2(currentSpeed, y);
 		}
-	}
-
-	protected override void die ()
-	{
-		Gem.Launch();
-
-		currentSpeed = DeathSpeed;
-		if (RandomExtra.Chance(.5f)) currentSpeed *= -1;
-
-		StopAllCoroutines();
-
-		GetComponent<Collider2D>().enabled = false;
-		GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
 	}
 
 	IEnumerator startRoutine ()

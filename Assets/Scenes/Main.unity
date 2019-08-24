@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4925,40 +4925,40 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1571380852708069238, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}
       propertyPath: MagicColor
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e275c5ae7673b454e95aa1a2a9107d7b, type: 3}
@@ -7219,39 +7219,39 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1571380852708069238, guid: e275c5ae7673b454e95aa1a2a9107d7b,
         type: 3}
       propertyPath: MagicColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851742866409, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851414406188, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571380851598130792, guid: e275c5ae7673b454e95aa1a2a9107d7b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -9900,6 +9900,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  ItemDropRate: 0.1
+  ItemDropDistribution:
+    Items:
+    - {fileID: 8597196213851952340, guid: e7ac104183e6e37479c561cad3d07ddb, type: 3}
+    - {fileID: 8597196213851952340, guid: e7ac104183e6e37479c561cad3d07ddb, type: 3}
+    - {fileID: 7373291636492479357, guid: d4bd4ae11b7ee4c4d817854bc27beb59, type: 3}
+    - {fileID: 7373291636492479357, guid: d4bd4ae11b7ee4c4d817854bc27beb59, type: 3}
+    - {fileID: 7373291636492479357, guid: d4bd4ae11b7ee4c4d817854bc27beb59, type: 3}
+    AvoidRepeats: 0
   StartGameReadyTime: 5
   ButterflySpawnLocations:
     Items:

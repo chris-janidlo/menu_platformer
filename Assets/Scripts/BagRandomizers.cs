@@ -10,3 +10,6 @@ public class EnemyBag : BagRandomizer<EnemyCategory> {}
 
 [Serializable]
 public class ColorBag : BagRandomizer<MagicColor> {}
+
+[Serializable]
+public class ItemBag : BagRandomizer<Item> {}

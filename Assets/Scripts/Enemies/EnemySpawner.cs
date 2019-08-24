@@ -13,6 +13,10 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public EnemyBag Enemies;
     public AnimationCurve SpawnTimeByEnemiesSpawned;
 
+    [Range(0, 1)]
+    public float ItemDropRate;
+    public ItemBag ItemDropDistribution;
+
     public float StartGameReadyTime;
 
     public TransformBag ButterflySpawnLocations, HamsterSpawnLocations;
