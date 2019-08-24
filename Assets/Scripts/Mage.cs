@@ -133,7 +133,6 @@ public class Mage : MonoBehaviour
         rb.simulated = true;
     }
 
-    // returns whether the cast was successful
     public void CastBurst ()
     {
         var cost = BurstCost;
@@ -164,7 +163,6 @@ public class Mage : MonoBehaviour
         }
     }
 
-    // returns whether the cast was successful
     public void CastLine ()
     {
         var cost = LineCost;
@@ -180,7 +178,6 @@ public class Mage : MonoBehaviour
         bullet.Initialize(FacingLeft, Color);
     }
 
-    // returns whether the cast was successful
     public void CastLob ()
     {
         var cost = LobCost;
@@ -256,7 +253,6 @@ public class Mage : MonoBehaviour
         Particles.ParticleSystem.Stop();
     }
 
-    // returns whether the cast was successful
     public void Special1 ()
     {
         if (Ability1Cooldown > 0)
@@ -364,7 +360,6 @@ public class Mage : MonoBehaviour
         return true;
     }
 
-    // returns whether the cast was successful
     public void Special2 ()
     {
         if (Ability2Cooldown > 0)
@@ -460,7 +455,6 @@ public class Mage : MonoBehaviour
         ability2Flag = false;
     }
 
-    // returns true if there was at least one potion at method call
     public void DrinkHealthPotion ()
     {
         if (MageSquad.Instance.HealthPots == 0)
@@ -473,7 +467,6 @@ public class Mage : MonoBehaviour
         Health.Heal(MageSquad.Instance.HealthPotGain);
     }
 
-    // returns true if there was at least one potion at method call
     public void DrinkManaPotion ()
     {
         if (MageSquad.Instance.ManaPots == 0)
