@@ -39,6 +39,12 @@ public class Butterfly : BaseEnemy
         
         destroyer.ShouldDestroy = false;
 
+        Health.Death.AddListener(() => {
+            col.enabled = false;
+            destroyer.ShouldDestroy = true;
+            animator.speed = 0; // stop animations
+        });
+
         var color = (MagicColor) Random.Range(0, 3);
 
         Health.Color = color;
@@ -140,13 +146,6 @@ public class Butterfly : BaseEnemy
         mage.Health.ColorDamage(Damage, color);
         damageRefractoryTimer = PostDamageRefractoryPeriod;
     }
-
-	protected override void die ()
-	{
-		col.enabled = false;
-        destroyer.ShouldDestroy = true;
-        animator.speed = 0; // stop animations
-	}
 
     float distanceToClosestLivingMage (out Mage mage)
     {

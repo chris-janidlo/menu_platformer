@@ -37,6 +37,11 @@ public class Goose : BaseEnemy
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
+        Health.Death.AddListener(() => {
+            GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
+            StopAllCoroutines();
+        });
+
         this.target = target;
         transform.position = target.position + Vector3.up * InitialHeight;
 	}
@@ -75,13 +80,6 @@ public class Goose : BaseEnemy
             StartCoroutine(attackRoutine());
         }
     }
-
-	protected override void die ()
-	{
-        GetComponent<DestroyWhenChildrenInvisible>().ShouldDestroy = true;
-
-        StopAllCoroutines();
-	}
 
     Vector2 getFollowPosition ()
     {
