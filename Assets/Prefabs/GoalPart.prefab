@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3389870539689922406}
   - component: {fileID: 7197012801447427972}
   - component: {fileID: 3375873328096352124}
-  - component: {fileID: 1293129529617680904}
   m_Layer: 13
   m_Name: Power
   m_TagString: Untagged
@@ -70,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 94da58ec777cee04eaf48ee0a52bb1da, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 2ffec6d4468e37447a8d92e9960b3e59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,25 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 0
---- !u!95 &1293129529617680904
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435976535136526427}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2f3ce741c165edc4985d7989e4dc20a6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1095257272659526742
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +149,7 @@ GameObject:
   - component: {fileID: 392175937399208042}
   - component: {fileID: 4058322482309087478}
   - component: {fileID: 1426162114414196353}
+  - component: {fileID: 7037918640161152558}
   m_Layer: 13
   m_Name: GoalPart
   m_TagString: Untagged
@@ -205,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlyTime: 0.5
   FlyFinishedDistance: 10
+  ShrinkTime: 0.15
   ColoredPart: {fileID: 3375873328096352124}
 --- !u!58 &1426162114414196353
 CircleCollider2D:
@@ -222,6 +204,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 12
+--- !u!95 &7037918640161152558
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5239525123506253769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70770faf90a398444bb87793a94472a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9199789770419317204
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +291,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 94da58ec777cee04eaf48ee0a52bb1da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ffec6d4468e37447a8d92e9960b3e59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

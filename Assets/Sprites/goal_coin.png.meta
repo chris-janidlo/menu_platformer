@@ -15,6 +15,11 @@ TextureImporter:
     21300020: goal_coin_2
     21300022: goal_coin_3
     21300024: goal_coin_4
+    21300026: goal_coin_5
+    21300028: goal_coin_6
+    21300030: goal_coin_7
+    21300032: goal_coin_8
+    21300034: goal_coin_9
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -112,6 +117,106 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde0f662308fb4e41a6b052ef81ac57b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal_coin_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 829ab835aeba4e1489fdddeea8f8a9f7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal_coin_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42a6d8da30c39b64a86e36d5e6429c3b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal_coin_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adbe14f4f5f7eb242a0a4ec642c4dfcf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal_coin_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a338db68f5cf03448b0e86773acdc7e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goal_coin_5
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 24
         height: 24
@@ -122,13 +227,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 265dbc4183ba730438b26b969d1776c1
+      spriteID: d05dd22016441184a87a2fcb4cca4944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goal_coin_1
+      name: goal_coin_6
       rect:
         serializedVersion: 2
         x: 24
@@ -142,13 +247,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9ae7d419d6b0284faee3915a5a7453e
+      spriteID: 6d8ea31800b3f9e4c91ccb785fad890e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goal_coin_2
+      name: goal_coin_7
       rect:
         serializedVersion: 2
         x: 48
@@ -162,13 +267,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e75f34a512b79984ea1721650c971fd6
+      spriteID: 26f90e8800bb1fc4ba03e6144643074a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goal_coin_3
+      name: goal_coin_8
       rect:
         serializedVersion: 2
         x: 72
@@ -182,13 +287,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1cea76b7ef3378409e2b56441b966c8
+      spriteID: 62128d46a574c5041b3c248b317c5fb8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goal_coin_4
+      name: goal_coin_9
       rect:
         serializedVersion: 2
         x: 96
@@ -202,7 +307,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8330ddefcd6e8024588d66fb47178a69
+      spriteID: 3062af177dc14054493e3e6a54e3d71a
       vertices: []
       indices: 
       edges: []

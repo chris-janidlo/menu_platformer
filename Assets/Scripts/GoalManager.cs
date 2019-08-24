@@ -15,13 +15,13 @@ public class GoalManager : Singleton<GoalManager>
     public ColorBag ColorDistribution;
 
     [Header("References")]
-    public Image CoinGraphic;
+    public Image CoinMask;
     public GoalPart GoalPartPrefab;
 
     void Awake ()
     {
         SingletonSetInstance(this, true);
-        CoinGraphic.fillAmount = 0;
+        CoinMask.fillAmount = 1;
     }
 
     public void StartGame ()
@@ -33,7 +33,8 @@ public class GoalManager : Singleton<GoalManager>
     {
         for (int i = 0; i < GoalPartsUntilVictory; i++)
         {
-            StartCoroutine(newCoinFillAmount((float) i / GoalPartsUntilVictory));
+            var newAmnt = 1 - ((float) i / GoalPartsUntilVictory);
+            StartCoroutine(newCoinFillAmount(newAmnt));
 
             yield return new WaitForSeconds(GoalPartSpawnTimeByNumberSpawned.Evaluate(i));
 
@@ -55,13 +56,13 @@ public class GoalManager : Singleton<GoalManager>
     {
         float velocity = 0;
 
-        while (!Mathf.Approximately(CoinGraphic.fillAmount, fillAmount))
+        while (!Mathf.Approximately(CoinMask.fillAmount, fillAmount))
         {
-            CoinGraphic.fillAmount = Mathf.SmoothDamp(CoinGraphic.fillAmount, fillAmount, ref velocity, CoinGraphicFillAmountAnimationTime);
+            CoinMask.fillAmount = Mathf.SmoothDamp(CoinMask.fillAmount, fillAmount, ref velocity, CoinGraphicFillAmountAnimationTime);
 
             yield return null;
         }
 
-        CoinGraphic.fillAmount = fillAmount;
+        CoinMask.fillAmount = fillAmount;
     }
 }

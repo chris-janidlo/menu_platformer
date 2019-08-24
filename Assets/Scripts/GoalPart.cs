@@ -8,7 +8,7 @@ public class GoalPart : MonoBehaviour
 {
     public event UnityAction Collected;
 
-    public float FlyTime, FlyFinishedDistance;
+    public float FlyTime, FlyFinishedDistance, ShrinkTime;
 
     public ColorMapApplier ColoredPart;
 
@@ -44,11 +44,10 @@ public class GoalPart : MonoBehaviour
 
     IEnumerator collectRoutine ()
     {
-        // get rid of power animation, just show ring
-        Destroy(ColoredPart.gameObject);
+        // fly
 
         // since coin graphic never moves during gameplay
-        var targetPos = GoalManager.Instance.CoinGraphic.transform.position;
+        var targetPos = GoalManager.Instance.CoinMask.transform.position;
 
         Vector2 vel = Vector2.zero;
 
@@ -60,7 +59,20 @@ public class GoalPart : MonoBehaviour
         }
 
         Collected.Invoke();
-        
+
+
+        // shrink
+        // TODO: why is the goal part behind the goal coin UI element when it wasn't before
+
+        vel = Vector2.zero;
+
+        while (!Mathf.Approximately(transform.localScale.x, 0))
+        {
+            transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.zero, ref vel, ShrinkTime);
+
+            yield return null;
+        }
+
         Destroy(gameObject);
     }
 }
