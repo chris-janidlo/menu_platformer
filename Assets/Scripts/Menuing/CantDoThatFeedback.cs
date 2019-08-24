@@ -8,7 +8,7 @@ using crass;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CantDoThatFeedback : Singleton<CantDoThatFeedback>
 {
-    public Vector2 InitialSpeedRange;
+    public Vector2 InitialSpeedRange, ArcAngleRange;
     public float MessageTime;
 
     TextMeshProUGUI text;
@@ -32,7 +32,10 @@ public class CantDoThatFeedback : Singleton<CantDoThatFeedback>
     {
         text.text = message;
         transform.localPosition = Vector2.zero;
-        rb.velocity = Random.insideUnitCircle.normalized * RandomExtra.Range(InitialSpeedRange);
+
+        var direction = Quaternion.AngleAxis(RandomExtra.Range(ArcAngleRange), Vector3.forward) * Vector3.down;
+
+        rb.velocity = RandomExtra.Range(InitialSpeedRange) * direction;
 
         yield return new WaitForSeconds(MessageTime);
 

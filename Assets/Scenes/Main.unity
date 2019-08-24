@@ -9449,7 +9449,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.52156866, g: 0.58431375, b: 0.6313726, a: 1}
+  m_fontColor: {r: 0.85490197, g: 0.83137256, b: 0.36862746, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9547,6 +9547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialSpeedRange: {x: 80, y: 180}
+  ArcAngleRange: {x: -70, y: 70}
   MessageTime: 2
 --- !u!222 &1929090585
 CanvasRenderer:
