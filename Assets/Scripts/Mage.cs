@@ -22,7 +22,8 @@ public class Mage : MonoBehaviour
 
     [Header("Stats")]
     public MagicColor Color;
-    public float ManaGain;
+    public float NormalManaRecovery, PotionManaRecovery, ManaPotActiveTime;
+    public float HealthPotHeal;
     public float BurstCost, LineCost, LobCost;
     public float Ability1CooldownTime, Ability2CooldownTime;
 
@@ -63,6 +64,8 @@ public class Mage : MonoBehaviour
     bool specialJumpLaunch, specialJumpAir;
     Vector2 groundedExtents;
     float timeSinceLastJumpPress = float.MaxValue;
+
+    float manaPotTimer;
 
     bool ability1Flag, ability2Flag;
 
@@ -111,7 +114,8 @@ public class Mage : MonoBehaviour
 
         platform();
 
-        Mana += ManaGain * Time.deltaTime;
+        Mana += (manaPotTimer <= 0 ? NormalManaRecovery : PotionManaRecovery) * Time.deltaTime;
+        manaPotTimer = Mathf.Max(manaPotTimer - Time.deltaTime, 0);
 
         Ability1Cooldown -= Time.deltaTime;
         Ability2Cooldown -= Time.deltaTime;
@@ -464,7 +468,7 @@ public class Mage : MonoBehaviour
         }
 
         MageSquad.Instance.HealthPots--;
-        Health.Heal(MageSquad.Instance.HealthPotGain);
+        Health.Heal(HealthPotHeal);
     }
 
     public void DrinkManaPotion ()
@@ -472,10 +476,11 @@ public class Mage : MonoBehaviour
         if (MageSquad.Instance.ManaPots == 0)
         {
             CantDoThatFeedback.Instance.DisplayMessage("not enough mana potions!");
+            return;
         }
 
         MageSquad.Instance.ManaPots--;
-        Mana += MageSquad.Instance.ManaPotGain;
+        manaPotTimer += ManaPotActiveTime;
     }
 
     void die ()

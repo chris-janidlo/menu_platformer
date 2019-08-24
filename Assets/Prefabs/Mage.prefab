@@ -51,7 +51,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mana: 100
   Color: 0
-  ManaGain: 6.6666665
+  NormalManaRecovery: 6.6666665
+  PotionManaRecovery: 35
+  ManaPotActiveTime: 6
+  HealthPotHeal: 50
   BurstCost: 50
   LineCost: 10
   LobCost: 20

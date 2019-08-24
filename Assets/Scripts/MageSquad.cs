@@ -11,8 +11,6 @@ public class MageSquad : Singleton<MageSquad>, IEnumerable<Mage>
 
     public float StartMenuFollowDelay, StartMenuFollowSpacing;
 
-    public float HealthPotGain, ManaPotGain;
-
     public ActiveMageChangeEvent ActiveMageChanged;
 
     public Mage ActiveMage { get; private set; }
