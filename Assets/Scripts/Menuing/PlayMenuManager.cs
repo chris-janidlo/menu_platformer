@@ -361,19 +361,21 @@ public class PlayMenuManager : Singleton<PlayMenuManager>
 
     IEnumerator sizeAnimation (bool growing)
     {
-        transform.localScale = growing ? Vector3.zero : Vector3.one;
+        var maskform = Mask.transform;
+
+        maskform.localScale = growing ? Vector3.zero : Vector3.one;
         Vector3 target = growing ? Vector3.one : Vector3.zero;
         Vector3 vel = Vector3.zero;
 
         float smoothTime = growing ? GrowAnimationTime : ShrinkAnimationTime;
 
-        while (transform.localScale != target)
+        while (maskform.localScale != target)
         {
-            transform.localScale = Vector3.SmoothDamp(transform.localScale, target, ref vel, smoothTime * Time.timeScale);
+            maskform.localScale = Vector3.SmoothDamp(maskform.localScale, target, ref vel, smoothTime * Time.timeScale);
             yield return null;
         }
 
-        transform.localScale = (currentlySelected == null) ? Vector3.zero : Vector3.one;
+        maskform.localScale = (currentlySelected == null) ? Vector3.zero : Vector3.one;
     }
 
     IEnumerator shiftAnimation (bool goingUp)
