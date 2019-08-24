@@ -184,9 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5563b3e0e7b874c40b487acd89ca6b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GrowTime: 0.1
   FlyTime: 0.5
-  FlyFinishedDistance: 10
-  ShrinkTime: 0.15
+  FlyFinishedDistance: 20
   ColoredPart: {fileID: 3375873328096352124}
 --- !u!58 &1426162114414196353
 CircleCollider2D:

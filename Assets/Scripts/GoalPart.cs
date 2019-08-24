@@ -8,17 +8,24 @@ public class GoalPart : MonoBehaviour
 {
     public event UnityAction Collected;
 
-    public float FlyTime, FlyFinishedDistance, ShrinkTime;
+    public float GrowTime, FlyTime, FlyFinishedDistance;
 
     public ColorMapApplier ColoredPart;
 
     MagicColor color;
     bool flying;
 
+    void Start ()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
     public void Initialize (MagicColor color)
     {
         this.color = color;
         ColoredPart.ChangeColor(color);
+
+        StartCoroutine(growRoutine());
     }
 
     void OnTriggerEnter2D (Collider2D other)
@@ -42,6 +49,22 @@ public class GoalPart : MonoBehaviour
         }
     }
 
+    IEnumerator growRoutine ()
+    {
+        var vel = Vector3.zero;
+
+        transform.localScale = Vector3.zero;
+
+        while (!Mathf.Approximately(transform.localScale.x, 1))
+        {
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, Vector3.one, ref vel, GrowTime);
+
+            yield return null;
+        }
+
+        transform.localScale = Vector3.one;
+    }
+
     IEnumerator collectRoutine ()
     {
         // fly
@@ -59,19 +82,6 @@ public class GoalPart : MonoBehaviour
         }
 
         Collected.Invoke();
-
-
-        // shrink
-        // TODO: why is the goal part behind the goal coin UI element when it wasn't before
-
-        vel = Vector2.zero;
-
-        while (!Mathf.Approximately(transform.localScale.x, 0))
-        {
-            transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.zero, ref vel, ShrinkTime);
-
-            yield return null;
-        }
 
         Destroy(gameObject);
     }
