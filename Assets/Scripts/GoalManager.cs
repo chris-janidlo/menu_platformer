@@ -5,11 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using crass;
 
-// TODO: new spawning system:
-    // stays with the current color based on a chance given by a curve
-        // low number of subsequent spawns of the same color: low chance to change color
-        // high number of subsequent spawns: high chance to switch
-    // tries to choose spawn points close to you while still avoiding repeats (?)
+// TODO: try to choose spawn points close to you while still avoiding repeats (?)
 public class GoalManager : Singleton<GoalManager>
 {
     [Header("Stats")]
@@ -17,7 +13,7 @@ public class GoalManager : Singleton<GoalManager>
     public TransformBag GoalPartSpawnLocations;
     public float GoalPartSpawnTime;
     public float CoinGraphicFillAmountAnimationTime;
-    public ColorBag ColorDistribution;
+    public AnimationCurve ChanceToSwitchColorsByColorStreak;
 
     [Header("References")]
     public Image CoinMask;
@@ -25,10 +21,18 @@ public class GoalManager : Singleton<GoalManager>
 
     public int GoalPartsCollected { get; private set; }
 
+    MagicColor currentColor;
+    int colorStreak;
+    ColorBag colors;
+
     void Awake ()
     {
         SingletonSetInstance(this, true);
         CoinMask.fillAmount = 1;
+
+        colors = new ColorBag();
+        colors.Items = new List<MagicColor> { MagicColor.Red, MagicColor.Green, MagicColor.Blue };
+        colors.AvoidRepeats = true;
     }
 
     public void StartGame ()
@@ -48,7 +52,7 @@ public class GoalManager : Singleton<GoalManager>
             bool currentCollected = false;
 
             var item = Instantiate(GoalPartPrefab, GoalPartSpawnLocations.GetNext().position, Quaternion.identity);
-            item.Initialize(ColorDistribution.GetNext());
+            item.Initialize(getColor());
             item.Collected += () => currentCollected = true;
 
             yield return new WaitUntil(() => currentCollected);
@@ -71,5 +75,19 @@ public class GoalManager : Singleton<GoalManager>
         }
 
         CoinMask.fillAmount = fillAmount;
+    }
+
+    MagicColor getColor ()
+    {
+        colorStreak++;
+
+        var chance = ChanceToSwitchColorsByColorStreak.Evaluate(colorStreak);
+        if (RandomExtra.Chance(chance))
+        {
+            currentColor = colors.GetNext();
+            colorStreak = 0;
+        }
+
+        return currentColor;
     }
 }

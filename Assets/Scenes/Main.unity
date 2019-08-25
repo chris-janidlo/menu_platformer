@@ -10627,7 +10627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63dea863103b1f47ac374a06b471e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalPartsUntilVictory: 30
+  GoalPartsUntilVictory: 60
   GoalPartSpawnLocations:
     Items:
     - {fileID: 428322621}
@@ -10654,11 +10654,50 @@ MonoBehaviour:
     - {fileID: 1219229146}
     - {fileID: 1887484977}
     AvoidRepeats: 1
-  GoalPartSpawnTime: 10
+  GoalPartSpawnTime: 1
   CoinGraphicFillAmountAnimationTime: 0.2
-  ColorDistribution:
-    Items: 000000000100000002000000000000000100000002000000000000000100000002000000
-    AvoidRepeats: 1
+  ChanceToSwitchColorsByColorStreak:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 3
+      value: 0
+      inSlope: 0.15
+      outSlope: 0.15
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4
+      value: 0.15
+      inSlope: 0.2
+      outSlope: 0.2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 0.4
+      inSlope: 0.185
+      outSlope: 0.185
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 1
+      inSlope: 0.120000005
+      outSlope: 0.120000005
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   CoinMask: {fileID: 1128559026}
   GoalPartPrefab: {fileID: 4058322482309087478, guid: 3a4afdd4c5148a745b2806b1d1d45655,
     type: 3}
