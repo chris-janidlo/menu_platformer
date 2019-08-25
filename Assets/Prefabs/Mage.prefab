@@ -80,7 +80,7 @@ MonoBehaviour:
   BombashShakeAmount: 3
   RejuveHeal: 100
   TimeSlowAmount: 0.5
-  TimeSlowTime: 10
+  TimeSlowTime: 15
   Health: {fileID: 7747340989538951405}
   Body: {fileID: 3820094173015530496}
   Wand: {fileID: 410482379626790206}
