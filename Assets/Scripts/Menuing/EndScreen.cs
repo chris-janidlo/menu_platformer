@@ -14,6 +14,8 @@ public class EndScreen : MonoBehaviour
     public float FadeTime, PromptDelay, PromptFadeTime;
     public TextMeshProUGUI Prompt;
 
+    public static bool GameIsComplete { get; private set; }
+
     CanvasGroup group;
 
     void Start ()
@@ -38,6 +40,8 @@ public class EndScreen : MonoBehaviour
 
     IEnumerator displayRoutine ()
     {
+        GameIsComplete = true;
+
         Prompt.alpha = 0;
         PlayMenuManager.Instance.gameObject.SetActive(false);
 

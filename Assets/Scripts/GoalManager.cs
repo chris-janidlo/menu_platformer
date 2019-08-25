@@ -33,6 +33,8 @@ public class GoalManager : Singleton<GoalManager>
         colors = new ColorBag();
         colors.Items = new List<MagicColor> { MagicColor.Red, MagicColor.Green, MagicColor.Blue };
         colors.AvoidRepeats = true;
+
+        currentColor = colors.GetNext();
     }
 
     public void StartGame ()

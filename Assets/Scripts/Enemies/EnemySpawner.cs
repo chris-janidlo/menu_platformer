@@ -8,8 +8,6 @@ using crass;
 public class EnemySpawner : Singleton<EnemySpawner>
 {
     [Header("Stats")]
-    public int CurrentWave;
-    public int MaxWave;
     public EnemyBag Enemies;
     public AnimationCurve SpawnTimeByGoalsCollected;
 
@@ -31,9 +29,19 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     List<Mage> currentGooseTargets = new List<Mage>();
 
+    bool apocalypsed;
+
     void Awake ()
     {
         SingletonSetInstance(this, true);
+    }
+
+    void Update ()
+    {
+        if (!apocalypsed && EndScreen.GameIsComplete)
+        {
+            endGame();            
+        }
     }
 
     public void StartGame ()
@@ -41,23 +49,33 @@ public class EnemySpawner : Singleton<EnemySpawner>
         StartCoroutine(gameRoutine());
     }
 
+    void endGame ()
+    {
+        apocalypsed = true;
+
+        StopAllCoroutines();
+
+        List<GameObject> toDestroy = new List<GameObject>();
+
+        toDestroy.AddRange(FindObjectsOfType<BaseEnemy>().Select(e => e.gameObject));
+        toDestroy.AddRange(FindObjectsOfType<HamsterFart>().Select(e => e.gameObject));
+        toDestroy.AddRange(FindObjectsOfType<GooseLaser>().Select(e => e.gameObject));
+
+        foreach (var obj in toDestroy)
+        {
+            Destroy(obj);
+        }
+    }
+
     IEnumerator gameRoutine ()
     {
-        CurrentWave = 0;
-
         yield return new WaitForSeconds(StartGameReadyTime);
 
-        int enemies = 0;
-
-        while (CurrentWave <= MaxWave)
+        while (true)
         {
-            if (enemies % Enemies.Items.Count == 0) CurrentWave++;
-
             spawnEnemy(Enemies.GetNext());
 
             yield return new WaitForSeconds(SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected));
-
-            enemies++;
         }
     }
 
