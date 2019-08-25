@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af132aac00b9a5d40b0931dfc5e24952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownTime: 120
+  CooldownTime: 20
   ArrowVisibilityRange: {x: 20, y: 130}
   DestinationTele: {fileID: 885203312}
   DestinationPoint: {fileID: 1120321974}
@@ -4593,7 +4593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af132aac00b9a5d40b0931dfc5e24952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownTime: 120
+  CooldownTime: 20
   ArrowVisibilityRange: {x: 20, y: 130}
   DestinationTele: {fileID: 320282217}
   DestinationPoint: {fileID: 1282615355}
