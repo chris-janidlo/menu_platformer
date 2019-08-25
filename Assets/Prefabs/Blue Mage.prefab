@@ -67,11 +67,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1387779429954814143, guid: 2766df5dabded4745b3b414e16b00804,
-        type: 3}
-      propertyPath: Color
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1387779429954814142, guid: 2766df5dabded4745b3b414e16b00804,
         type: 3}
       propertyPath: Color
@@ -80,12 +75,17 @@ PrefabInstance:
     - target: {fileID: 1387779429954814142, guid: 2766df5dabded4745b3b414e16b00804,
         type: 3}
       propertyPath: Ability1CooldownTime
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1387779429954814142, guid: 2766df5dabded4745b3b414e16b00804,
         type: 3}
       propertyPath: Ability2CooldownTime
-      value: 20
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387779429954814143, guid: 2766df5dabded4745b3b414e16b00804,
+        type: 3}
+      propertyPath: Color
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2766df5dabded4745b3b414e16b00804, type: 3}

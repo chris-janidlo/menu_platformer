@@ -72,10 +72,10 @@ MonoBehaviour:
   GroundedFudgeVertical: 0.1
   GroundedFudgeHorizontal: 0
   ParticleStopTime: 0
-  NimbilityTime: 4
+  NimbilityTime: 5
   NimbilityNewSpeed: 220
   NimbilityNewJumpBurst: 400
-  BombashDamage: 20
+  BombashDamage: 120
   BombashShakeTime: 0.5
   BombashShakeAmount: 3
   RejuveHeal: 100
