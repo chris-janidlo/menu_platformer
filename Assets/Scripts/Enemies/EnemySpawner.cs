@@ -11,7 +11,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
     public int CurrentWave;
     public int MaxWave;
     public EnemyBag Enemies;
-    public AnimationCurve SpawnTimeByEnemiesSpawned;
+    public AnimationCurve SpawnTimeByGoalsCollected;
 
     [Range(0, 1)]
     public float ItemDropRate;
@@ -55,7 +55,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
             spawnEnemy(Enemies.GetNext());
 
-            yield return new WaitForSeconds(SpawnTimeByEnemiesSpawned.Evaluate(enemies));
+            yield return new WaitForSeconds(SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected));
 
             enemies++;
         }

@@ -5,18 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using crass;
 
+// TODO: new spawning system:
+    // stays with the current color based on a chance given by a curve
+        // low number of subsequent spawns of the same color: low chance to change color
+        // high number of subsequent spawns: high chance to switch
+    // tries to choose spawn points close to you while still avoiding repeats (?)
 public class GoalManager : Singleton<GoalManager>
 {
     [Header("Stats")]
     public int GoalPartsUntilVictory;
     public TransformBag GoalPartSpawnLocations;
-    public AnimationCurve GoalPartSpawnTimeByNumberSpawned;
+    public float GoalPartSpawnTime;
     public float CoinGraphicFillAmountAnimationTime;
     public ColorBag ColorDistribution;
 
     [Header("References")]
     public Image CoinMask;
     public GoalPart GoalPartPrefab;
+
+    public int GoalPartsCollected { get; private set; }
 
     void Awake ()
     {
@@ -31,12 +38,12 @@ public class GoalManager : Singleton<GoalManager>
 
     IEnumerator gameRoutine ()
     {
-        for (int i = 0; i < GoalPartsUntilVictory; i++)
+        for (; GoalPartsCollected < GoalPartsUntilVictory; GoalPartsCollected++)
         {
-            var newAmnt = 1 - ((float) i / GoalPartsUntilVictory);
+            var newAmnt = 1 - ((float) GoalPartsCollected / GoalPartsUntilVictory);
             StartCoroutine(newCoinFillAmount(newAmnt));
 
-            yield return new WaitForSeconds(GoalPartSpawnTimeByNumberSpawned.Evaluate(i));
+            yield return new WaitForSeconds(GoalPartSpawnTime);
 
             bool currentCollected = false;
 

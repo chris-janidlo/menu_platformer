@@ -10529,34 +10529,34 @@ MonoBehaviour:
   CurrentWave: 0
   MaxWave: 30
   Enemies:
-    Items: 00000000000000000000000002000000020000000200000002000000010000000100000001000000
+    Items: 02000000020000000200000002000000020000000000000000000000000000000100000001000000
     AvoidRepeats: 0
-  SpawnTimeByEnemiesSpawned:
+  SpawnTimeByGoalsCollected:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      value: 15
+      inSlope: -0.33333334
+      outSlope: -0.33333334
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.15966131
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 200
+      time: 15
       value: 10
-      inSlope: -0.05
-      outSlope: -0.05
+      inSlope: -0.5
+      outSlope: -0.5
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 300
-      value: 5
-      inSlope: -0.05
-      outSlope: -0.05
+      time: 30
+      value: 0
+      inSlope: -0.6666667
+      outSlope: -0.6666667
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -10654,33 +10654,10 @@ MonoBehaviour:
     - {fileID: 1219229146}
     - {fileID: 1887484977}
     AvoidRepeats: 1
-  GoalPartSpawnTimeByNumberSpawned:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 30
-      value: 30
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  GoalPartSpawnTime: 10
   CoinGraphicFillAmountAnimationTime: 0.2
   ColorDistribution:
-    Items: 000000000100000002000000
+    Items: 000000000100000002000000000000000100000002000000000000000100000002000000
     AvoidRepeats: 1
   CoinMask: {fileID: 1128559026}
   GoalPartPrefab: {fileID: 4058322482309087478, guid: 3a4afdd4c5148a745b2806b1d1d45655,

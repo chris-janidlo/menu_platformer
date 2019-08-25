@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc92e933f1d452479ce5e8aad0fb698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerSecond: 20
-  Clouds: 7
-  CloudSpeedRange: {x: 50, y: 70}
+  DamagePerSecond: 30
+  Clouds: 15
+  CloudSpeedRange: {x: 30, y: 100}
   FartCloudPrefab: {fileID: 6321653191155939656, guid: f6d22cc5fd1993b4b9541fbcd5205208,
     type: 3}

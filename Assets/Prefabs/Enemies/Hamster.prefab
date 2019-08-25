@@ -228,10 +228,6 @@ MonoBehaviour:
   Health: {fileID: 7701606473248748580}
   ElementalParticleEffectPrefab: {fileID: 7166876173075551717, guid: 1eb8b2b794033674fb290c10b4404e45,
     type: 3}
-  HealthPotPrefab: {fileID: 8597196213851952340, guid: e7ac104183e6e37479c561cad3d07ddb,
-    type: 3}
-  ManaPotPrefab: {fileID: 7373291636492479357, guid: d4bd4ae11b7ee4c4d817854bc27beb59,
-    type: 3}
   Gravity: 500
   AmbleSpeed: 30
   AmbleTime: 2
@@ -256,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsColored: 1
   Color: 0
-  MaxHealth: 50
+  MaxHealth: 75
   HurtFlashes: 4
   HurtFlashOnTime: 0.1
   HurtFlashOffTime: 0.1
