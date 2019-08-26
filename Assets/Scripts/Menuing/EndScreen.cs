@@ -9,17 +9,19 @@ using crass;
 public class EndScreen : MonoBehaviour
 {
     public static EndScreen Victory, GameOver;
+
+    public static bool GameIsComplete { get; private set; }
  
     public bool IsGameOver;
     public float FadeTime, PromptDelay, PromptFadeTime;
     public TextMeshProUGUI Prompt;
 
-    public static bool GameIsComplete { get; private set; }
-
     CanvasGroup group;
 
     void Start ()
     {
+        GameIsComplete = false;
+     
         group = GetComponent<CanvasGroup>();
 
         if (IsGameOver)
