@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +55,7 @@ public class GoalManager : Singleton<GoalManager>
 
             var item = Instantiate(GoalPartPrefab, GoalPartSpawnLocations.GetNext().position, Quaternion.identity);
             item.Initialize(getColor());
-            item.Collected += () => currentCollected = true;
+            item.Collected.AddListener(() => currentCollected = true);
 
             yield return new WaitUntil(() => currentCollected);
         }
