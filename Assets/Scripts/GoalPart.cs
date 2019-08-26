@@ -8,7 +8,7 @@ public class GoalPart : MonoBehaviour
 {
     public UnityEvent Collected;
 
-    public float GrowTime, FlyTime, FlyFinishedDistance;
+    public float GrowTime, ShrinkTime, ShrinkFinishedSize, FlyTime, FlyFinishedDistance;
 
     public ColorMapApplier ColoredPart;
 
@@ -77,6 +77,17 @@ public class GoalPart : MonoBehaviour
         while (Vector2.Distance(transform.position, targetPos) > FlyFinishedDistance)
         {
             transform.position = Vector2.SmoothDamp(transform.position, targetPos, ref vel, FlyTime);
+
+            yield return null;
+        }
+
+        // shrink
+
+        vel = Vector2.zero;
+
+        while (transform.localScale.x > ShrinkFinishedSize)
+        {
+            transform.localScale = Vector2.SmoothDamp(transform.localScale, Vector2.zero, ref vel, ShrinkTime);
 
             yield return null;
         }
