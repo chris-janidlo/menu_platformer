@@ -108,7 +108,7 @@ public class Mage : MonoBehaviour
 
     void Update ()
     {
-        if (!gameStarted) return;
+        if (!gameStarted || EndScreen.GameIsComplete) return;
 
         bodyRenderer.SetAlpha(Health.Dead ? .5f : 1);
 

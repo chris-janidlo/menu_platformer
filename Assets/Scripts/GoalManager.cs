@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using crass;
 
 public class GoalManager : Singleton<GoalManager>
@@ -13,6 +14,7 @@ public class GoalManager : Singleton<GoalManager>
     public float GoalPartSpawnTime;
     public float CoinGraphicFillAmountAnimationTime;
     public AnimationCurve ChanceToSwitchColorsByColorStreak;
+    public UnityEvent GoalCollected;
 
     [Header("References")]
     public Image CoinMask;
@@ -68,6 +70,8 @@ public class GoalManager : Singleton<GoalManager>
         {
             var newAmnt = 1 - ((float) GoalPartsCollected / GoalPartsUntilVictory);
             StartCoroutine(newCoinFillAmount(newAmnt));
+
+            GoalCollected.Invoke();
 
             yield return new WaitForSeconds(GoalPartSpawnTime);
 

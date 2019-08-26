@@ -12103,16 +12103,25 @@ MonoBehaviour:
       time: 0
       value: 20
       inSlope: -0.46666667
-      outSlope: -0.46666667
+      outSlope: -0.6
       tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 15
-      value: 13
-      inSlope: -0.46666667
-      outSlope: -0.78571427
+      value: 11
+      inSlope: -0.6
+      outSlope: -0.85714287
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 22
+      value: 5
+      inSlope: -0.85714287
+      outSlope: -0.42857143
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
@@ -12120,7 +12129,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 29
       value: 2
-      inSlope: -0.78571427
+      inSlope: -0.42857143
       outSlope: -0.8666667
       tangentMode: 69
       weightedMode: 0
@@ -12263,6 +12272,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  GoalCollected:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   CoinMask: {fileID: 1128559026}
   GoalPartPrefab: {fileID: 4058322482309087478, guid: 3a4afdd4c5148a745b2806b1d1d45655,
     type: 3}

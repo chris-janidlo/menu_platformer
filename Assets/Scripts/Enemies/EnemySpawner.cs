@@ -29,54 +29,50 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     List<Mage> currentGooseTargets = new List<Mage>();
 
-    bool apocalypsed;
+    bool started, apocalypsed;
+    float spawnTimer;
 
     void Awake ()
     {
         SingletonSetInstance(this, true);
     }
 
+    void Start ()
+    {
+        // speed up the timer when goals are collected, so that we aren't waiting forever on a spawn that we started 10 goals ago
+        GoalManager.Instance.GoalCollected.AddListener(() => {
+            var oldTime = SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected - 1);
+            var newTime = SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected);
+
+            spawnTimer -= oldTime - newTime;
+        });
+    }
+
     void Update ()
     {
-        if (!apocalypsed && EndScreen.GameIsComplete)
+        if (!started || apocalypsed) return;
+
+        if (EndScreen.GameIsComplete)
         {
             endGame();            
+            return;
+        }
+
+        spawnTimer -= Time.deltaTime;
+
+        if (spawnTimer < 0)
+        {
+            spawnEnemy(Enemies.GetNext());
+
+            spawnTimer = SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected);
         }
     }
 
     public void StartGame ()
     {
-        StartCoroutine(gameRoutine());
-    }
+        started = true;
 
-    void endGame ()
-    {
-        apocalypsed = true;
-
-        StopAllCoroutines();
-
-        List<GameObject> toDestroy = new List<GameObject>();
-
-        toDestroy.AddRange(FindObjectsOfType<BaseEnemy>().Select(e => e.gameObject));
-        toDestroy.AddRange(FindObjectsOfType<HamsterFart>().Select(e => e.gameObject));
-        toDestroy.AddRange(FindObjectsOfType<GooseLaser>().Select(e => e.gameObject));
-
-        foreach (var obj in toDestroy)
-        {
-            Destroy(obj);
-        }
-    }
-
-    IEnumerator gameRoutine ()
-    {
-        yield return new WaitForSeconds(StartGameReadyTime);
-
-        while (true)
-        {
-            spawnEnemy(Enemies.GetNext());
-
-            yield return new WaitForSeconds(SpawnTimeByGoalsCollected.Evaluate(GoalManager.Instance.GoalPartsCollected));
-        }
+        spawnTimer = StartGameReadyTime;
     }
 
     void spawnEnemy (EnemyCategory enemy)
@@ -97,6 +93,22 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
             default:
                 throw new ArgumentException($"unexpected enemy type {enemy}");
+        }
+    }
+
+    void endGame ()
+    {
+        apocalypsed = true;
+
+        List<GameObject> toDestroy = new List<GameObject>();
+
+        toDestroy.AddRange(FindObjectsOfType<BaseEnemy>().Select(e => e.gameObject));
+        toDestroy.AddRange(FindObjectsOfType<HamsterFart>().Select(e => e.gameObject));
+        toDestroy.AddRange(FindObjectsOfType<GooseLaser>().Select(e => e.gameObject));
+
+        foreach (var obj in toDestroy)
+        {
+            Destroy(obj);
         }
     }
 
