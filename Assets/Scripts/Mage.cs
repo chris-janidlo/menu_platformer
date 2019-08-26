@@ -318,11 +318,33 @@ public class Mage : MonoBehaviour
 
     bool rejuve ()
     {
-        var lowestMage = MageSquad.Instance.RedMage.Health.CurrentHealth < MageSquad.Instance.BlueMage.Health.CurrentHealth ? MageSquad.Instance.RedMage : MageSquad.Instance.BlueMage;
+        var red = MageSquad.Instance.RedMage;
+        var blue = MageSquad.Instance.BlueMage;
+
+        if (red.Health.Dead && blue.Health.Dead)
+        {
+            CantDoThatFeedback.Instance.DisplayMessage("everyone else is dead!");
+            return false;
+        }
+
+        Mage lowestMage;
+        
+        if (red.Health.Dead)
+        {
+            lowestMage = blue;
+        }
+        else if (blue.Health.Dead)
+        {
+            lowestMage = red;
+        }
+        else
+        {
+            lowestMage = red.Health.CurrentHealth < blue.Health.CurrentHealth ? red : blue;
+        }
 
         if (lowestMage.Health.CurrentHealth == 100)
         {
-            CantDoThatFeedback.Instance.DisplayMessage("other mages already full health!");
+            CantDoThatFeedback.Instance.DisplayMessage("there's no one to heal!");
             return false;
         }
 
