@@ -5,7 +5,7 @@ using crass;
 
 public class PlayMenuFollower : MonoBehaviour
 {
-    public float MinX, MaxX, MaxY;
+    public float MaxY;
 
     public float SwitchSmoothTimeInitial, SwitchSmoothTimeDecay, SwitchDestinationDistance;
 
@@ -25,7 +25,7 @@ public class PlayMenuFollower : MonoBehaviour
 
         transform.position = new Vector2
         (
-            Mathf.Clamp(targetPos.x, MinX, MaxX),
+            targetPos.x,
             Mathf.Min(targetPos.y, MaxY)
         );
     }
