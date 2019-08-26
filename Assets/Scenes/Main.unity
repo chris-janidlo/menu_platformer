@@ -2636,8 +2636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee7d8288bf80459a83ee67dca4d2715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinX: -245
-  MaxX: 245
   MaxY: 175
   SwitchSmoothTimeInitial: 0.1
   SwitchSmoothTimeDecay: 0.1
@@ -12104,18 +12102,27 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 20
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
+      inSlope: -0.46666667
+      outSlope: -0.46666667
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 60
-      value: 5
-      inSlope: -0.25
-      outSlope: -0.25
-      tangentMode: 34
+      time: 15
+      value: 13
+      inSlope: -0.46666667
+      outSlope: -0.78571427
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 29
+      value: 2
+      inSlope: -0.78571427
+      outSlope: -0.8666667
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0
@@ -12185,7 +12192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63dea863103b1f47ac374a06b471e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalPartsUntilVictory: 60
+  GoalPartsUntilVictory: 30
   GoalPartSpawnLocations:
     Items:
     - {fileID: 428322621}
