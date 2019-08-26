@@ -81,7 +81,7 @@ public class GoalManager : Singleton<GoalManager>
             yield return new WaitUntil(() => currentCollected);
         }
 
-        StartCoroutine(newCoinFillAmount(1));
+        StartCoroutine(newCoinFillAmount(0));
 
         EndScreen.Victory.StartSequence();
     }
