@@ -20,6 +20,8 @@ public class ColorMapApplier : MonoBehaviour
     void Start ()
     {
         if (sr.color == UnityEngine.Color.white) ChangeColor(Color);
+
+        MagicColorStats.ColorMapChanged += () => ChangeColor(Color);
     }
 
     public void ChangeColor (MagicColor color)

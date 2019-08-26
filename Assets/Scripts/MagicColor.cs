@@ -23,33 +23,34 @@ public static class MagicColorExtensions
 
 public static class MagicColorStats
 {
+    public static event Action ColorMapChanged;
+ 
     public const float SuperEffectiveDamage = 1.5f, WeakDamage = .75f;
 
     public static Dictionary<MagicColor, Color> ColorMap
     {
         get
         {
-            if (!PlayerPrefs.HasKey("ColorBlindSetting")) return DefaultColorMap;
-
-            switch (ColorBlindSetting)
+            if (PlayerPrefs.HasKey("ColorBlindMode") && ColorBlindMode)
             {
-                case ColorBlindType.None:
-                    return DefaultColorMap;
-                
-                // TODO: 
-                case ColorBlindType.Protanopia:
-                case ColorBlindType.Deuteranopia:
-                case ColorBlindType.Tritanopia:
-                default:
-                    throw new ArgumentException($"unexpected ColorBlindSetting {ColorBlindSetting}");
+                return ColorBlindMap;
+            }
+            else
+            {
+                return DefaultColorMap;
             }
         }
     }
 
-    public static ColorBlindType ColorBlindSetting
+    public static bool ColorBlindMode
     {
-        get => (ColorBlindType) PlayerPrefs.GetInt("ColorBlindSetting");
-        set => PlayerPrefs.SetInt("ColorBlindSetting", (int) value);
+        get => PlayerPrefs.GetInt("ColorBlindMode") == 1;
+        set
+        {
+            PlayerPrefs.SetInt("ColorBlindMode", value ? 1 : 0); 
+
+            if (ColorMapChanged != null) ColorMapChanged();
+        }
     }
 
     public static readonly Dictionary<MagicColor, Color> DefaultColorMap = new Dictionary<MagicColor, Color>
@@ -59,14 +60,11 @@ public static class MagicColorStats
         { MagicColor.Blue, new Color(89 / 255f, 124 / 255f, 206 / 255f) }
     };
 
-    // TODO:
-    // public static readonly Dictionary<MagicColor, Color> ProtanopiaMap
-    // public static readonly Dictionary<MagicColor, Color> DeuteranopiaMap
-    // public static readonly Dictionary<MagicColor, Color> TritanopiaMap
+    // changes green to yellow
+    public static readonly Dictionary<MagicColor, Color> ColorBlindMap = new Dictionary<MagicColor, Color>
+    {
+        { MagicColor.Red, new Color(208 / 255f, 70 / 255f, 72 / 255f) },
+        { MagicColor.Green, new Color(218 / 255f, 212 / 255f, 94 / 255f) },
+        { MagicColor.Blue, new Color(89 / 255f, 124 / 255f, 206 / 255f) }
+    };
 }
-
-public enum ColorBlindType
-{
-    None, Protanopia, Deuteranopia, Tritanopia
-}
-

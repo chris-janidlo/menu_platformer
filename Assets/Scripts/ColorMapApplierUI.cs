@@ -10,6 +10,15 @@ public class ColorMapApplierUI : MonoBehaviour
 
     void Start ()
     {
+        ChangeColor(Color);
+
+        MagicColorStats.ColorMapChanged += () => ChangeColor(Color);
+    }
+
+    public void ChangeColor (MagicColor color)
+    {
+        Color = color;
+
         GetComponent<Graphic>().color = MagicColorStats.ColorMap[Color];
     }
 }

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
 public class StartButton : MonoBehaviour
 {
     public BottomMenu BottomMenu;
     public FakeCopyrightFadeOut FakeCopyrightFadeOut;
-    public List<Button> Siblings;
+    public Button StartButt, OptionsButton;
+    public OptionsMenu OptionsMenu;
 
     void Start ()
     {
-        GetComponent<Button>().onClick.AddListener(() => StartCoroutine(startRoutine()));
+        StartButt.onClick.AddListener(() => StartCoroutine(startRoutine()));
+        OptionsButton.onClick.AddListener(() => clickOptions());
     }
 
     IEnumerator startRoutine ()
@@ -24,13 +25,19 @@ public class StartButton : MonoBehaviour
         PlayMenuManager.Instance.StartGame();
         Destroy(StartMenuSelectionFollower.Instance.gameObject);
 
-        foreach (var sibling in Siblings)
-        {
-            sibling.interactable = false;
-        }
+        StartButt.interactable = false;
+        OptionsButton.interactable = false;
 
         FakeCopyrightFadeOut.Fade();
         yield return new WaitForSeconds(FakeCopyrightFadeOut.FadeOutTime);
         BottomMenu.StartGame();
+    }
+
+    void clickOptions ()
+    {
+        StartButt.interactable = false;
+        OptionsButton.interactable = false;
+
+        OptionsMenu.SetActive(true);
     }
 }

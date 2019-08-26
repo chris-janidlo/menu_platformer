@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +18,27 @@ public class GoalManager : Singleton<GoalManager>
     [Header("References")]
     public Image CoinMask;
     public GoalPart GoalPartPrefab;
+
+    public int StartingLevel
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("StartingLevel"))
+            {
+                int val = PlayerPrefs.GetInt("StartingLevel");
+                return Mathf.Clamp(val, 0, GoalPartsUntilVictory - 1);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            int val = Mathf.Clamp(value, 0, GoalPartsUntilVictory - 1);
+            PlayerPrefs.SetInt("StartingLevel", val);
+        }
+    }
 
     public int GoalPartsCollected { get; private set; }
 
@@ -44,7 +65,7 @@ public class GoalManager : Singleton<GoalManager>
 
     IEnumerator gameRoutine ()
     {
-        for (; GoalPartsCollected < GoalPartsUntilVictory; GoalPartsCollected++)
+        for (GoalPartsCollected = StartingLevel; GoalPartsCollected < GoalPartsUntilVictory; GoalPartsCollected++)
         {
             var newAmnt = 1 - ((float) GoalPartsCollected / GoalPartsUntilVictory);
             StartCoroutine(newCoinFillAmount(newAmnt));

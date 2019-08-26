@@ -11,11 +11,15 @@ public class ColorMapApplierParticles : MonoBehaviour
     void Start ()
     {
         ChangeColor(Color);
+
+        MagicColorStats.ColorMapChanged += () => ChangeColor(Color);
     }
 
     public void ChangeColor (MagicColor color)
     {
+        Color = color;
+
         var m = ParticleSystem.main;
-        m.startColor = MagicColorStats.ColorMap[color];
+        m.startColor = MagicColorStats.ColorMap[Color];
     }
 }
