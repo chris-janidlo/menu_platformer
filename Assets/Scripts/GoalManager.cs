@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using crass;
 
-// TODO: try to choose spawn points close to you while still avoiding repeats (?)
 public class GoalManager : Singleton<GoalManager>
 {
     [Header("Stats")]
