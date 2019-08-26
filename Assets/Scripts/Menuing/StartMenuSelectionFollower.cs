@@ -28,6 +28,6 @@ public class StartMenuSelectionFollower : Singleton<StartMenuSelectionFollower>
 
         lastSelected = EventSystem.currentSelectedGameObject;
 
-        transform.position = EventSystem.currentSelectedGameObject.transform.position + Vector3.right * HorizontalOffset;
+        transform.position = EventSystem.currentSelectedGameObject.transform.position + Vector3.left * HorizontalOffset;
     }
 }
