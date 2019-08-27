@@ -60,7 +60,7 @@ public class OptionsMenu : MonoBehaviour
             Uncle.interactable = true;
         }
 
-        StartMenuSelectionFollower.Instance.EventSystem.SetSelectedGameObject((value ? StartingLevelUp : Parent).gameObject);
+        EventSystemCache.Instance.SetSelected((value ? StartingLevelUp : Parent).gameObject);
 
         TopLevel.SetActive(value);
     }
